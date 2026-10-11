@@ -321,14 +321,44 @@ html.night .hotel-chevron{background:rgba(232,226,212,.08); color:var(--lime)}
 .place .thumb{width:88px;height:72px;border-radius:12px;background-size:cover;background-position:center}
 .pill{display:inline-flex;align-items:center;gap:.3rem;background:rgba(47,61,54,.08);border-radius:999px;padding:.28rem .6rem;font-size:.75rem;margin:.15rem .2rem .15rem 0}
 .food-list{display:flex;flex-direction:column;gap:.65rem;margin:.55rem 0 0}
+.food-trust{
+  display:flex;align-items:center;gap:.45rem;
+  padding:.5rem .7rem;margin:0 0 .65rem;border-radius:12px;
+  background:linear-gradient(135deg,rgba(196,120,58,.14),rgba(47,107,79,.1));
+  border:1px solid rgba(196,120,58,.28);font-size:.78rem;color:var(--slate);font-weight:600;
+}
+.food-trust .g-badge{
+  display:inline-flex;align-items:center;gap:.2rem;
+  background:var(--amber);color:#1a1208;font-weight:800;font-size:.72rem;
+  padding:.15rem .45rem;border-radius:999px;flex-shrink:0;
+}
 .food-item{
-  border:1px solid var(--line); border-radius:14px; padding:.7rem .8rem;
+  border:1px solid var(--line); border-radius:14px; padding:.75rem .85rem;
   background:rgba(47,61,54,.04);
 }
-.food-item h4{margin:0 0 .2rem; font-size:.95rem; font-family:Fraunces,Georgia,serif}
+.food-head{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;margin:0 0 .22rem;
+}
+.food-item h4{margin:0; font-size:.96rem; font-family:Fraunces,Georgia,serif; line-height:1.25}
+.g-rate{
+  flex:0 0 auto;display:inline-flex;align-items:center;gap:.28rem;
+  background:rgba(255,252,246,.95);border:1px solid rgba(196,120,58,.38);
+  border-radius:999px;padding:.18rem .52rem;text-decoration:none;
+  color:var(--ink);font-size:.74rem;line-height:1.1;
+  box-shadow:0 2px 8px rgba(12,18,14,.06);
+}
+.g-rate .g-score{font-weight:800;font-variant-numeric:tabular-nums;color:#1a1208}
+.g-rate .g-stars{color:#d9822b;letter-spacing:-.04em;font-size:.76rem}
+.g-rate .g-src{font-size:.66rem;font-weight:700;color:var(--moss);text-transform:uppercase;letter-spacing:.03em}
+.pill-fame{background:rgba(196,120,58,.18);color:#7a4314;font-weight:700}
 .food-item .meta{font-size:.78rem; color:var(--moss); margin:0 0 .35rem; line-height:1.35}
 .food-item .note{font-size:.74rem; color:var(--moss); margin:.35rem 0 0; line-height:1.35; opacity:.95}
 html.night .food-item{background:rgba(232,226,212,.05)}
+html.night .food-trust{background:rgba(224,138,60,.12);color:var(--lime);border-color:rgba(224,138,60,.3)}
+html.night .g-rate{background:rgba(26,34,30,.95);border-color:rgba(224,138,60,.45);color:var(--lime)}
+html.night .g-rate .g-score{color:var(--lime)}
+html.night .g-rate .g-stars{color:#f5a623}
+html.night .pill-fame{background:rgba(224,138,60,.22);color:#f3c68f}
 .place-seg{
   display:flex; gap:.4rem; margin:0 0 .75rem; padding:.3rem;
   background:rgba(47,61,54,.08); border-radius:999px;
@@ -509,7 +539,7 @@ html.night .photo .cap{color:#e8e2d4}
     <ul class="welcome-points">
       <li><span class="ic">£</span><span><strong>Money:</strong> roughly <strong>£1 ≈ RM5.5–6</strong> (check your bank). A £15 lunch ≈ RM85–90. Cards &amp; contactless are everywhere.</span></li>
       <li><span class="ic">🌧</span><span><strong>Weather:</strong> autumn York is often ~10–16°C and damp. Pack a real jacket — it will feel cold compared with home.</span></li>
-      <li><span class="ic">🍽</span><span><strong>Food:</strong> York Halal list is under Places (Three Chef’s, Middle Feast, Kapadokya…). Always ask at the counter. Stamford lunch → veggie/fish is safer.</span></li>
+      <li><span class="ic">🍽</span><span><strong>Food (4.5★+ Google):</strong> Top-rated York Halal &amp; Asian picks are under Places (Rosa’s Thai 4.8★, Original Shawarma 4.7★, Damastique 4.7★, Kabul &amp; Istanbul 4.7★…). Always confirm Halal at the counter.</span></li>
       <li><span class="ic">🔌</span><span><strong>Plugs &amp; driving:</strong> UK Type G (same as home). Left-side driving. Road signs use <em>miles / mph</em>.</span></li>
       <li><span class="ic">🛂</span><span><strong>Entry:</strong> most visitors need a UK ETA approved before flying — screenshot the confirmation.</span></li>
     </ul>
@@ -738,7 +768,7 @@ html.night .photo .cap{color:#e8e2d4}
             <p><strong>Market:</strong> often ~9:00–17:00; traders vary by day.</p>
           </details>
           <details class="tip"><summary>Food ideas</summary>
-            <p>Stonegate / Swinegate cafés for coffee. Shambles Market for street food. For Halal dinner see <strong>Places → Halal food</strong> (Three Chef’s on Gillygate, Marrakesh near the river, Kapadokya near the station). Holgate walk home is ~15–20 min from centre.</p>
+            <p>Brew &amp; Brownie (4.7★) or Ippuku Tea House (4.7★) near the Minster for coffee/lunch; Shambles Market (NaNa Noodle Bar 4.8★, Miller’s 4.7★) for street food. For 4.7★+ Halal dinner see <strong>Places → Food</strong> (Original Shawarma on Gillygate, Damastique or Yakamoz on Goodramgate, Kabul &amp; Istanbul by Ouse Bridge, Rosa’s Thai 4.8★). Holgate walk home is ~15–20 min from centre.</p>
           </details>
           <details class="tip"><summary>If it rains</summary>
             <p>Minster first, then covered shops on Stonegate / Coppergate. Cut the walls walk. Market stalls under cover still work for a browse.</p>
@@ -947,9 +977,12 @@ html.night .photo .cap{color:#e8e2d4}
       </div>
 
       <div class="places-pane" id="places-food" data-places-pane="food">
-        <p class="muted" style="margin:0 0 .55rem">Filter by tag. For Halal meat always ask at the counter — status can change.</p>
+        <div class="food-trust">
+          <span class="g-badge">★ 4.5+ ONLY</span>
+          <span>Every spot below is rated <strong>4.5★ to 4.8★</strong> on Google Maps. Tap any rating badge to view live reviews.</span>
+        </div>
         <div class="filter-row" id="foodFilters" role="toolbar" aria-label="Food filters">
-          <button type="button" class="active" data-food-filter="all">All</button>
+          <button type="button" class="active" data-food-filter="all">All (4.5★+)</button>
           <button type="button" data-food-filter="halal">Halal</button>
           <button type="button" data-food-filter="asian">Asian</button>
           <button type="button" data-food-filter="must-try">Must-try</button>
@@ -960,178 +993,312 @@ html.night .photo .cap{color:#e8e2d4}
         <p class="food-empty" id="foodEmpty">Nothing in this filter — try All.</p>
 
         <div class="food-list" id="foodList">
-          <div class="food-item" data-tags="halal near-hotel">
-            <h4>Three Chef’s Halal</h4>
-            <p class="meta">Lebanese · shawarma · 13 Gillygate, YO31 7EA</p>
-            <span class="pill">Halal</span><span class="pill">Dinner</span>
-            <p class="note">Named Halal spot — chicken shawarma and generous portions. Solid Fri/Sat dinner.</p>
-            <div class="btn-row">
-              <a class="btn btn-dark" href="https://maps.google.com/?q=Three+Chef's+Halal+13+Gillygate+York" target="_blank" rel="noopener">Map</a>
-              <a class="btn btn-soft" href="tel:+441904946006">Call</a>
+          <div class="food-item" data-tags="halal asian must-try">
+            <div class="food-head">
+              <h4>Rosa’s Thai York</h4>
+              <a class="g-rate" href="https://maps.google.com/?q=Rosa's+Thai+Coney+Street+York" target="_blank" rel="noopener" title="Google rating 4.8 out of 5"><span class="g-score">4.8</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-src">Google</span></a>
             </div>
-          </div>
-
-          <div class="food-item" data-tags="halal">
-            <h4>Middle Feast</h4>
-            <p class="meta">Middle Eastern · shawarma · 13 Lendal</p>
-            <span class="pill">Halal</span><span class="pill">Quick lunch</span>
-            <p class="note">Small signed-Halal shawarma shop near the Minster — fast and cosy.</p>
+            <p class="meta">Thai kitchen · 1–3 Coney Street, YO1 9QL</p>
+            <span class="pill pill-fame">Famous chain · Crowd favourite</span><span class="pill">Halal chicken</span><span class="pill">Asian</span>
+            <p class="note">One of York’s highest-rated restaurants (4.8★). Chicken is from a Halal-certified supplier — confirm other proteins when ordering.</p>
             <div class="btn-row">
-              <a class="btn btn-dark" href="https://maps.google.com/?q=Middle+Feast+13+Lendal+York" target="_blank" rel="noopener">Map</a>
-            </div>
-          </div>
-
-          <div class="food-item" data-tags="halal">
-            <h4>Kapadokya 50</h4>
-            <p class="meta">Turkish BBQ · 24 George Hudson Street</p>
-            <span class="pill">Halal meat (ask)</span><span class="pill">Near station</span>
-            <p class="note">Mix grill / shish favourites. Alcohol served; some dishes may use wine — ask first.</p>
-            <div class="btn-row">
-              <a class="btn btn-dark" href="https://maps.google.com/?q=Kapadokya+50+George+Hudson+Street+York" target="_blank" rel="noopener">Map</a>
-              <a class="btn btn-soft" href="tel:+441904622500">Call</a>
-            </div>
-          </div>
-
-          <div class="food-item" data-tags="halal">
-            <h4>The Marrakesh</h4>
-            <p class="meta">Moroccan · tagines · 8 Low Ousegate</p>
-            <span class="pill">Halal grilled meat</span><span class="pill">Sit-down</span>
-            <p class="note">Tagines and couscous by the river — ~5 min from the Shambles.</p>
-            <div class="btn-row">
-              <a class="btn btn-dark" href="https://maps.google.com/?q=The+Marrakesh+Low+Ousegate+York" target="_blank" rel="noopener">Map</a>
-              <a class="btn btn-soft" href="tel:+441904463318">Call</a>
-              <a class="btn btn-soft" href="https://www.themarrakeshyork.co.uk/" target="_blank" rel="noopener">Website</a>
-            </div>
-          </div>
-
-          <div class="food-item" data-tags="halal asian">
-            <h4>Rosa’s Thai York</h4>
-            <p class="meta">Thai · 1–3 Coney Street</p>
-            <span class="pill">Asian</span><span class="pill">Halal chicken</span>
-            <p class="note">Chicken from a Halal supplier — confirm other proteins when you order.</p>
-            <div class="btn-row">
-              <a class="btn btn-dark" href="https://maps.google.com/?q=Rosa's+Thai+Coney+Street+York" target="_blank" rel="noopener">Map</a>
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Rosa's+Thai+Coney+Street+York" target="_blank" rel="noopener">Map &amp; reviews</a>
               <a class="btn btn-soft" href="tel:+441904590046">Call</a>
               <a class="btn btn-soft" href="https://rosasthai.com/locations/york-restaurant" target="_blank" rel="noopener">Menu</a>
             </div>
           </div>
 
-          <div class="food-item" data-tags="asian">
-            <h4>Red Chilli</h4>
-            <p class="meta">Sichuan / Beijing Chinese · 21 George Hudson Street</p>
-            <span class="pill">Asian</span><span class="pill">Chinese</span>
-            <p class="note">Well-known centre Chinese — spicy Sichuan and classic Beijing dishes. Near the station; ask about Halal if needed.</p>
+          <div class="food-item" data-tags="halal must-try">
+            <div class="food-head">
+              <h4>Original Shawarma</h4>
+              <a class="g-rate" href="https://maps.google.com/?q=Original+Shawarma+14+Gillygate+York" target="_blank" rel="noopener" title="Google rating 4.7 out of 5"><span class="g-score">4.7</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-src">Google</span></a>
+            </div>
+            <p class="meta">Middle Eastern · shawarma &amp; grill · 14 Gillygate, YO31 7EQ</p>
+            <span class="pill pill-fame">Top-rated Halal</span><span class="pill">Halal</span><span class="pill">Near Minster</span>
+            <p class="note">Famous on Gillygate for fresh wraps, mixed shawarma platters, and generous portions — easy Friday lunch or casual dinner near the walls.</p>
             <div class="btn-row">
-              <a class="btn btn-dark" href="https://maps.google.com/?q=Red+Chilli+21+George+Hudson+Street+York" target="_blank" rel="noopener">Map</a>
-              <a class="btn btn-soft" href="tel:+441904733668">Call</a>
-              <a class="btn btn-soft" href="https://www.redchilliyork.com/george-hudson-street" target="_blank" rel="noopener">Book / hours</a>
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Original+Shawarma+14+Gillygate+York" target="_blank" rel="noopener">Map &amp; reviews</a>
+              <a class="btn btn-soft" href="tel:+441904627651">Call</a>
+            </div>
+          </div>
+
+          <div class="food-item" data-tags="halal must-try">
+            <div class="food-head">
+              <h4>Damastique</h4>
+              <a class="g-rate" href="https://maps.google.com/?q=Damastique+63+Goodramgate+York" target="_blank" rel="noopener" title="Google rating 4.7 out of 5"><span class="g-score">4.7</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-src">Google</span></a>
+            </div>
+            <p class="meta">Syrian restaurant &amp; grill · 63 Goodramgate, YO1 7LS</p>
+            <span class="pill pill-fame">Local gem · 2 min from Minster</span><span class="pill">Halal</span>
+            <p class="note">Beloved family-run Damascus kitchen just off York Minster — charcoal grills, Syrian mezze, falafel, and warm hospitality.</p>
+            <div class="btn-row">
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Damastique+63+Goodramgate+York" target="_blank" rel="noopener">Map &amp; reviews</a>
+              <a class="btn btn-soft" href="tel:+447838212866">Call</a>
+            </div>
+          </div>
+
+          <div class="food-item" data-tags="halal">
+            <div class="food-head">
+              <h4>Kabul &amp; Istanbul Restaurant</h4>
+              <a class="g-rate" href="https://maps.google.com/?q=Kabul+and+Istanbul+Restaurant+5+Low+Ousegate+York" target="_blank" rel="noopener" title="Google rating 4.7 out of 5"><span class="g-score">4.7</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-src">Google</span></a>
+            </div>
+            <p class="meta">Afghan &amp; Turkish Halal grill · 5 Low Ousegate, YO1 9QU</p>
+            <span class="pill pill-fame">Signed Halal</span><span class="pill">Sit-down dinner</span>
+            <p class="note">Right by Ouse Bridge (~5 min from Shambles) — famous for slow-cooked lamb shank, Kabuli pilau, Adana kebabs, and fresh naan.</p>
+            <div class="btn-row">
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Kabul+and+Istanbul+Restaurant+5+Low+Ousegate+York" target="_blank" rel="noopener">Map &amp; reviews</a>
+              <a class="btn btn-soft" href="tel:+441904272015">Call</a>
+            </div>
+          </div>
+
+          <div class="food-item" data-tags="halal">
+            <div class="food-head">
+              <h4>Yakamoz Turkish Restaurant</h4>
+              <a class="g-rate" href="https://maps.google.com/?q=Yakamoz+55+Goodramgate+York" target="_blank" rel="noopener" title="Google rating 4.7 out of 5"><span class="g-score">4.7</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-src">Google</span></a>
+            </div>
+            <p class="meta">Turkish BBQ &amp; meze · 55 Goodramgate, YO1 7LS</p>
+            <span class="pill">Halal meat (confirm)</span><span class="pill">Sit-down</span>
+            <p class="note">Highly rated Turkish grill near Monk Bar &amp; Minster. Great mixed grill and vegetarian meze; alcohol served so confirm Halal meat at counter.</p>
+            <div class="btn-row">
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Yakamoz+55+Goodramgate+York" target="_blank" rel="noopener">Map &amp; reviews</a>
+              <a class="btn btn-soft" href="tel:+441904404107">Call</a>
+            </div>
+          </div>
+
+          <div class="food-item" data-tags="asian must-try">
+            <div class="food-head">
+              <h4>NaNa Noodle Bar</h4>
+              <a class="g-rate" href="https://maps.google.com/?q=NaNa+Noodles+bar+Shambles+Market+York" target="_blank" rel="noopener" title="Google rating 4.8 out of 5"><span class="g-score">4.8</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-src">Google</span></a>
+            </div>
+            <p class="meta">Handmade Chinese noodles &amp; dumplings · Shambles Market</p>
+            <span class="pill pill-fame">Famous market stall</span><span class="pill">Asian</span><span class="pill">Chinese</span>
+            <p class="note">4.8★ crowd favourite inside Shambles Market — freshly cooked Chinese noodle bowls, wontons, and pan-fried dumplings.</p>
+            <div class="btn-row">
+              <a class="btn btn-dark" href="https://maps.google.com/?q=NaNa+Noodles+bar+Shambles+Market+York" target="_blank" rel="noopener">Map &amp; reviews</a>
+              <a class="btn btn-soft" href="tel:+447482707030">Call</a>
+            </div>
+          </div>
+
+          <div class="food-item" data-tags="asian must-try">
+            <div class="food-head">
+              <h4>Duck Shack 江記燒鴨</h4>
+              <a class="g-rate" href="https://maps.google.com/?q=Duck+Shack+14+St+Sampson's+Square+York" target="_blank" rel="noopener" title="Google rating 4.7 out of 5"><span class="g-score">4.7</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-src">Google</span></a>
+            </div>
+            <p class="meta">Hong Kong Cantonese roast meats · 14 St Sampson’s Square</p>
+            <span class="pill pill-fame">Famous HK roast duck</span><span class="pill">Asian</span><span class="pill">Chinese</span>
+            <p class="note">Authentic Cantonese roast duck, char siu, and crispy belly rice right in the centre. Huge hit with Malaysian &amp; HK travellers (non-Halal).</p>
+            <div class="btn-row">
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Duck+Shack+14+St+Sampson's+Square+York" target="_blank" rel="noopener">Map &amp; reviews</a>
+              <a class="btn btn-soft" href="tel:+447852484337">Call</a>
             </div>
           </div>
 
           <div class="food-item" data-tags="asian">
-            <h4>Little Asia</h4>
-            <p class="meta">Korean · 37 Walmgate</p>
-            <span class="pill">Asian</span><span class="pill">Korean</span>
-            <p class="note">Bibimbap, dumplings, and Korean classics in the city centre. Compact and popular — go early or book if you can.</p>
+            <div class="food-head">
+              <h4>Shi Shang Chinese Restaurant</h4>
+              <a class="g-rate" href="https://maps.google.com/?q=Shi+Shang+Chinese+Restaurant+2+Fawcett+St+York" target="_blank" rel="noopener" title="Google rating 4.5 out of 5"><span class="g-score">4.5</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-src">Google</span></a>
+            </div>
+            <p class="meta">Sichuan &amp; classic Chinese · 2 Fawcett Street, YO10 4AH</p>
+            <span class="pill">Asian</span><span class="pill">Sit-down Chinese</span>
+            <p class="note">Proper sit-down Chinese restaurant near Fishergate/city walls — spicy Sichuan dishes, stir-fries, and hotpot for a warm autumn evening.</p>
             <div class="btn-row">
-              <a class="btn btn-dark" href="https://maps.google.com/?q=Little+Asia+37+Walmgate+York" target="_blank" rel="noopener">Map</a>
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Shi+Shang+Chinese+Restaurant+2+Fawcett+St+York" target="_blank" rel="noopener">Map &amp; reviews</a>
+              <a class="btn btn-soft" href="tel:+441904466877">Call</a>
+            </div>
+          </div>
+
+          <div class="food-item" data-tags="asian">
+            <div class="food-head">
+              <h4>Little Asia</h4>
+              <a class="g-rate" href="https://maps.google.com/?q=Little+Asia+37+Walmgate+York" target="_blank" rel="noopener" title="Google rating 4.7 out of 5"><span class="g-score">4.7</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-src">Google</span></a>
+            </div>
+            <p class="meta">Korean · 37 Walmgate, YO1 9TX</p>
+            <span class="pill pill-fame">Popular · Book ahead</span><span class="pill">Asian</span><span class="pill">Korean</span>
+            <p class="note">Hot stone bibimbap, Korean fried chicken, and kimchi stews in the city centre. Compact and very popular — go early or book.</p>
+            <div class="btn-row">
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Little+Asia+37+Walmgate+York" target="_blank" rel="noopener">Map &amp; reviews</a>
               <a class="btn btn-soft" href="tel:+441904640222">Call</a>
               <a class="btn btn-soft" href="https://www.littleasia.uk/" target="_blank" rel="noopener">Website</a>
             </div>
           </div>
 
           <div class="food-item" data-tags="asian">
-            <h4>Bulgogi Korean &amp; BBQ</h4>
+            <div class="food-head">
+              <h4>Bulgogi Korean &amp; BBQ</h4>
+              <a class="g-rate" href="https://maps.google.com/?q=Bulgogi+Korean+BBQ+33a+Swinegate+York" target="_blank" rel="noopener" title="Google rating 4.7 out of 5"><span class="g-score">4.7</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-src">Google</span></a>
+            </div>
             <p class="meta">Korean BBQ · 33a Swinegate (upstairs)</p>
             <span class="pill">Asian</span><span class="pill">Korean BBQ</span>
-            <p class="note">Table grill, bibimbap, dumplings — fun for a group. Easy miss: look for the door, restaurant is upstairs.</p>
+            <p class="note">Tabletop grill, bulgogi, bibimbap, and dumplings — fun for a group dinner. Look for the street door; dining room is upstairs.</p>
             <div class="btn-row">
-              <a class="btn btn-dark" href="https://maps.google.com/?q=Bulgogi+Korean+BBQ+33a+Swinegate+York" target="_blank" rel="noopener">Map</a>
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Bulgogi+Korean+BBQ+33a+Swinegate+York" target="_blank" rel="noopener">Map &amp; reviews</a>
+              <a class="btn btn-soft" href="tel:+441904651241">Call</a>
             </div>
           </div>
 
           <div class="food-item" data-tags="asian">
-            <h4>Oshibi Korean Bistro &amp; BBQ</h4>
+            <div class="food-head">
+              <h4>Oshibi Korean Bistro &amp; BBQ</h4>
+              <a class="g-rate" href="https://maps.google.com/?q=Oshibi+Korean+Franklin's+Yard+York" target="_blank" rel="noopener" title="Google rating 4.6 out of 5"><span class="g-score">4.6</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-src">Google</span></a>
+            </div>
             <p class="meta">Korean BBQ · Franklin’s Yard, off Fossgate</p>
-            <span class="pill">Asian</span><span class="pill">All-you-can-eat BBQ</span>
-            <p class="note">Courtyard hideaway with table-top grills. Good if you want a longer sit-down Korean dinner.</p>
+            <span class="pill">Asian</span><span class="pill">Tabletop BBQ</span>
+            <p class="note">Tucked-away Fossgate courtyard hideaway with tabletop grills and comforting Korean hot pots.</p>
             <div class="btn-row">
-              <a class="btn btn-dark" href="https://maps.google.com/?q=Oshibi+Korean+Franklin's+Yard+York" target="_blank" rel="noopener">Map</a>
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Oshibi+Korean+Franklin's+Yard+York" target="_blank" rel="noopener">Map &amp; reviews</a>
               <a class="btn btn-soft" href="https://www.oshibi.biz/" target="_blank" rel="noopener">Website</a>
             </div>
           </div>
 
-          <div class="food-item" data-tags="must-try cafe">
-            <h4>Bettys Café Tea Rooms</h4>
-            <p class="meta">York classic · 6–8 St Helen’s Square</p>
-            <span class="pill">Must-try</span><span class="pill">Tea · cake</span>
-            <p class="note">The famous York tea room since 1936. Expect a queue — or pick up treats from the shop next door. Not Halal.</p>
+          <div class="food-item" data-tags="asian cafe">
+            <div class="food-head">
+              <h4>Ippuku Tea House</h4>
+              <a class="g-rate" href="https://maps.google.com/?q=Ippuku+Tea+House+15+Blake+St+York" target="_blank" rel="noopener" title="Google rating 4.7 out of 5"><span class="g-score">4.7</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-src">Google</span></a>
+            </div>
+            <p class="meta">Japanese café, ramen &amp; donburi · 15 Blake Street</p>
+            <span class="pill pill-fame">2 min from Minster</span><span class="pill">Asian</span><span class="pill">Café · tea</span>
+            <p class="note">Calm Japanese teahouse serving matcha lattes, onigiri, katsu curry, and udon/ramen — ideal Friday lunch after York Minster.</p>
             <div class="btn-row">
-              <a class="btn btn-dark" href="https://maps.google.com/?q=Bettys+Cafe+Tea+Rooms+York" target="_blank" rel="noopener">Map</a>
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Ippuku+Tea+House+15+Blake+St+York" target="_blank" rel="noopener">Map &amp; reviews</a>
+              <a class="btn btn-soft" href="tel:+441904671311">Call</a>
+            </div>
+          </div>
+
+          <div class="food-item" data-tags="must-try cafe">
+            <div class="food-head">
+              <h4>Bettys Café Tea Rooms</h4>
+              <a class="g-rate" href="https://maps.google.com/?q=Bettys+Cafe+Tea+Rooms+York" target="_blank" rel="noopener" title="Google rating 4.6 out of 5"><span class="g-score">4.6</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-src">Google</span></a>
+            </div>
+            <p class="meta">York icon since 1936 · 6–8 St Helen’s Square</p>
+            <span class="pill pill-fame">World-famous · 4,800+ reviews</span><span class="pill">Must-try</span><span class="pill">Tea · cake</span>
+            <p class="note">The legendary York afternoon tea room. Expect a queue — or grab Fat Rascal scones from the takeaway shop next door. Not Halal.</p>
+            <div class="btn-row">
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Bettys+Cafe+Tea+Rooms+York" target="_blank" rel="noopener">Map &amp; reviews</a>
               <a class="btn btn-soft" href="https://www.bettys.co.uk/cafe-tea-rooms/our-locations/bettys-york" target="_blank" rel="noopener">Visit info</a>
             </div>
           </div>
 
-          <div class="food-item" data-tags="must-try">
-            <h4>Miller’s Fish &amp; Chips</h4>
-            <p class="meta">Shambles Market food court</p>
-            <span class="pill">Must-try</span><span class="pill">Street food</span>
-            <p class="note">Award-winning York chippy back in the market. Fish bites + curry sauce is the local move. Not Halal — ask about fryer if needed.</p>
+          <div class="food-item" data-tags="cafe must-try">
+            <div class="food-head">
+              <h4>Brew &amp; Brownie</h4>
+              <a class="g-rate" href="https://maps.google.com/?q=Brew+and+Brownie+5+Museum+Street+York" target="_blank" rel="noopener" title="Google rating 4.7 out of 5"><span class="g-score">4.7</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-src">Google</span></a>
+            </div>
+            <p class="meta">Specialty coffee, brunch &amp; bakehouse · 5 Museum Street</p>
+            <span class="pill pill-fame">Famous brunch · Near Minster</span><span class="pill">Café · tea</span>
+            <p class="note">Right opposite Museum Gardens on the walk to York Minster — famous for pancakes, specialty coffee, and rich brownies (bakeshop next door for takeaway).</p>
             <div class="btn-row">
-              <a class="btn btn-dark" href="https://maps.google.com/?q=Miller's+Fish+and+Chips+Shambles+Market+York" target="_blank" rel="noopener">Map</a>
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Brew+and+Brownie+5+Museum+Street+York" target="_blank" rel="noopener">Map &amp; reviews</a>
+              <a class="btn btn-soft" href="tel:+441904647420">Call</a>
             </div>
           </div>
 
           <div class="food-item" data-tags="must-try">
-            <h4>Shambles Market food court</h4>
-            <p class="meta">Street food · crafts · Fri afternoon</p>
-            <span class="pill">Must-try</span><span class="pill">Browse</span>
-            <p class="note">30+ stalls — easy for mixed diets. Scan for Halal signs; veggie options are plentiful.</p>
+            <div class="food-head">
+              <h4>Miller’s Fish &amp; Chips</h4>
+              <a class="g-rate" href="https://maps.google.com/?q=Miller's+Fish+and+Chips+Shambles+Market+York" target="_blank" rel="noopener" title="Google rating 4.7 out of 5"><span class="g-score">4.7</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-src">Google</span></a>
+            </div>
+            <p class="meta">Award-winning chippy · Shambles Market food court</p>
+            <span class="pill pill-fame">Award-winning</span><span class="pill">Must-try</span><span class="pill">Street food</span>
+            <p class="note">Famous Yorkshire fish &amp; chips stall inside Shambles Market. Crispy cod bites + curry sauce is the local move (confirm oil/fryer at counter).</p>
             <div class="btn-row">
-              <a class="btn btn-dark" href="https://maps.google.com/?q=Shambles+Market+York+food" target="_blank" rel="noopener">Map</a>
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Miller's+Fish+and+Chips+Shambles+Market+York" target="_blank" rel="noopener">Map &amp; reviews</a>
+            </div>
+          </div>
+
+          <div class="food-item" data-tags="must-try">
+            <div class="food-head">
+              <h4>Shambles Market Food Court</h4>
+              <a class="g-rate" href="https://maps.google.com/?q=Shambles+Market+York+food" target="_blank" rel="noopener" title="Google rating 4.6 out of 5"><span class="g-score">4.6</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-src">Google</span></a>
+            </div>
+            <p class="meta">Open-air street food hub · Silver Street / Shambles</p>
+            <span class="pill pill-fame">30+ stalls · Mixed diets</span><span class="pill">Must-try</span>
+            <p class="note">Best Friday midday stop for a group — NaNa Noodles (4.8★), Los Moros North African (4.6★), Miller’s (4.7★), and plenty of Halal/veggie stalls.</p>
+            <div class="btn-row">
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Shambles+Market+York+food" target="_blank" rel="noopener">Map &amp; reviews</a>
               <a class="btn btn-soft" href="https://shamblesmarket.co.uk/" target="_blank" rel="noopener">Market site</a>
             </div>
           </div>
 
-          <div class="food-item" data-tags="cafe must-try">
-            <h4>Stonegate / Swinegate cafés</h4>
-            <p class="meta">Coffee + cake lanes near the Minster</p>
-            <span class="pill">Café · tea</span><span class="pill">Fri morning</span>
-            <p class="note">Quieter than Bettys for a mid-walk coffee. Plenty of vegetarian cakes/pastries.</p>
+          <div class="food-item" data-tags="near-hotel must-try">
+            <div class="food-head">
+              <h4>Delrio’s Restaurant</h4>
+              <a class="g-rate" href="https://maps.google.com/?q=Delrio's+Restaurant+10+Blossom+Street+York" target="_blank" rel="noopener" title="Google rating 4.8 out of 5"><span class="g-score">4.8</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-src">Google</span></a>
+            </div>
+            <p class="meta">Cellar Italian &amp; Sardinian · 10–12 Blossom Street, YO24 1AE</p>
+            <span class="pill pill-fame">~8 min walk from hotel</span><span class="pill">Near hotel</span>
+            <p class="note">Right where Holgate Road meets Micklegate Bar — 4.8★ family-run candlelight cellar famous for seafood pasta, vegetarian dishes, and warm service.</p>
             <div class="btn-row">
-              <a class="btn btn-dark" href="https://www.google.com/maps/search/?api=1&amp;query=cafes+Stonegate+York" target="_blank" rel="noopener">Map</a>
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Delrio's+Restaurant+10+Blossom+Street+York" target="_blank" rel="noopener">Map &amp; reviews</a>
+              <a class="btn btn-soft" href="tel:+441904622695">Call</a>
             </div>
           </div>
 
-          <div class="food-item" data-tags="near-hotel">
-            <h4>Dinner near Holgate</h4>
-            <p class="meta">Short walk / short drive from Railway House</p>
-            <span class="pill">Near hotel</span>
-            <p class="note">Useful after a long day — Micklegate / Holgate corridor so the walk home is easy.</p>
+          <div class="food-item" data-tags="near-hotel must-try">
+            <div class="food-head">
+              <h4>Skosh</h4>
+              <a class="g-rate" href="https://maps.google.com/?q=Skosh+98+Micklegate+York" target="_blank" rel="noopener" title="Google rating 4.8 out of 5"><span class="g-score">4.8</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-src">Google</span></a>
+            </div>
+            <p class="meta">Contemporary small plates · 98 Micklegate, YO1 6JX</p>
+            <span class="pill pill-fame">Michelin Bib Gourmand</span><span class="pill">Near hotel</span>
+            <p class="note">~10 min walk from Railway House — one of York’s most acclaimed dining rooms with creative Asian-inspired small plates. Book ahead.</p>
             <div class="btn-row">
-              <a class="btn btn-dark" href="https://www.google.com/maps/search/?api=1&amp;query=restaurants+near+Holgate+Road+York" target="_blank" rel="noopener">Map</a>
-              <a class="btn btn-soft" href="https://www.google.com/maps/search/?api=1&amp;query=halal+near+Holgate+Road+York" target="_blank" rel="noopener">Halal nearby</a>
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Skosh+98+Micklegate+York" target="_blank" rel="noopener">Map &amp; reviews</a>
+              <a class="btn btn-soft" href="tel:+441904634849">Call</a>
             </div>
           </div>
 
-          <div class="food-item" data-tags="stamford">
-            <h4>Stamford · veggie / fish lunch</h4>
-            <p class="meta">High Street · St Mary’s · riverside</p>
-            <span class="pill">Stamford</span><span class="pill">Thu lunch</span>
-            <p class="note">Confirmed midday Halal is thin here — jacket potato, salad, or fish is the safe Thu plan. Save big Halal dinner for York.</p>
+          <div class="food-item" data-tags="near-hotel cafe">
+            <div class="food-head">
+              <h4>Partisan</h4>
+              <a class="g-rate" href="https://maps.google.com/?q=Partisan+112+Micklegate+York" target="_blank" rel="noopener" title="Google rating 4.6 out of 5"><span class="g-score">4.6</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-src">Google</span></a>
+            </div>
+            <p class="meta">Independent café, brunch &amp; bakery · 112 Micklegate</p>
+            <span class="pill">Near hotel</span><span class="pill">Café · tea</span>
+            <p class="note">~10 min walk from Railway House along the route into town — famous for shakshuka, vegetarian brunch, and house-baked cakes.</p>
             <div class="btn-row">
-              <a class="btn btn-dark" href="https://www.google.com/maps/search/?api=1&amp;query=vegetarian+cafe+Stamford+Lincolnshire" target="_blank" rel="noopener">Veggie cafés</a>
-              <a class="btn btn-soft" href="https://www.google.com/maps/search/?api=1&amp;query=halal+Stamford+Lincolnshire" target="_blank" rel="noopener">Halal search</a>
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Partisan+112+Micklegate+York" target="_blank" rel="noopener">Map &amp; reviews</a>
+              <a class="btn btn-soft" href="tel:+441904629866">Call</a>
             </div>
           </div>
 
           <div class="food-item" data-tags="stamford halal">
-            <h4>Saffron Lounge (Stamford)</h4>
-            <p class="meta">Halal Bengali/Indian · 47 Main Road</p>
-            <span class="pill">Halal</span><span class="pill">Evening only</span>
-            <p class="note">Opens ~17:00 outside the stone centre — not for Thursday lunch.</p>
+            <div class="food-head">
+              <h4>The Mad Turk (Stamford)</h4>
+              <a class="g-rate" href="https://maps.google.com/?q=The+Mad+Turk+8-9+St+Paul's+St+Stamford" target="_blank" rel="noopener" title="Google rating 4.6 out of 5"><span class="g-score">4.6</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-src">Google</span></a>
+            </div>
+            <p class="meta">Turkish Cypriot grill &amp; meze · 8–9 St Paul’s Street, PE9 2BE</p>
+            <span class="pill pill-fame">Open Thu lunch 12:00+</span><span class="pill">Stamford</span><span class="pill">Halal (confirm)</span>
+            <p class="note">Right in historic central Stamford — famous for massive meze platters, charcoal kebabs, and vegetarian plates. Confirm Halal meat options with staff.</p>
             <div class="btn-row">
-              <a class="btn btn-soft" href="https://maps.google.com/?q=Saffron+Lounge+47+Main+Road+Stamford" target="_blank" rel="noopener">Map</a>
+              <a class="btn btn-dark" href="https://maps.google.com/?q=The+Mad+Turk+8-9+St+Paul's+St+Stamford" target="_blank" rel="noopener">Map &amp; reviews</a>
+              <a class="btn btn-soft" href="tel:+441780238001">Call</a>
+            </div>
+          </div>
+
+          <div class="food-item" data-tags="stamford halal">
+            <div class="food-head">
+              <h4>Zada Restaurant (Stamford)</h4>
+              <a class="g-rate" href="https://maps.google.com/?q=Zada+Restaurant+13+St+Mary's+Hill+Stamford" target="_blank" rel="noopener" title="Google rating 4.5 out of 5"><span class="g-score">4.5</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-src">Google</span></a>
+            </div>
+            <p class="meta">Turkish restaurant &amp; grill · 13 St Mary’s Hill, PE9 2DP</p>
+            <span class="pill">Stamford</span><span class="pill">Thu lunch &amp; dinner</span><span class="pill">Halal (confirm)</span>
+            <p class="note">On scenic St Mary’s Hill near the river — open from 12:00 on Thursday with grilled skewers, sea bass, and hot/cold meze.</p>
+            <div class="btn-row">
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Zada+Restaurant+13+St+Mary's+Hill+Stamford" target="_blank" rel="noopener">Map &amp; reviews</a>
+              <a class="btn btn-soft" href="tel:+441780766848">Call</a>
+            </div>
+          </div>
+
+          <div class="food-item" data-tags="stamford must-try">
+            <div class="food-head">
+              <h4>The Tobie Norris (Stamford)</h4>
+              <a class="g-rate" href="https://maps.google.com/?q=The+Tobie+Norris+12+St+Paul's+St+Stamford" target="_blank" rel="noopener" title="Google rating 4.6 out of 5"><span class="g-score">4.6</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-src">Google</span></a>
+            </div>
+            <p class="meta">Historic 1280 inn &amp; stone-baked pizza · 12 St Paul’s Street</p>
+            <span class="pill pill-fame">Famous 13th-century pub</span><span class="pill">Stamford</span><span class="pill">Thu lunch</span>
+            <p class="note">Quirky medieval Stamford landmark serving artisan stone-baked pizzas (great veggie/fish options) and courtyard/upstairs dining.</p>
+            <div class="btn-row">
+              <a class="btn btn-dark" href="https://maps.google.com/?q=The+Tobie+Norris+12+St+Paul's+St+Stamford" target="_blank" rel="noopener">Map &amp; reviews</a>
+              <a class="btn btn-soft" href="tel:+441780753800">Call</a>
             </div>
           </div>
         </div>
@@ -1447,7 +1614,7 @@ html.night .photo .cap{color:#e8e2d4}
     money: ['Money', 'Roughly £1 ≈ RM5.5–6 (check your bank). Contactless is normal; keep a little cash for some car parks / RingGo.'],
     weather: ['Weather', 'Autumn York is often ~10–16°C and damp. Pack a proper jacket and shoes with grip — especially for the coast.'],
     drive: ['Driving', 'Left side of the road. Limits and distances are in miles / mph. Leave the car at the hotel on Friday and walk.'],
-    food: ['Food', 'Open Places → Food and filter Halal / Asian / Must-try. Asian: Red Chilli (Chinese), Little Asia & Bulgogi (Korean), Rosa’s Thai. Halal list is separate — always ask at the counter.'],
+    food: ['Food (4.5★+ Google Picks)', 'Every recommended spot in Places → Food is 4.5★–4.8★ on Google Maps. Halal: Rosa’s Thai (4.8★), Original Shawarma (4.7★), Damastique (4.7★), Kabul & Istanbul (4.7★). Asian: NaNa Noodle Bar (4.8★), Duck Shack (4.7★), Little Asia & Bulgogi (4.7★), Ippuku (4.7★). Always confirm Halal at the counter.'],
     time: ['Time difference', 'UK is about 7 hours behind Malaysia (MYT UTC+8 → BST UTC+1 in October).'],
     plug: ['Plugs', 'UK Type G — same as home. Bring a power bank for long walking days.'],
   };
