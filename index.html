@@ -341,23 +341,27 @@ html.night .hotel-chevron{background:rgba(232,226,212,.08); color:var(--lime)}
 }
 .food-item h4{margin:0; font-size:.96rem; font-family:Fraunces,Georgia,serif; line-height:1.25}
 .g-rate{
-  flex:0 0 auto;display:inline-flex;align-items:center;gap:.28rem;
+  --star-fill:#e07b18; --star-empty:#ded8cc; --star-empty-stroke:#8d9690;
+  flex:0 0 auto;display:inline-flex;align-items:center;gap:.3rem;
   background:rgba(255,252,246,.95);border:1px solid rgba(196,120,58,.38);
-  border-radius:999px;padding:.18rem .52rem;text-decoration:none;
+  border-radius:999px;padding:.2rem .54rem;text-decoration:none;
   color:var(--ink);font-size:.74rem;line-height:1.1;
   box-shadow:0 2px 8px rgba(12,18,14,.06);
 }
 .g-rate .g-score{font-weight:800;font-variant-numeric:tabular-nums;color:#1a1208}
-.g-rate .g-stars{color:#d9822b;letter-spacing:-.04em;font-size:.76rem}
+.g-rate .g-stars{display:inline-flex;align-items:center;gap:1px;color:var(--star-fill);line-height:1}
+.g-rate .g-star{position:relative;width:13px;height:13px;display:inline-block;flex:0 0 13px}
+.g-rate .g-star svg{width:13px;height:13px;display:block}
+.g-rate .g-star-fill{position:absolute;left:0;top:0;bottom:0;overflow:hidden;display:block}
 .g-rate .g-src{font-size:.66rem;font-weight:700;color:var(--moss);text-transform:uppercase;letter-spacing:.03em}
 .pill-fame{background:rgba(196,120,58,.18);color:#7a4314;font-weight:700}
 .food-item .meta{font-size:.78rem; color:var(--moss); margin:0 0 .35rem; line-height:1.35}
 .food-item .note{font-size:.74rem; color:var(--moss); margin:.35rem 0 0; line-height:1.35; opacity:.95}
 html.night .food-item{background:rgba(232,226,212,.05)}
 html.night .food-trust{background:rgba(224,138,60,.12);color:var(--lime);border-color:rgba(224,138,60,.3)}
-html.night .g-rate{background:rgba(26,34,30,.95);border-color:rgba(224,138,60,.45);color:var(--lime)}
+html.night .g-rate{--star-fill:#f5a623;--star-empty:#2a3630;--star-empty-stroke:#687a70;background:rgba(26,34,30,.95);border-color:rgba(224,138,60,.45);color:var(--lime)}
 html.night .g-rate .g-score{color:var(--lime)}
-html.night .g-rate .g-stars{color:#f5a623}
+html.night .g-rate .g-stars{color:var(--star-fill)}
 html.night .pill-fame{background:rgba(224,138,60,.22);color:#f3c68f}
 .place-seg{
   display:flex; gap:.4rem; margin:0 0 .75rem; padding:.3rem;
@@ -1845,6 +1849,32 @@ html.night .photo .cap{color:#e8e2d4}
   syncOnline();
   window.addEventListener('online', () => { syncOnline(); loadWeather(true); showToast('Back online'); });
   window.addEventListener('offline', () => { syncOnline(); showToast('Offline mode'); });
+
+  // Prorated Google review stars (fractional 5th star calibrated to visual star width)
+  const STAR_PATH = 'M12 1.8l3.09 6.58 7.21.95-5.28 5.02 1.33 7.15L12 18.02 5.65 21.5l1.33-7.15L1.7 9.33l7.21-.95L12 1.8z';
+  document.querySelectorAll('.g-rate').forEach((badge) => {
+    const score = parseFloat(badge.querySelector('.g-score')?.textContent || '5');
+    const starsEl = badge.querySelector('.g-stars');
+    if (!starsEl || Number.isNaN(score)) return;
+    const items = [];
+    for (let i = 0; i < 5; i++) {
+      const fillRatio = Math.max(0, Math.min(1, score - i));
+      if (fillRatio >= 0.99) {
+        items.push(`<span class="g-star"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${STAR_PATH}" fill="var(--star-fill)"/></svg></span>`);
+      } else {
+        // Calibrate to star area (most mass of the right half is between 48% and 65% of bbox width)
+        const pct = Math.round(fillRatio <= 0.5 ? fillRatio * 96 : 48 + (fillRatio - 0.5) * 50);
+        items.push(
+          `<span class="g-star">` +
+          `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${STAR_PATH}" fill="var(--star-empty)" stroke="var(--star-empty-stroke)" stroke-width="1.5" stroke-linejoin="round"/></svg>` +
+          `<span class="g-star-fill" style="width:${pct}%"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${STAR_PATH}" fill="var(--star-fill)"/></svg></span>` +
+          `</span>`
+        );
+      }
+    }
+    starsEl.innerHTML = items.join('');
+    starsEl.setAttribute('aria-label', `${score} out of 5 stars`);
+  });
 
   // Deep link
   const hash = (location.hash || '#home').slice(1);
