@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>London to York · 15–18 October 2026</title>
+<meta name="description" content="A relaxed autumn road trip: Stamford, York, Castle Howard and Robin Hood’s Bay." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #1c2420;
+    --slate: #2f3d36;
+    --moss: #3f5a49;
+    --limewash: #e8e2d4;
+    --stone: #cfc4ae;
+    --amber: #c4783a;
+    --fog: rgba(232, 226, 212, 0.92);
+    --shadow: 0 24px 60px rgba(12, 18, 14, 0.35);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: #101612; color: var(--ink); font-family: "Source Sans 3", system-ui, sans-serif; }
+  body { overflow: hidden; }
+  .deck { position: relative; width: 100vw; height: 100vh; }
+  .slide {
+    position: absolute; inset: 0; display: none; padding: clamp(1.25rem, 3vw, 2.75rem);
+    background: linear-gradient(145deg, #f4efe4 0%, #e7e0d0 55%, #d9d0bc 100%);
+  }
+  .slide.active { display: grid; animation: fadeIn .45s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .hero {
+    background:
+      linear-gradient(105deg, rgba(16,22,18,.82) 0%, rgba(16,22,18,.45) 48%, rgba(16,22,18,.2) 100%),
+      url("media/stamford.jpg") center/cover no-repeat;
+    color: var(--limewash);
+    align-content: end;
+  }
+  .hero .kicker { letter-spacing: .18em; text-transform: uppercase; font-size: .78rem; opacity: .85; margin: 0 0 .75rem; }
+  .hero h1 {
+    font-family: Fraunces, Georgia, serif; font-weight: 700; font-size: clamp(2.6rem, 7vw, 5.2rem);
+    line-height: 1.02; margin: 0 0 .6rem; max-width: 12ch;
+  }
+  .hero .sub { font-size: clamp(1.05rem, 2.2vw, 1.35rem); max-width: 36ch; margin: 0 0 1.4rem; opacity: .92; }
+  .pill-row { display: flex; flex-wrap: wrap; gap: .55rem; margin-bottom: 1.25rem; }
+  .pill {
+    border: 1px solid rgba(232,226,212,.35); background: rgba(16,22,18,.35);
+    backdrop-filter: blur(6px); border-radius: 999px; padding: .45rem .9rem; font-size: .9rem;
+  }
+  .meta { font-size: .95rem; opacity: .85; }
+  h2 {
+    font-family: Fraunces, Georgia, serif; font-size: clamp(1.8rem, 3.5vw, 2.7rem);
+    margin: 0 0 .35rem; color: var(--slate); letter-spacing: -.01em;
+  }
+  .date { color: var(--moss); font-weight: 600; margin: 0 0 1.1rem; }
+  .layout-split { grid-template-columns: 1.15fr .85fr; gap: clamp(1rem, 3vw, 2.5rem); align-items: stretch; }
+  .layout-stack { grid-template-rows: auto 1fr; gap: 1rem; }
+  .card {
+    background: rgba(255,252,246,.78); border: 1px solid rgba(47,61,54,.08);
+    border-radius: 18px; padding: 1.1rem 1.25rem; box-shadow: var(--shadow);
+  }
+  .photo {
+    border-radius: 18px; overflow: hidden; min-height: 220px; box-shadow: var(--shadow);
+    background-size: cover; background-position: center; position: relative;
+  }
+  .photo .caption {
+    position: absolute; left: 0; right: 0; bottom: 0; padding: .85rem 1rem;
+    background: linear-gradient(transparent, rgba(16,22,18,.75)); color: var(--limewash); font-size: .9rem;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: clamp(.92rem, 1.5vw, 1.05rem); }
+  th, td { text-align: left; padding: .55rem .35rem; vertical-align: top; border-bottom: 1px solid rgba(47,61,54,.12); }
+  th { color: var(--moss); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
+  td:first-child { width: 7.5rem; font-weight: 700; color: var(--slate); white-space: nowrap; }
+  .note {
+    margin-top: 1rem; padding: .85rem 1rem; border-left: 4px solid var(--amber);
+    background: rgba(196,120,58,.1); border-radius: 0 12px 12px 0; font-size: .95rem;
+  }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .day-chip {
+    background: var(--slate); color: var(--limewash); border-radius: 16px; padding: 1rem 1.1rem;
+  }
+  .day-chip strong { display: block; font-family: Fraunces, Georgia, serif; font-size: 1.25rem; margin-bottom: .35rem; }
+  .day-chip span { opacity: .9; font-size: .95rem; }
+  .overview .card { height: 100%; }
+  .feature-list { margin: 0; padding-left: 1.1rem; }
+  .feature-list li { margin: .35rem 0; }
+  .controls {
+    position: fixed; left: 50%; bottom: 1.1rem; transform: translateX(-50%);
+    display: flex; align-items: center; gap: .55rem; z-index: 20;
+    background: rgba(16,22,18,.78); color: var(--limewash); backdrop-filter: blur(10px);
+    border: 1px solid rgba(232,226,212,.18); border-radius: 999px; padding: .4rem .55rem .4rem .9rem;
+  }
+  .controls button {
+    appearance: none; border: 0; background: rgba(232,226,212,.12); color: inherit;
+    width: 2.2rem; height: 2.2rem; border-radius: 999px; cursor: pointer; font-size: 1rem;
+  }
+  .controls button:hover { background: rgba(232,226,212,.22); }
+  .controls a {
+    color: inherit; text-decoration: none; font-size: .85rem; padding: .35rem .7rem;
+    border-radius: 999px; background: var(--amber); color: #1a1208; font-weight: 700;
+  }
+  .counter { font-variant-numeric: tabular-nums; font-size: .9rem; min-width: 3.5rem; text-align: center; }
+  .progress {
+    position: fixed; top: 0; left: 0; height: 3px; background: var(--amber); z-index: 30;
+    width: 0; transition: width .25s ease;
+  }
+  .hint { position: fixed; right: 1rem; bottom: 1.2rem; color: rgba(232,226,212,.45); font-size: .75rem; z-index: 10; }
+  @media (max-width: 900px) {
+    .layout-split, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    td:first-child { width: 6.2rem; }
+    .hint { display: none; }
+  }
+  @media print {
+    body { overflow: visible; background: white; }
+    .controls, .progress, .hint { display: none !important; }
+    .slide { position: relative; display: grid !important; page-break-after: always; min-height: 100vh; animation: none; }
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+  <section class="slide hero active" data-notes="Welcome to the London to York autumn road trip. Four days, three nights in York, with Stamford on the way and Castle Howard plus the coast on Saturday.">
+    <div>
+      <p class="kicker">15–18 October 2026</p>
+      <h1>London to York</h1>
+      <p class="sub">A relaxed autumn road trip — Stamford lunch stop, three nights in York, Castle Howard and Robin Hood’s Bay.</p>
+      <div class="pill-row">
+        <span class="pill">Car pickup · Thu 9am · Canary Wharf</span>
+        <span class="pill">Railway House York · 3 nights</span>
+        <span class="pill">Driving times are estimates</span>
+      </div>
+      <p class="meta">Use ← → or Space to move through the days.</p>
+    </div>
+  </section>
+
+  <section class="slide layout-stack overview" data-notes="Four-day overview. Thursday drive and Stamford. Friday stay in York on foot. Saturday country house and coast. Sunday departure — London return is provisional.">
+    <div>
+      <h2>Your four days</h2>
+      <p class="date">Thursday 15 to Sunday 18 October</p>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <table>
+          <thead><tr><th>Day</th><th>Plan</th></tr></thead>
+          <tbody>
+            <tr><td>Thursday</td><td>Canary Wharf → Stamford → York</td></tr>
+            <tr><td>Friday</td><td>York Minster, old town and Shambles Market</td></tr>
+            <tr><td>Saturday</td><td>Castle Howard and Robin Hood’s Bay</td></tr>
+            <tr><td>Sunday</td><td>Leave York. London return is provisional</td></tr>
+          </tbody>
+        </table>
+        <div class="note">Railway House York: 3 nights, 15–18 October. Traffic and comfort stops may change arrival times.</div>
+      </div>
+      <div class="grid-3" style="grid-template-columns:1fr; gap:.75rem;">
+        <div class="day-chip"><strong>Base</strong><span>128 Holgate Road, York YO24 4FL · free private parking</span></div>
+        <div class="day-chip"><strong>Check-in</strong><span>3–10pm · Check-out 10–10.30am</span></div>
+        <div class="day-chip"><strong>Pace</strong><span>Comfortable walking days; one longer Saturday drive</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide layout-split" data-notes="Thursday: leave Canary Wharf at 9, Stamford for lunch and a few hours, then on to York for check-in and dinner.">
+    <div>
+      <h2>Thursday: Stamford, then York</h2>
+      <p class="date">15 October 2026</p>
+      <div class="card">
+        <table>
+          <thead><tr><th>Time</th><th>Plan</th></tr></thead>
+          <tbody>
+            <tr><td>9am</td><td>Pick up car in Canary Wharf</td></tr>
+            <tr><td>9.30am–12pm</td><td>Drive to Stamford</td></tr>
+            <tr><td>12–1pm</td><td>Lunch in town</td></tr>
+            <tr><td>1–3.30pm</td><td>Shops, old streets and river walk</td></tr>
+            <tr><td>3.30–6pm</td><td>Drive to York</td></tr>
+            <tr><td>6pm / 7pm</td><td>Railway House check-in / dinner</td></tr>
+          </tbody>
+        </table>
+        <div class="note">About 3½ hours in Stamford — time to browse and pause for coffee. Thursday is not the main market day.</div>
+      </div>
+    </div>
+    <div class="photo" style="background-image:url('media/stamford.jpg')"><div class="caption">Stamford, Lincolnshire</div></div>
+  </section>
+
+  <section class="slide layout-split" data-notes="Friday is a car-free York day from Railway House. Minster in the morning, Shambles and market after lunch, optional walls later.">
+    <div>
+      <h2>Friday: York at an easy pace</h2>
+      <p class="date">16 October 2026 · Leave the car at Railway House</p>
+      <div class="card">
+        <table>
+          <thead><tr><th>Time</th><th>Plan</th></tr></thead>
+          <tbody>
+            <tr><td>8.30am</td><td>Breakfast</td></tr>
+            <tr><td>10–11.30am</td><td>York Minster</td></tr>
+            <tr><td>11.30–12.30</td><td>Stonegate shops and coffee</td></tr>
+            <tr><td>12.30–1.30pm</td><td>Lunch</td></tr>
+            <tr><td>1.30–2.30pm</td><td>The Shambles and market</td></tr>
+            <tr><td>2.30–3.30pm</td><td>Optional short city walls walk</td></tr>
+            <tr><td>3.30pm onwards</td><td>Rest, shops, then 7pm dinner</td></tr>
+          </tbody>
+        </table>
+        <div class="note">Leave around 9.15am. Allow 30–40 minutes to walk to the Minster, or take a taxi.</div>
+      </div>
+    </div>
+    <div class="photo" style="background-image:url('media/shambles.jpg')"><div class="caption">The Shambles, York</div></div>
+  </section>
+
+  <section class="slide layout-split" data-notes="York Minster is the main landmark — book entry. Keep the walls walk short near the Minster; walls close at dusk.">
+    <div>
+      <h2>York Minster and the city walls</h2>
+      <p class="date">Friday morning focus</p>
+      <div class="grid-2" style="margin-top:.5rem;">
+        <div class="card">
+          <h3 style="margin:0 0 .5rem;font-family:Fraunces,serif;">York Minster</h3>
+          <p style="margin:0;">The cathedral is York’s main landmark. Allow 1–1½ hours for the Gothic architecture and stained glass.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin:0 0 .5rem;font-family:Fraunces,serif;">A short wall walk</h3>
+          <p style="margin:0;">Choose a section near the Minster. The full circuit is 3.4km — steps and uneven surfaces favour a shorter stretch.</p>
+        </div>
+      </div>
+      <div class="note">Book Minster entry. Walls close at dusk and can close in poor weather.</div>
+    </div>
+    <div class="photo" style="background-image:url('media/minster.jpg')"><div class="caption">York Minster, York</div></div>
+  </section>
+
+  <section class="slide layout-split" data-notes="Friday afternoon: Shambles Market with The Shambles — about an hour for stalls, gifts and street food.">
+    <div>
+      <h2>Shambles Market</h2>
+      <p class="date">Friday afternoon · Allow around an hour with The Shambles</p>
+      <div class="card">
+        <h3 style="margin:0 0 .5rem;font-family:Fraunces,serif;">A local market in the old town</h3>
+        <ul class="feature-list">
+          <li>Independent stalls for gifts and local produce</li>
+          <li>Street food nearby</li>
+          <li>Easy stop while exploring The Shambles</li>
+        </ul>
+        <div class="note">Open daily, 9am–5pm. Individual traders’ days and hours vary.</div>
+      </div>
+    </div>
+    <div class="photo" style="background-image:url('media/shambles-market.jpg')"><div class="caption">Shambles Market, York</div></div>
+  </section>
+
+  <section class="slide layout-split" data-notes="Saturday morning Castle Howard, lunch on site, then Robin Hood’s Bay. About three hours of driving in total.">
+    <div>
+      <h2>Saturday: Castle Howard</h2>
+      <p class="date">17 October 2026 · Country house morning, coast afternoon</p>
+      <div class="card">
+        <table>
+          <thead><tr><th>Time</th><th>Plan</th></tr></thead>
+          <tbody>
+            <tr><td>9am</td><td>Breakfast</td></tr>
+            <tr><td>9.30–10.15am</td><td>Drive to Castle Howard</td></tr>
+            <tr><td>10.15–12.15</td><td>House and a short garden stroll</td></tr>
+            <tr><td>12.15–1pm</td><td>Lunch at Castle Howard</td></tr>
+            <tr><td>1–2.15pm</td><td>Drive to Robin Hood’s Bay</td></tr>
+            <tr><td>2.15–5pm</td><td>Village, sea views and café stop</td></tr>
+            <tr><td>5–6.30pm</td><td>Back to York · dinner 7.30pm</td></tr>
+          </tbody>
+        </table>
+        <div class="note">A shorter house visit leaves time for the coast. Around 3 hours of driving today.</div>
+      </div>
+    </div>
+    <div class="photo" style="background-image:url('media/castle-howard.jpg')"><div class="caption">Castle Howard, North Yorkshire</div></div>
+  </section>
+
+  <section class="slide layout-split" data-notes="Robin Hood’s Bay: park at the top, steep walk down. Beach depends on the tide. Comfortable shoes matter.">
+    <div>
+      <h2>Robin Hood’s Bay</h2>
+      <p class="date">Saturday afternoon · Around 2¾ hours to explore</p>
+      <div class="grid-2" style="margin-top:.5rem;">
+        <div class="card">
+          <h3 style="margin:0 0 .5rem;font-family:Fraunces,serif;">A fishing village by the sea</h3>
+          <p style="margin:0;">Red-roofed cottages and narrow lanes lead down to the shore. Enjoy the village, coastal views and a café stop. Beach time depends on the tide.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin:0 0 .5rem;font-family:Fraunces,serif;">Parking and the hill</h3>
+          <p style="margin:0;">Park at the top. The walk down and back up is steep — pace yourself and wear comfortable shoes.</p>
+        </div>
+      </div>
+    </div>
+    <div class="photo" style="background-image:url('media/robin-hoods-bay.jpg')"><div class="caption">Robin Hood’s Bay, North Yorkshire</div></div>
+  </section>
+
+  <section class="slide layout-split" data-notes="Sunday departure. London return is an assumption — allow 4½–5½ hours plus breaks. Rain jacket and comfortable shoes.">
+    <div>
+      <h2>Sunday: departure and trip notes</h2>
+      <p class="date">18 October 2026 · London return is an assumption</p>
+      <div class="card">
+        <table>
+          <thead><tr><th>Time</th><th>If returning to London</th></tr></thead>
+          <tbody>
+            <tr><td>8.30–9.30am</td><td>Breakfast and pack</td></tr>
+            <tr><td>10am</td><td>Check out and leave York</td></tr>
+            <tr><td>12–1pm</td><td>Lunch and comfort stop en route</td></tr>
+            <tr><td>3.30–4.30pm</td><td>Target arrival in London</td></tr>
+          </tbody>
+        </table>
+        <div class="note">Allow 4½–5½ hours of driving plus breaks. London traffic may extend the journey. Wear comfortable shoes and bring a rain jacket.</div>
+      </div>
+    </div>
+    <div class="card" style="align-self:center;">
+      <h3 style="margin:0 0 .75rem;font-family:Fraunces,serif;">Your accommodation</h3>
+      <p style="margin:0 0 .4rem;"><strong>Railway House York</strong></p>
+      <p style="margin:0 0 .4rem;">128 Holgate Road<br />York YO24 4FL</p>
+      <ul class="feature-list">
+        <li>Free private parking</li>
+        <li>Check-in: 3–10pm</li>
+        <li>Check-out: 10–10.30am</li>
+      </ul>
+      <p style="margin:1rem 0 0;font-size:.9rem;opacity:.8;">Photos are place previews, not a weather forecast.</p>
+      <p style="margin:1.2rem 0 0;">
+        <a href="London_York_Itinerary.pptx" style="display:inline-block;background:var(--slate);color:var(--limewash);padding:.7rem 1rem;border-radius:999px;text-decoration:none;font-weight:700;">Download PowerPoint</a>
+      </p>
+    </div>
+  </section>
+
+</div>
+
+<div class="controls" aria-label="Presentation controls">
+  <button type="button" id="prev" title="Previous (←)">←</button>
+  <span class="counter" id="counter">1 / 9</span>
+  <button type="button" id="next" title="Next (→)">→</button>
+  <button type="button" id="full" title="Fullscreen (F)">⛶</button>
+  <a href="London_York_Itinerary.pptx" download>PPTX</a>
+</div>
+<div class="hint">← → · Space · F fullscreen</div>
+
+<script>
+(() => {
+  const slides = [...document.querySelectorAll('.slide')];
+  const counter = document.getElementById('counter');
+  const progress = document.getElementById('progress');
+  let i = 0;
+  const show = (n) => {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+    counter.textContent = `${i + 1} / ${slides.length}`;
+    progress.style.width = `${((i + 1) / slides.length) * 100}%`;
+  };
+  document.getElementById('prev').onclick = () => show(i - 1);
+  document.getElementById('next').onclick = () => show(i + 1);
+  document.getElementById('full').onclick = () => {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
+    else document.exitFullscreen?.();
+  };
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); show(i + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1); }
+    if (e.key === 'f' || e.key === 'F') document.getElementById('full').click();
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End') show(slides.length - 1);
+  });
+  let touchX = null;
+  window.addEventListener('touchstart', (e) => { touchX = e.changedTouches[0].screenX; }, { passive: true });
+  window.addEventListener('touchend', (e) => {
+    if (touchX == null) return;
+    const dx = e.changedTouches[0].screenX - touchX;
+    if (Math.abs(dx) > 50) show(i + (dx < 0 ? 1 : -1));
+    touchX = null;
+  }, { passive: true });
+  show(0);
+})();
+</script>
+</body>
+</html>
