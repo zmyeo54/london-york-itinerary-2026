@@ -201,6 +201,46 @@ html.night .hero-card .countdown-pill{
 }
 .hotel-meta .lbl{display:block; font-size:.65rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--moss); margin-bottom:.12rem}
 .hotel-meta .val{font-size:.84rem; color:var(--slate); font-weight:600}
+.hotel-actions{display:flex; flex-direction:column; gap:.55rem; margin-top:.15rem}
+.hotel-go{
+  display:flex; align-items:center; justify-content:center; gap:.55rem;
+  min-height:52px; border-radius:16px; text-decoration:none;
+  background:linear-gradient(135deg, #2f3d36 0%, #1e2a24 100%);
+  color:var(--lime); font-weight:800; font-size:.95rem;
+  box-shadow:0 10px 24px rgba(30,42,36,.28);
+  border:1px solid rgba(255,255,255,.06);
+}
+.hotel-go .ico{
+  width:28px; height:28px; border-radius:999px;
+  display:grid; place-items:center;
+  background:rgba(232,226,212,.16); font-size:.95rem;
+}
+.hotel-act-grid{
+  display:grid; grid-template-columns:1fr 1fr; gap:.5rem;
+}
+.hotel-act{
+  appearance:none; border:1px solid var(--line);
+  background:rgba(255,252,246,.98); color:var(--slate);
+  border-radius:16px; min-height:72px; padding:.65rem .55rem;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.35rem;
+  text-decoration:none; font:inherit; font-weight:700; font-size:.78rem;
+  cursor:pointer; text-align:center;
+  box-shadow:0 6px 16px rgba(12,18,14,.05);
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.hotel-act:active{transform:scale(.97)}
+.hotel-act .ico{
+  width:36px; height:36px; border-radius:12px;
+  display:grid; place-items:center; font-size:1.05rem;
+  background:rgba(47,61,54,.08);
+}
+.hotel-act.call .ico{background:rgba(46,125,90,.14)}
+.hotel-act.wa .ico{background:rgba(37,211,102,.16)}
+.hotel-act.mail .ico{background:rgba(196,120,58,.16)}
+.hotel-act.copy .ico{background:rgba(47,61,54,.1)}
+html.night .hotel-act{background:rgba(26,34,30,.96); color:var(--lime)}
+html.night .hotel-act .ico{background:rgba(232,226,212,.08)}
+html.night .hotel-go{box-shadow:0 10px 24px rgba(0,0,0,.35)}
 .dash-grid{
   display:grid; grid-template-columns:1fr 1fr; gap:.55rem; margin:0 0 .85rem;
 }
@@ -556,12 +596,29 @@ html.night .photo .cap{color:#e8e2d4}
               <div><span class="lbl">Check-in</span><span class="val">15:00–22:00</span></div>
               <div><span class="lbl">Check-out</span><span class="val">10:00–10:30</span></div>
             </div>
-            <div class="btn-row">
-              <a class="btn btn-dark" href="https://maps.google.com/?q=Railway+House+York+128+Holgate+Road+YO24+4FL" target="_blank" rel="noopener">Navigate</a>
-              <a class="btn btn-soft" href="tel:+443300580165">Call hotel</a>
-              <a class="btn btn-soft" href="https://wa.me/443300580165" target="_blank" rel="noopener">WhatsApp</a>
-              <a class="btn btn-soft" href="mailto:info@railwayhouseyork.co.uk">Email</a>
-              <button class="btn btn-soft" type="button" id="copyPostcode">Copy postcode</button>
+            <div class="hotel-actions">
+              <a class="hotel-go" href="https://maps.google.com/?q=Railway+House+York+128+Holgate+Road+YO24+4FL" target="_blank" rel="noopener">
+                <span class="ico" aria-hidden="true">➤</span>
+                <span>Navigate to hotel</span>
+              </a>
+              <div class="hotel-act-grid">
+                <a class="hotel-act call" href="tel:+443300580165">
+                  <span class="ico" aria-hidden="true">📞</span>
+                  <span>Call</span>
+                </a>
+                <a class="hotel-act wa" href="https://wa.me/443300580165" target="_blank" rel="noopener">
+                  <span class="ico" aria-hidden="true">💬</span>
+                  <span>WhatsApp</span>
+                </a>
+                <a class="hotel-act mail" href="mailto:info@railwayhouseyork.co.uk">
+                  <span class="ico" aria-hidden="true">✉️</span>
+                  <span>Email</span>
+                </a>
+                <button class="hotel-act copy" type="button" id="copyPostcode">
+                  <span class="ico" aria-hidden="true">📋</span>
+                  <span>Postcode</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
