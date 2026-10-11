@@ -5,832 +5,722 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="York Trip" />
 <meta name="theme-color" content="#101612" />
 <meta name="format-detection" content="telephone=no" />
-<title>London to York · Interactive Itinerary</title>
-<meta name="description" content="Interactive London to York road trip: Stamford, York, Castle Howard and Robin Hood’s Bay, 15–18 October 2026." />
+<title>London → York Trip Companion · 15–18 Oct 2026</title>
+<meta name="description" content="One-stop London to York road-trip guide: weather, day plans, maps, food, packing and essentials." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
 <style>
-  :root {
-    --ink: #1c2420;
-    --slate: #2f3d36;
-    --moss: #3f5a49;
-    --limewash: #e8e2d4;
-    --amber: #c4783a;
-    --amber-hot: #e08a3c;
-    --shadow: 0 20px 50px rgba(12, 18, 14, 0.28);
-    --ok: #2f6b4f;
-    --safe-top: env(safe-area-inset-top, 0px);
-    --safe-right: env(safe-area-inset-right, 0px);
-    --safe-bottom: env(safe-area-inset-bottom, 0px);
-    --safe-left: env(safe-area-inset-left, 0px);
-    --ctrl-h: 4.25rem;
-    --app-h: 100dvh;
-  }
-  @supports not (height: 100dvh) {
-    :root { --app-h: 100vh; }
-  }
-  * { box-sizing: border-box; }
-  html, body {
-    margin: 0; height: 100%; height: var(--app-h);
-    background: #101612; color: var(--ink);
-    font-family: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-  }
-  body {
-    overflow: hidden;
-    overscroll-behavior: none;
-    touch-action: pan-y;
-  }
-  button, a, label, summary, input {
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-  }
-  .deck {
-    position: relative; width: 100%;
-    height: var(--app-h);
-    max-height: -webkit-fill-available;
-  }
-  .slide {
-    position: absolute; inset: 0; display: none;
-    padding: calc(0.85rem + var(--safe-top)) calc(0.9rem + var(--safe-right)) calc(var(--ctrl-h) + var(--safe-bottom) + 0.75rem) calc(0.9rem + var(--safe-left));
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-    background: linear-gradient(145deg, #f4efe4 0%, #e7e0d0 55%, #d9d0bc 100%);
-  }
-  .slide.active { display: grid; animation: enter .35s cubic-bezier(.2,.8,.2,1); }
-  @keyframes enter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-  @media (prefers-reduced-motion: reduce) {
-    .slide.active { animation: none; }
-  }
-  .hero {
-    background:
-      linear-gradient(105deg, rgba(16,22,18,.86) 0%, rgba(16,22,18,.5) 48%, rgba(16,22,18,.28) 100%),
-      url("media/stamford.jpg") center/cover no-repeat;
-    color: var(--limewash); align-content: end;
-  }
-  .kicker { letter-spacing: .14em; text-transform: uppercase; font-size: .72rem; opacity: .85; margin: 0 0 .65rem; }
-  h1 {
-    font-family: Fraunces, Georgia, serif; font-weight: 700;
-    font-size: clamp(2.1rem, 9vw, 4.8rem); line-height: 1.05; margin: 0 0 .5rem; max-width: 12ch;
-  }
-  h2 {
-    font-family: Fraunces, Georgia, serif; font-size: clamp(1.45rem, 6vw, 2.45rem);
-    margin: 0 0 .3rem; color: var(--slate); padding-right: 5.5rem;
-  }
-  h3 { font-family: Fraunces, Georgia, serif; margin: 0 0 .45rem; font-size: 1.1rem; }
-  .sub { font-size: clamp(1rem, 3.8vw, 1.25rem); max-width: 38ch; margin: 0 0 1rem; opacity: .92; line-height: 1.4; }
-  .date { color: var(--moss); font-weight: 600; margin: 0 0 .85rem; font-size: .95rem; }
-  .pill-row, .cta-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: .9rem; }
-  .pill {
-    border: 1px solid rgba(232,226,212,.35); background: rgba(16,22,18,.35);
-    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-    border-radius: 999px; padding: .45rem .8rem; font-size: .84rem;
-  }
-  .btn {
-    appearance: none; border: 0; cursor: pointer; border-radius: 999px;
-    min-height: 44px; padding: .7rem 1.05rem; font: inherit; font-weight: 700; text-decoration: none;
-    display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
-    transition: transform .15s ease, background .15s ease;
-  }
-  .btn:active { transform: scale(.98); }
-  .btn-primary { background: var(--amber); color: #1a1208; }
-  .btn-primary:hover { background: var(--amber-hot); }
-  .btn-ghost {
-    background: rgba(232,226,212,.14); color: var(--limewash);
-    border: 1px solid rgba(232,226,212,.28);
-  }
-  .btn-dark { background: var(--slate); color: var(--limewash); }
-  .btn-link {
-    background: rgba(255,252,246,.7); color: var(--moss); border: 1px solid rgba(63,90,73,.35);
-    padding: .55rem .85rem; font-size: .9rem; min-height: 42px;
-  }
-  .layout-split { grid-template-columns: 1.12fr .88fr; gap: clamp(.75rem, 2.5vw, 2rem); align-items: start; }
-  .layout-stack { grid-template-rows: auto 1fr; gap: .85rem; }
-  .card {
-    background: rgba(255,252,246,.9); border: 1px solid rgba(47,61,54,.08);
-    border-radius: 16px; padding: .95rem 1rem; box-shadow: var(--shadow);
-  }
-  .photo {
-    border-radius: 16px; overflow: hidden; min-height: 200px; height: auto;
-    aspect-ratio: 16 / 10; box-shadow: var(--shadow); background-size: cover; background-position: center;
-    position: relative; cursor: zoom-in; isolation: isolate;
-  }
-  .photo::after {
-    content: "Tap to enlarge"; position: absolute; top: .65rem; right: .65rem;
-    background: rgba(16,22,18,.7); color: var(--limewash); font-size: .7rem;
-    padding: .3rem .55rem; border-radius: 999px; opacity: .95;
-  }
-  .photo .caption {
-    position: absolute; left: 0; right: 0; bottom: 0; padding: .8rem .9rem;
-    background: linear-gradient(transparent, rgba(16,22,18,.8)); color: var(--limewash); font-size: .88rem;
-  }
-  .day-nav { display: grid; grid-template-columns: repeat(4, 1fr); gap: .65rem; }
-  .day-card {
-    appearance: none; border: 1px solid rgba(47,61,54,.12); background: rgba(255,252,246,.95);
-    border-radius: 16px; padding: .95rem; text-align: left; cursor: pointer; box-shadow: var(--shadow);
-    font: inherit; color: inherit; min-height: 44px;
-  }
-  .day-card:active { transform: scale(.99); border-color: var(--amber); }
-  .day-card .d { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--moss); font-weight: 700; }
-  .day-card strong { display: block; font-family: Fraunces, Georgia, serif; font-size: 1.1rem; margin: .25rem 0 .3rem; color: var(--slate); }
-  .day-card span { font-size: .88rem; opacity: .9; line-height: 1.35; }
-  .day-card .go { margin-top: .65rem; color: var(--amber); font-weight: 700; font-size: .85rem; }
-  .checklist { list-style: none; margin: 0; padding: 0; }
-  .checklist li {
-    display: grid; grid-template-columns: auto 1fr; gap: .75rem; align-items: start;
-    padding: .7rem 0; border-bottom: 1px solid rgba(47,61,54,.1);
-  }
-  .checklist li:last-child { border-bottom: 0; }
-  .checklist input {
-    width: 1.35rem; height: 1.35rem; margin-top: .1rem; accent-color: var(--ok); cursor: pointer;
-    flex-shrink: 0;
-  }
-  .checklist label { cursor: pointer; line-height: 1.4; font-size: 1rem; }
-  .checklist li.done label { text-decoration: line-through; opacity: .55; }
-  .time {
-    font-weight: 700; color: var(--slate); display: block; margin-bottom: .15rem; font-size: .92rem;
-  }
-  .progress-mini {
-    height: .45rem; background: rgba(47,61,54,.12); border-radius: 999px; overflow: hidden; margin: .65rem 0 0;
-  }
-  .progress-mini > span { display: block; height: 100%; width: 0; background: var(--ok); transition: width .25s ease; }
-  .actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .85rem; }
-  .actions .btn { flex: 1 1 auto; }
-  details.tip {
-    background: rgba(196,120,58,.1); border-left: 4px solid var(--amber);
-    border-radius: 0 12px 12px 0; padding: .7rem .9rem; margin-top: .85rem;
-  }
-  details.tip summary {
-    cursor: pointer; font-weight: 700; color: var(--slate); list-style: none;
-    min-height: 28px; display: flex; align-items: center;
-  }
-  details.tip summary::-webkit-details-marker { display: none; }
-  details.tip summary::after { content: " ▾"; color: var(--amber); margin-left: .25rem; }
-  details.tip[open] summary::after { content: " ▴"; }
-  details.tip p, details.tip ul { margin: .55rem 0 0; font-size: .95rem; }
-  .route { display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; margin: .35rem 0 .9rem; }
-  .route .stop {
-    appearance: none; border: 0; cursor: pointer; background: var(--slate); color: var(--limewash);
-    border-radius: 999px; min-height: 40px; padding: .45rem .8rem; font: inherit; font-size: .84rem; font-weight: 700;
-  }
-  .route .stop.active { background: var(--amber); color: #1a1208; }
-  .route .arrow { opacity: .4; font-weight: 700; }
-  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: .55rem; margin-top: .75rem; }
-  .stat {
-    background: var(--slate); color: var(--limewash); border-radius: 14px; padding: .75rem .8rem;
-  }
-  .stat b { display: block; font-family: Fraunces, Georgia, serif; font-size: 1.05rem; }
-  .stat span { opacity: .85; font-size: .8rem; }
-  .toast {
-    position: fixed;
-    top: calc(0.75rem + var(--safe-top));
-    left: 50%; transform: translateX(-50%) translateY(-140%);
-    max-width: calc(100vw - 2rem);
-    background: var(--slate); color: var(--limewash); padding: .65rem 1rem; border-radius: 999px;
-    z-index: 60; transition: transform .25s ease; font-size: .88rem; pointer-events: none; text-align: center;
-  }
-  .toast.show { transform: translateX(-50%) translateY(0); }
-  .lightbox {
-    position: fixed; inset: 0; background: rgba(8,12,10,.9); display: none;
-    align-items: center; justify-content: center; z-index: 80;
-    padding: calc(1rem + var(--safe-top)) calc(1rem + var(--safe-right)) calc(1rem + var(--safe-bottom)) calc(1rem + var(--safe-left));
-    cursor: zoom-out;
-  }
-  .lightbox.open { display: flex; }
-  .lightbox img {
-    max-width: 100%; max-height: calc(var(--app-h) - 2.5rem - var(--safe-top) - var(--safe-bottom));
-    width: auto; height: auto; border-radius: 12px;
-    box-shadow: 0 30px 80px rgba(0,0,0,.45);
-    object-fit: contain;
-  }
-  .side-rail {
-    position: fixed; top: 50%; left: calc(0.55rem + var(--safe-left)); transform: translateY(-50%);
-    display: flex; flex-direction: column; gap: .45rem; z-index: 25;
-  }
-  .dot {
-    width: 10px; height: 10px; border-radius: 999px; border: 0; cursor: pointer;
-    background: rgba(232,226,212,.28); padding: 0;
-  }
-  .dot.active { background: var(--amber); transform: scale(1.25); }
-  .controls {
-    position: fixed;
-    left: 50%;
-    bottom: calc(0.55rem + var(--safe-bottom));
-    transform: translateX(-50%);
-    display: flex; align-items: center; gap: .35rem; z-index: 30;
-    width: max-content; max-width: calc(100vw - 1rem - var(--safe-left) - var(--safe-right));
-    background: rgba(16,22,18,.88); color: var(--limewash);
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(232,226,212,.18); border-radius: 999px;
-    padding: .35rem .4rem .35rem .65rem;
-  }
-  .controls button, .controls a.ctrl {
-    appearance: none; border: 0; background: rgba(232,226,212,.12); color: inherit;
-    min-width: 44px; min-height: 44px; border-radius: 999px; cursor: pointer; font-size: 1rem;
-    display: inline-flex; align-items: center; justify-content: center; text-decoration: none; padding: 0 .5rem;
-  }
-  .controls a.pptx {
-    background: var(--amber); color: #1a1208; font-weight: 700; font-size: .78rem;
-    border-radius: 999px; text-decoration: none; padding: .55rem .7rem; min-height: 40px;
-    display: inline-flex; align-items: center; white-space: nowrap;
-  }
-  .counter { font-variant-numeric: tabular-nums; font-size: .84rem; min-width: 3.2rem; text-align: center; flex-shrink: 0; }
-  .progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--amber); z-index: 40; width: 0; transition: width .25s ease; }
-  .menu {
-    position: fixed;
-    top: calc(0.55rem + var(--safe-top));
-    right: calc(0.55rem + var(--safe-right));
-    z-index: 35;
-  }
-  .menu #menuBtn { min-height: 42px; padding: .55rem .9rem; font-size: .9rem; }
-  .menu-panel {
-    position: absolute; right: 0; top: 3rem; width: min(280px, calc(100vw - 1.5rem));
-    max-height: min(70dvh, 420px); overflow: auto; -webkit-overflow-scrolling: touch;
-    background: rgba(255,252,246,.98); color: var(--ink); border-radius: 14px;
-    box-shadow: var(--shadow); padding: .45rem; display: none;
-  }
-  .menu-panel.open { display: block; }
-  .menu-panel button {
-    width: 100%; text-align: left; appearance: none; border: 0; background: transparent;
-    min-height: 44px; padding: .7rem .75rem; border-radius: 10px; cursor: pointer; font: inherit; font-size: .95rem;
-  }
-  .menu-panel button.active { background: rgba(196,120,58,.18); }
-  .mobile-days {
-    display: none;
-    position: fixed;
-    left: 0; right: 0;
-    bottom: calc(3.55rem + var(--safe-bottom));
-    z-index: 28;
-    padding: 0 .55rem;
-    gap: .35rem;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .mobile-days::-webkit-scrollbar { display: none; }
-  .mobile-days button {
-    appearance: none; border: 0; flex: 0 0 auto;
-    background: rgba(16,22,18,.82); color: var(--limewash);
-    border-radius: 999px; min-height: 36px; padding: .4rem .75rem;
-    font: inherit; font-size: .78rem; font-weight: 700; white-space: nowrap;
-    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  }
-  .mobile-days button.active { background: var(--amber); color: #1a1208; }
-  .hint { display: none; }
-
-  @media (max-width: 980px) {
-    :root { --ctrl-h: 5.75rem; }
-    .layout-split { grid-template-columns: 1fr; }
-    .day-nav, .stat-row { grid-template-columns: 1fr 1fr; }
-    .side-rail { display: none; }
-    .photo {
-      order: -1;
-      min-height: 0;
-      aspect-ratio: 16 / 11;
-      max-height: 42vw;
-      min-height: 160px;
-    }
-    .layout-split .photo { max-height: 220px; }
-    .hero { align-content: end; }
-    .route .arrow { display: none; }
-    .mobile-days { display: flex; }
-    h2 { padding-right: 5.2rem; }
-    .cta-row .btn { flex: 1 1 auto; }
-  }
-  @media (max-width: 520px) {
-    .day-nav, .stat-row { grid-template-columns: 1fr; }
-    .controls .counter { min-width: 2.6rem; font-size: .78rem; }
-    .controls a.pptx { padding: .5rem .55rem; font-size: .72rem; }
-    .pill { font-size: .78rem; }
-    .slide {
-      padding-left: calc(0.75rem + var(--safe-left));
-      padding-right: calc(0.75rem + var(--safe-right));
-    }
-  }
-  @media print {
-    .controls, .progress, .hint, .side-rail, .menu, .toast, .lightbox, .mobile-days { display: none !important; }
-    .slide { position: relative; display: grid !important; page-break-after: always; min-height: 100vh; animation: none; overflow: visible; }
-  }
+:root {
+  --ink:#1c2420; --slate:#2f3d36; --moss:#3f5a49; --lime:#e8e2d4; --amber:#c4783a; --ok:#2f6b4f;
+  --bg:#efe8da; --card:#fffcf6; --line:rgba(47,61,54,.12);
+  --safe-t:env(safe-area-inset-top,0px); --safe-r:env(safe-area-inset-right,0px);
+  --safe-b:env(safe-area-inset-bottom,0px); --safe-l:env(safe-area-inset-left,0px);
+  --nav-h:4.25rem; --app-h:100dvh;
+}
+@supports not (height:100dvh){:root{--app-h:100vh}}
+*{box-sizing:border-box}
+html,body{margin:0;height:var(--app-h);background:#101612;color:var(--ink);font-family:"Source Sans 3",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;-webkit-text-size-adjust:100%}
+body{overflow:hidden;overscroll-behavior:none}
+button,a,label,summary,input{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.app{height:var(--app-h);display:flex;flex-direction:column;background:linear-gradient(160deg,#f3eee3,#e4dccb)}
+.topbar{
+  flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:.6rem;
+  padding:calc(.55rem + var(--safe-t)) calc(.85rem + var(--safe-r)) .45rem calc(.85rem + var(--safe-l));
+  background:rgba(16,22,18,.92);color:var(--lime);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
+.topbar h1{margin:0;font-family:Fraunces,Georgia,serif;font-size:1.05rem;font-weight:700}
+.topbar .sub{font-size:.72rem;opacity:.75;margin-top:.1rem}
+.wx-chip{
+  display:flex;align-items:center;gap:.45rem;background:rgba(232,226,212,.12);
+  border:1px solid rgba(232,226,212,.18);border-radius:999px;padding:.35rem .7rem;font-size:.8rem;white-space:nowrap;
+}
+.wx-chip b{font-size:1rem}
+.main{flex:1 1 auto;overflow:auto;-webkit-overflow-scrolling:touch;padding:0 0 calc(var(--nav-h) + var(--safe-b) + .35rem)}
+.panel{display:none;padding:.9rem calc(.85rem + var(--safe-r)) 1.2rem calc(.85rem + var(--safe-l));animation:in .28s ease}
+.panel.active{display:block}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.panel.active{animation:none}}
+h2{font-family:Fraunces,Georgia,serif;font-size:clamp(1.4rem,5.5vw,1.9rem);margin:0 0 .35rem;color:var(--slate)}
+h3{font-family:Fraunces,Georgia,serif;font-size:1.08rem;margin:0 0 .45rem;color:var(--slate)}
+.muted{color:var(--moss);font-size:.92rem;margin:0 0 .85rem}
+.card{background:rgba(255,252,246,.92);border:1px solid var(--line);border-radius:16px;padding:.95rem 1rem;margin-bottom:.75rem;box-shadow:0 12px 30px rgba(12,18,14,.12)}
+.hero-card{
+  background:linear-gradient(120deg,rgba(16,22,18,.78),rgba(16,22,18,.35)),url("media/stamford.jpg") center/cover;
+  color:var(--lime);min-height:180px;display:flex;flex-direction:column;justify-content:flex-end;border:0;
+}
+.hero-card h2{color:var(--lime)}
+.hero-card .muted{color:rgba(232,226,212,.85)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.55rem}
+@media(max-width:560px){.grid2,.grid3{grid-template-columns:1fr}}
+.stat{background:var(--slate);color:var(--lime);border-radius:14px;padding:.75rem .8rem}
+.stat b{display:block;font-family:Fraunces,Georgia,serif;font-size:1.05rem}
+.stat span{font-size:.78rem;opacity:.85}
+.btn{
+  appearance:none;border:0;border-radius:999px;min-height:44px;padding:.65rem 1rem;font:inherit;font-weight:700;
+  display:inline-flex;align-items:center;justify-content:center;gap:.35rem;text-decoration:none;cursor:pointer;
+}
+.btn-row{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.7rem}
+.btn-row .btn{flex:1 1 auto}
+.btn-amber{background:var(--amber);color:#1a1208}
+.btn-dark{background:var(--slate);color:var(--lime)}
+.btn-soft{background:rgba(47,61,54,.08);color:var(--slate);border:1px solid var(--line)}
+.day-tabs{display:flex;gap:.4rem;overflow-x:auto;padding-bottom:.35rem;margin-bottom:.65rem;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.day-tabs::-webkit-scrollbar{display:none}
+.day-tabs button{
+  flex:0 0 auto;appearance:none;border:0;background:rgba(47,61,54,.1);color:var(--slate);
+  border-radius:999px;min-height:40px;padding:.45rem .85rem;font:inherit;font-weight:700;font-size:.85rem
+}
+.day-tabs button.active{background:var(--amber);color:#1a1208}
+.day-block{display:none}
+.day-block.active{display:block}
+.photo{
+  border-radius:14px;overflow:hidden;aspect-ratio:16/10;background-size:cover;background-position:center;
+  position:relative;margin-bottom:.75rem;cursor:zoom-in
+}
+.photo .cap{position:absolute;left:0;right:0;bottom:0;padding:.7rem .85rem;background:linear-gradient(transparent,rgba(16,22,18,.78));color:var(--lime);font-size:.85rem}
+.photo::after{content:"Tap";position:absolute;top:.55rem;right:.55rem;background:rgba(16,22,18,.65);color:var(--lime);font-size:.68rem;padding:.25rem .5rem;border-radius:999px}
+.checklist{list-style:none;margin:0;padding:0}
+.checklist li{display:grid;grid-template-columns:auto 1fr;gap:.7rem;align-items:start;padding:.65rem 0;border-bottom:1px solid var(--line)}
+.checklist li:last-child{border-bottom:0}
+.checklist input{width:1.3rem;height:1.3rem;margin-top:.12rem;accent-color:var(--ok)}
+.checklist label{line-height:1.4;font-size:.98rem;cursor:pointer}
+.checklist li.done label{text-decoration:line-through;opacity:.55}
+.time{display:block;font-weight:700;color:var(--slate);font-size:.9rem;margin-bottom:.12rem}
+.bar{height:.42rem;background:rgba(47,61,54,.12);border-radius:999px;overflow:hidden;margin-top:.55rem}
+.bar>span{display:block;height:100%;width:0;background:var(--ok);transition:width .25s}
+.tip{background:rgba(196,120,58,.12);border-left:4px solid var(--amber);border-radius:0 12px 12px 0;padding:.7rem .85rem;margin-top:.65rem}
+.tip summary{font-weight:700;cursor:pointer;list-style:none}
+.tip summary::-webkit-details-marker{display:none}
+.tip summary::after{content:" ▾";color:var(--amber)}
+.tip[open] summary::after{content:" ▴"}
+.tip p,.tip ul{margin:.5rem 0 0;font-size:.93rem}
+.wx-grid{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
+@media(min-width:700px){.wx-grid{grid-template-columns:repeat(4,1fr)}}
+.wx-day{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:.8rem;text-align:center}
+.wx-day .d{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--moss);font-weight:700}
+.wx-day .icon{font-size:1.7rem;margin:.25rem 0}
+.wx-day .t{font-family:Fraunces,Georgia,serif;font-size:1.15rem}
+.wx-day .p{font-size:.8rem;color:var(--moss);margin-top:.25rem}
+.place{display:grid;grid-template-columns:88px 1fr;gap:.7rem;align-items:center}
+.place .thumb{width:88px;height:72px;border-radius:12px;background-size:cover;background-position:center}
+.pill{display:inline-flex;align-items:center;gap:.3rem;background:rgba(47,61,54,.08);border-radius:999px;padding:.28rem .6rem;font-size:.75rem;margin:.15rem .2rem .15rem 0}
+.nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;
+  display:grid;grid-template-columns:repeat(5,1fr);
+  padding:.35rem var(--safe-r) calc(.35rem + var(--safe-b)) var(--safe-l);
+  background:rgba(16,22,18,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-top:1px solid rgba(232,226,212,.12)
+}
+.nav button{
+  appearance:none;border:0;background:transparent;color:rgba(232,226,212,.62);
+  min-height:52px;font:inherit;font-size:.68rem;font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;cursor:pointer
+}
+.nav button .ic{font-size:1.15rem;line-height:1}
+.nav button.active{color:var(--amber)}
+.toast{position:fixed;top:calc(.7rem + var(--safe-t));left:50%;transform:translateX(-50%) translateY(-160%);background:var(--slate);color:var(--lime);padding:.6rem .95rem;border-radius:999px;z-index:60;font-size:.86rem;max-width:90vw;text-align:center;transition:transform .25s;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.lightbox{position:fixed;inset:0;background:rgba(8,12,10,.92);display:none;align-items:center;justify-content:center;z-index:80;padding:calc(1rem + var(--safe-t)) calc(1rem + var(--safe-r)) calc(1rem + var(--safe-b)) calc(1rem + var(--safe-l));cursor:zoom-out}
+.lightbox.open{display:flex}
+.lightbox img{max-width:100%;max-height:100%;border-radius:12px;object-fit:contain}
+.skeleton{opacity:.55}
+.live{font-size:.75rem;color:var(--moss)}
+.live.ok{color:var(--ok)}
+.live.err{color:#8a3b2a}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:.35rem .7rem;font-size:.92rem}
+.kv b{color:var(--slate)}
+.hr{height:1px;background:var(--line);margin:.85rem 0;border:0}
+.chip-row{display:flex;flex-wrap:wrap;gap:.35rem;margin:.4rem 0 .2rem}
 </style>
 </head>
 <body>
-<div class="progress" id="progress"></div>
 <div class="toast" id="toast" role="status"></div>
-<aside class="side-rail" id="dots" aria-label="Slide dots"></aside>
-<div class="menu">
-  <button class="btn btn-dark" id="menuBtn" type="button" aria-expanded="false">Jump ▾</button>
-  <div class="menu-panel" id="menuPanel" role="menu"></div>
-</div>
-
-<div class="deck" id="deck">
-
-  <!-- 0 Hero -->
-  <section class="slide hero active" data-title="Start" data-notes="Welcome">
+<div class="app">
+  <header class="topbar">
     <div>
-      <p class="kicker">15–18 October 2026 · Interactive trip guide</p>
-      <h1>London to York</h1>
-      <p class="sub">Tap a day, tick the plan as you go, open maps, and enlarge every photo. Built for the car and the sofa.</p>
-      <div class="pill-row">
-        <span class="pill">Canary Wharf · Thu 9am</span>
-        <span class="pill">Railway House · 3 nights</span>
-        <span class="pill">Progress saves on this phone</span>
-      </div>
-      <div class="cta-row">
-        <button class="btn btn-primary" type="button" data-goto="1">Start overview →</button>
-        <button class="btn btn-ghost" type="button" data-goto="2">Jump to Thursday</button>
-      </div>
-      <div class="route" aria-label="Route stops">
-        <button class="stop active" type="button" data-goto="2">London</button><span class="arrow">→</span>
-        <button class="stop" type="button" data-goto="2">Stamford</button><span class="arrow">→</span>
-        <button class="stop" type="button" data-goto="3">York</button><span class="arrow">→</span>
-        <button class="stop" type="button" data-goto="6">Castle Howard</button><span class="arrow">→</span>
-        <button class="stop" type="button" data-goto="7">Robin Hood’s Bay</button>
-      </div>
+      <h1>York Trip Companion</h1>
+      <div class="sub">15–18 Oct 2026 · London → York</div>
     </div>
-  </section>
+    <div class="wx-chip" id="wxChip" title="York weather">⏳ York…</div>
+  </header>
 
-  <!-- 1 Overview -->
-  <section class="slide layout-stack" data-title="Overview">
-    <div>
-      <h2>Your four days</h2>
-      <p class="date">Tap any day to open that plan</p>
-    </div>
-    <div>
-      <div class="day-nav">
-        <button class="day-card" type="button" data-goto="2">
-          <div class="d">Thu 15</div>
-          <strong>Stamford → York</strong>
-          <span>Drive, lunch stop, check-in</span>
-          <div class="go">Open Thursday →</div>
-        </button>
-        <button class="day-card" type="button" data-goto="3">
-          <div class="d">Fri 16</div>
-          <strong>York on foot</strong>
-          <span>Minster, Shambles, market</span>
-          <div class="go">Open Friday →</div>
-        </button>
-        <button class="day-card" type="button" data-goto="6">
-          <div class="d">Sat 17</div>
-          <strong>House + coast</strong>
-          <span>Castle Howard &amp; Robin Hood’s Bay</span>
-          <div class="go">Open Saturday →</div>
-        </button>
-        <button class="day-card" type="button" data-goto="8">
-          <div class="d">Sun 18</div>
-          <strong>Departure</strong>
-          <span>Checkout &amp; London return</span>
-          <div class="go">Open Sunday →</div>
-        </button>
-      </div>
-      <div class="stat-row">
-        <div class="stat"><b>3 nights</b><span>Railway House York</span></div>
-        <div class="stat"><b>YO24 4FL</b><span>128 Holgate Road</span></div>
-        <div class="stat"><b>Free parking</b><span>Check-in 3–10pm</span></div>
-      </div>
-      <div class="actions">
-        <a class="btn btn-dark" href="https://maps.google.com/?q=Railway+House+York+128+Holgate+Road" target="_blank" rel="noopener">Open hotel in Maps</a>
-        <button class="btn btn-link" type="button" data-goto="8">Packing checklist</button>
-        <button class="btn btn-link" type="button" id="resetProgress">Reset tick progress</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- 2 Thursday -->
-  <section class="slide layout-split" data-title="Thursday" data-day="thu">
-    <div>
-      <h2>Thursday: Stamford, then York</h2>
-      <p class="date">15 October 2026 · Tick each step as you go</p>
-      <div class="card">
-        <ul class="checklist" data-list="thu">
-          <li><input type="checkbox" id="thu1" /><label for="thu1"><span class="time">9am</span> Pick up car in Canary Wharf</label></li>
-          <li><input type="checkbox" id="thu2" /><label for="thu2"><span class="time">9.30–12</span> Drive to Stamford</label></li>
-          <li><input type="checkbox" id="thu3" /><label for="thu3"><span class="time">12–1pm</span> Lunch in town</label></li>
-          <li><input type="checkbox" id="thu4" /><label for="thu4"><span class="time">1–3.30</span> Shops, old streets and river walk</label></li>
-          <li><input type="checkbox" id="thu5" /><label for="thu5"><span class="time">3.30–6</span> Drive to York</label></li>
-          <li><input type="checkbox" id="thu6" /><label for="thu6"><span class="time">6 / 7pm</span> Railway House check-in / dinner</label></li>
-        </ul>
-        <div class="progress-mini" aria-hidden="true"><span data-bar="thu"></span></div>
-        <div class="actions">
-          <a class="btn btn-dark" href="https://www.google.com/maps/dir/Canary+Wharf,London/Stamford,Lincolnshire/Railway+House+York" target="_blank" rel="noopener">Drive route</a>
-          <a class="btn btn-link" href="https://maps.google.com/?q=Stamford+Lincolnshire" target="_blank" rel="noopener">Stamford map</a>
+  <main class="main" id="main">
+    <!-- HOME -->
+    <section class="panel active" id="panel-home" data-panel="home">
+      <div class="card hero-card">
+        <h2>Your autumn road trip</h2>
+        <p class="muted">Weather, maps, tickets, food and packing — everything in one place.</p>
+        <div class="btn-row">
+          <button class="btn btn-amber" type="button" data-go="days">Today’s plan</button>
+          <button class="btn btn-soft" type="button" data-go="weather" style="background:rgba(232,226,212,.18);color:var(--lime);border-color:rgba(232,226,212,.25)">Weather</button>
         </div>
-        <details class="tip">
-          <summary>Tips for Thursday</summary>
-          <p>About 3½ hours in Stamford — browse and coffee. Thursday is not the main market day. Driving times are estimates.</p>
-        </details>
       </div>
-    </div>
-    <div class="photo" style="background-image:url('media/stamford.jpg')" data-full="media/stamford.jpg" data-caption="Stamford, Lincolnshire" role="button" tabindex="0" aria-label="Enlarge Stamford photo">
-      <div class="caption">Stamford, Lincolnshire</div>
-    </div>
-  </section>
 
-  <!-- 3 Friday -->
-  <section class="slide layout-split" data-title="Friday" data-day="fri">
-    <div>
-      <h2>Friday: York at an easy pace</h2>
-      <p class="date">16 October 2026 · Leave the car at Railway House</p>
-      <div class="card">
-        <ul class="checklist" data-list="fri">
-          <li><input type="checkbox" id="fri1" /><label for="fri1"><span class="time">8.30am</span> Breakfast</label></li>
-          <li><input type="checkbox" id="fri2" /><label for="fri2"><span class="time">10–11.30</span> York Minster</label></li>
-          <li><input type="checkbox" id="fri3" /><label for="fri3"><span class="time">11.30–12.30</span> Stonegate shops and coffee</label></li>
-          <li><input type="checkbox" id="fri4" /><label for="fri4"><span class="time">12.30–1.30</span> Lunch</label></li>
-          <li><input type="checkbox" id="fri5" /><label for="fri5"><span class="time">1.30–2.30</span> The Shambles and market</label></li>
-          <li><input type="checkbox" id="fri6" /><label for="fri6"><span class="time">2.30–3.30</span> Optional short city walls walk</label></li>
-          <li><input type="checkbox" id="fri7" /><label for="fri7"><span class="time">3.30+</span> Rest, shops, then 7pm dinner</label></li>
-        </ul>
-        <div class="progress-mini"><span data-bar="fri"></span></div>
-        <div class="actions">
-          <button class="btn btn-dark" type="button" data-goto="4">Minster tips →</button>
-          <button class="btn btn-link" type="button" data-goto="5">Market tips →</button>
-          <a class="btn btn-link" href="https://maps.google.com/?q=York+Minster" target="_blank" rel="noopener">Minster map</a>
-        </div>
-        <details class="tip">
-          <summary>Getting into town</summary>
-          <p>Leave around 9.15am. Allow 30–40 minutes to walk to the Minster, or take a taxi.</p>
-        </details>
+      <div class="grid3" style="margin-bottom:.75rem">
+        <div class="stat"><b>3 nights</b><span>Railway House</span></div>
+        <div class="stat"><b>YO24 4FL</b><span>Holgate Road</span></div>
+        <div class="stat"><b>Free park</b><span>At hotel</span></div>
       </div>
-    </div>
-    <div class="photo" style="background-image:url('media/shambles.jpg')" data-full="media/shambles.jpg" data-caption="The Shambles, York" role="button" tabindex="0" aria-label="Enlarge Shambles photo">
-      <div class="caption">The Shambles, York</div>
-    </div>
-  </section>
 
-  <!-- 4 Minster -->
-  <section class="slide layout-split" data-title="Minster">
-    <div>
-      <h2>York Minster and the walls</h2>
-      <p class="date">Friday morning focus</p>
       <div class="card">
-        <h3>York Minster</h3>
-        <p>Allow 1–1½ hours for the Gothic architecture and stained glass.</p>
-        <h3 style="margin-top:1rem;">A short wall walk</h3>
-        <p>Choose a section near the Minster. Full circuit is 3.4km — steps and uneven surfaces favour a shorter stretch.</p>
-        <div class="actions">
-          <a class="btn btn-dark" href="https://yorkminster.org/visit/" target="_blank" rel="noopener">Book / visit info</a>
-          <a class="btn btn-link" href="https://maps.google.com/?q=York+City+Walls" target="_blank" rel="noopener">Walls map</a>
-          <button class="btn btn-link" type="button" data-goto="3">← Back to Friday</button>
+        <h3>Quick actions</h3>
+        <div class="btn-row">
+          <a class="btn btn-dark" href="https://maps.google.com/?q=Railway+House+York+128+Holgate+Road" target="_blank" rel="noopener">Hotel map</a>
+          <a class="btn btn-soft" href="tel:999">UK emergency 999</a>
+          <a class="btn btn-soft" href="https://www.google.com/maps/dir/Canary+Wharf,London/Stamford,Lincolnshire/Railway+House+York" target="_blank" rel="noopener">Thu drive</a>
+          <a class="btn btn-soft" href="https://yorkminster.org/visit/" target="_blank" rel="noopener">Book Minster</a>
         </div>
-        <details class="tip" open>
-          <summary>Before you go</summary>
-          <p>Book Minster entry. Walls close at dusk and can close in poor weather.</p>
-        </details>
       </div>
-    </div>
-    <div class="photo" style="background-image:url('media/minster.jpg')" data-full="media/minster.jpg" data-caption="York Minster" role="button" tabindex="0">
-      <div class="caption">York Minster, York</div>
-    </div>
-  </section>
 
-  <!-- 5 Market -->
-  <section class="slide layout-split" data-title="Market">
-    <div>
-      <h2>Shambles Market</h2>
-      <p class="date">Friday afternoon · About an hour with The Shambles</p>
       <div class="card">
-        <ul class="checklist" data-list="market">
-          <li><input type="checkbox" id="m1" /><label for="m1">Wander The Shambles (timber streets)</label></li>
-          <li><input type="checkbox" id="m2" /><label for="m2">Browse independent stalls / gifts</label></li>
-          <li><input type="checkbox" id="m3" /><label for="m3">Street food or a sweet stop</label></li>
-        </ul>
-        <div class="progress-mini"><span data-bar="market"></span></div>
-        <div class="actions">
-          <a class="btn btn-dark" href="https://maps.google.com/?q=Shambles+Market+York" target="_blank" rel="noopener">Open market map</a>
-          <button class="btn btn-link" type="button" data-goto="3">← Back to Friday</button>
+        <h3>Trip pulse</h3>
+        <p class="muted" id="tripPulse">Loading today’s focus…</p>
+        <div class="chip-row" id="focusChips"></div>
+        <div class="btn-row">
+          <button class="btn btn-amber" type="button" id="openFocusDay">Open day plan</button>
+          <button class="btn btn-soft" type="button" data-go="pack">Packing list</button>
         </div>
-        <details class="tip">
-          <summary>Hours</summary>
-          <p>Open daily 9am–5pm. Individual traders’ days and hours vary.</p>
-        </details>
       </div>
-    </div>
-    <div class="photo" style="background-image:url('media/shambles-market.jpg')" data-full="media/shambles-market.jpg" data-caption="Shambles Market" role="button" tabindex="0">
-      <div class="caption">Shambles Market, York</div>
-    </div>
-  </section>
 
-  <!-- 6 Saturday -->
-  <section class="slide layout-split" data-title="Saturday" data-day="sat">
-    <div>
-      <h2>Saturday: Castle Howard</h2>
-      <p class="date">17 October 2026 · Country house morning, coast afternoon</p>
       <div class="card">
-        <ul class="checklist" data-list="sat">
-          <li><input type="checkbox" id="sat1" /><label for="sat1"><span class="time">9am</span> Breakfast</label></li>
-          <li><input type="checkbox" id="sat2" /><label for="sat2"><span class="time">9.30–10.15</span> Drive to Castle Howard</label></li>
-          <li><input type="checkbox" id="sat3" /><label for="sat3"><span class="time">10.15–12.15</span> House + short garden stroll</label></li>
-          <li><input type="checkbox" id="sat4" /><label for="sat4"><span class="time">12.15–1</span> Lunch at Castle Howard</label></li>
-          <li><input type="checkbox" id="sat5" /><label for="sat5"><span class="time">1–2.15</span> Drive to Robin Hood’s Bay</label></li>
-          <li><input type="checkbox" id="sat6" /><label for="sat6"><span class="time">2.15–5</span> Village, sea views, café</label></li>
-          <li><input type="checkbox" id="sat7" /><label for="sat7"><span class="time">5–6.30</span> Back to York · dinner 7.30</label></li>
-        </ul>
-        <div class="progress-mini"><span data-bar="sat"></span></div>
-        <div class="actions">
-          <a class="btn btn-dark" href="https://www.google.com/maps/dir/York/Castle+Howard/Robin+Hood's+Bay/York" target="_blank" rel="noopener">Saturday drive</a>
-          <a class="btn btn-link" href="https://www.castlehoward.co.uk/" target="_blank" rel="noopener">Castle Howard site</a>
-          <button class="btn btn-link" type="button" data-goto="7">Coast tips →</button>
+        <h3>Route at a glance</h3>
+        <div class="kv">
+          <b>Thu 15</b><span>Canary Wharf → Stamford lunch → York check-in</span>
+          <b>Fri 16</b><span>York Minster · Shambles · market · walls</span>
+          <b>Sat 17</b><span>Castle Howard → Robin Hood’s Bay → York</span>
+          <b>Sun 18</b><span>Checkout 10am · return to London (provisional)</span>
         </div>
-        <details class="tip">
-          <summary>Pace note</summary>
-          <p>A shorter house visit leaves time for the coast. Around 3 hours of driving today.</p>
-        </details>
       </div>
-    </div>
-    <div class="photo" style="background-image:url('media/castle-howard.jpg')" data-full="media/castle-howard.jpg" data-caption="Castle Howard" role="button" tabindex="0">
-      <div class="caption">Castle Howard, North Yorkshire</div>
-    </div>
-  </section>
+    </section>
 
-  <!-- 7 Robin Hood's Bay -->
-  <section class="slide layout-split" data-title="Coast">
-    <div>
-      <h2>Robin Hood’s Bay</h2>
-      <p class="date">Saturday afternoon · Around 2¾ hours</p>
-      <div class="card">
-        <h3>Village by the sea</h3>
-        <p>Red-roofed cottages and narrow lanes lead to the shore. Beach time depends on the tide.</p>
-        <h3 style="margin-top:1rem;">Parking and the hill</h3>
-        <p>Park at the top. The walk down and back up is steep — comfortable shoes matter.</p>
-        <div class="actions">
-          <a class="btn btn-dark" href="https://www.tide-forecast.com/locations/Whitby-England/tides/latest" target="_blank" rel="noopener">Check nearby tides</a>
-          <a class="btn btn-link" href="https://maps.google.com/?q=Robin+Hood's+Bay" target="_blank" rel="noopener">Bay map</a>
-          <button class="btn btn-link" type="button" data-goto="6">← Back to Saturday</button>
-        </div>
-        <details class="tip" open>
-          <summary>Quick checklist</summary>
-          <ul class="checklist" data-list="bay" style="margin-top:.4rem;">
-            <li><input type="checkbox" id="bay1" /><label for="bay1">Park at the top car park</label></li>
-            <li><input type="checkbox" id="bay2" /><label for="bay2">Walk down to the shore</label></li>
-            <li><input type="checkbox" id="bay3" /><label for="bay3">Café stop before the climb back</label></li>
+    <!-- DAYS -->
+    <section class="panel" id="panel-days" data-panel="days">
+      <h2>Day plans</h2>
+      <p class="muted">Tick steps as you go — saved on this phone.</p>
+      <div class="day-tabs" id="dayTabs">
+        <button type="button" class="active" data-day="thu">Thu 15</button>
+        <button type="button" data-day="fri">Fri 16</button>
+        <button type="button" data-day="sat">Sat 17</button>
+        <button type="button" data-day="sun">Sun 18</button>
+      </div>
+
+      <div class="day-block active" id="day-thu">
+        <div class="photo" style="background-image:url('media/stamford.jpg')" data-full="media/stamford.jpg" data-cap="Stamford"><div class="cap">Stamford stop · ~3½ hrs in town</div></div>
+        <div class="card">
+          <h3>Thursday · Stamford then York</h3>
+          <ul class="checklist" data-list="thu">
+            <li><input id="thu1" type="checkbox"><label for="thu1"><span class="time">9:00</span>Pick up car · Canary Wharf</label></li>
+            <li><input id="thu2" type="checkbox"><label for="thu2"><span class="time">9:30–12:00</span>Drive to Stamford (~2–2.5 hrs)</label></li>
+            <li><input id="thu3" type="checkbox"><label for="thu3"><span class="time">12:00–13:00</span>Lunch in Stamford</label></li>
+            <li><input id="thu4" type="checkbox"><label for="thu4"><span class="time">13:00–15:30</span>Old streets, shops, river walk</label></li>
+            <li><input id="thu5" type="checkbox"><label for="thu5"><span class="time">15:30–18:00</span>Drive to York</label></li>
+            <li><input id="thu6" type="checkbox"><label for="thu6"><span class="time">18:00 / 19:00</span>Railway House check-in · dinner</label></li>
           </ul>
-          <div class="progress-mini"><span data-bar="bay"></span></div>
-        </details>
-      </div>
-    </div>
-    <div class="photo" style="background-image:url('media/robin-hoods-bay.jpg')" data-full="media/robin-hoods-bay.jpg" data-caption="Robin Hood’s Bay" role="button" tabindex="0">
-      <div class="caption">Robin Hood’s Bay, North Yorkshire</div>
-    </div>
-  </section>
-
-  <!-- 8 Sunday -->
-  <section class="slide layout-split" data-title="Sunday">
-    <div>
-      <h2>Sunday: departure</h2>
-      <p class="date">18 October 2026 · London return is an assumption</p>
-      <div class="card">
-        <ul class="checklist" data-list="sun">
-          <li><input type="checkbox" id="sun1" /><label for="sun1"><span class="time">8.30–9.30</span> Breakfast and pack</label></li>
-          <li><input type="checkbox" id="sun2" /><label for="sun2"><span class="time">10am</span> Check out and leave York</label></li>
-          <li><input type="checkbox" id="sun3" /><label for="sun3"><span class="time">12–1pm</span> Lunch / comfort stop</label></li>
-          <li><input type="checkbox" id="sun4" /><label for="sun4"><span class="time">3.30–4.30</span> Target arrival in London</label></li>
-        </ul>
-        <div class="progress-mini"><span data-bar="sun"></span></div>
-        <div class="actions">
-          <a class="btn btn-dark" href="https://www.google.com/maps/dir/Railway+House+York/London" target="_blank" rel="noopener">York → London route</a>
+          <div class="bar"><span data-bar="thu"></span></div>
+          <div class="btn-row">
+            <a class="btn btn-dark" href="https://www.google.com/maps/dir/Canary+Wharf,London/Stamford,Lincolnshire/Railway+House+York" target="_blank" rel="noopener">Open drive</a>
+            <a class="btn btn-soft" href="https://maps.google.com/?q=Stamford+Lincolnshire" target="_blank" rel="noopener">Stamford map</a>
+          </div>
+          <details class="tip"><summary>Food &amp; tips</summary>
+            <p><strong>Eat:</strong> High Street / St Mary’s Street cafés; try a pub lunch near the Meadows.</p>
+            <p><strong>Note:</strong> Thursday is not Stamford’s main market day — still lovely for stone streets and coffee.</p>
+            <p><strong>Fuel:</strong> Fill up before leaving London or near Stamford if prices look better.</p>
+          </details>
         </div>
-        <details class="tip">
-          <summary>Drive window</summary>
-          <p>Allow 4½–5½ hours plus breaks. London traffic may extend the journey.</p>
-        </details>
       </div>
-      <div class="card" style="margin-top:.9rem;">
-        <h3>Packing checklist</h3>
-        <ul class="checklist" data-list="pack">
-          <li><input type="checkbox" id="p1" /><label for="p1">Comfortable walking shoes</label></li>
-          <li><input type="checkbox" id="p2" /><label for="p2">Rain jacket</label></li>
-          <li><input type="checkbox" id="p3" /><label for="p3">Minster / Castle Howard tickets (if booked)</label></li>
-          <li><input type="checkbox" id="p4" /><label for="p4">Car pickup confirmation</label></li>
-          <li><input type="checkbox" id="p5" /><label for="p5">Hotel address: 128 Holgate Road, YO24 4FL</label></li>
+
+      <div class="day-block" id="day-fri">
+        <div class="photo" style="background-image:url('media/minster.jpg')" data-full="media/minster.jpg" data-cap="York Minster"><div class="cap">Leave the car at the hotel</div></div>
+        <div class="card">
+          <h3>Friday · York on foot</h3>
+          <ul class="checklist" data-list="fri">
+            <li><input id="fri1" type="checkbox"><label for="fri1"><span class="time">08:30</span>Breakfast</label></li>
+            <li><input id="fri2" type="checkbox"><label for="fri2"><span class="time">09:15 leave</span>Walk/taxi to Minster (30–40 min walk)</label></li>
+            <li><input id="fri3" type="checkbox"><label for="fri3"><span class="time">10:00–11:30</span>York Minster</label></li>
+            <li><input id="fri4" type="checkbox"><label for="fri4"><span class="time">11:30–12:30</span>Stonegate shops + coffee</label></li>
+            <li><input id="fri5" type="checkbox"><label for="fri5"><span class="time">12:30–13:30</span>Lunch</label></li>
+            <li><input id="fri6" type="checkbox"><label for="fri6"><span class="time">13:30–14:30</span>Shambles + market</label></li>
+            <li><input id="fri7" type="checkbox"><label for="fri7"><span class="time">14:30–15:30</span>Optional short walls walk</label></li>
+            <li><input id="fri8" type="checkbox"><label for="fri8"><span class="time">15:30+</span>Rest / shops · dinner 19:00</label></li>
+          </ul>
+          <div class="bar"><span data-bar="fri"></span></div>
+          <div class="btn-row">
+            <a class="btn btn-dark" href="https://yorkminster.org/visit/" target="_blank" rel="noopener">Book Minster</a>
+            <a class="btn btn-soft" href="https://maps.google.com/?q=York+Minster" target="_blank" rel="noopener">Minster map</a>
+            <a class="btn btn-soft" href="https://maps.google.com/?q=Shambles+Market+York" target="_blank" rel="noopener">Market map</a>
+          </div>
+          <details class="tip" open><summary>Tickets &amp; hours</summary>
+            <p><strong>Minster sightseeing:</strong> Mon–Sat roughly 9:30–16:00 (confirm on the day). Book ahead for faster entry; tickets valid 12 months.</p>
+            <p><strong>No Minster parking</strong> — walk/taxi from Railway House, or Park &amp; Ride if needed.</p>
+            <p><strong>Walls:</strong> close at dusk / bad weather. Do a short stretch near the Minster, not the full 3.4 km.</p>
+            <p><strong>Market:</strong> often ~9:00–17:00; traders vary by day.</p>
+          </details>
+          <details class="tip"><summary>Food ideas</summary>
+            <p>Stonegate / Swinegate cafés for coffee. Shambles Market for street food. Bettys (queue likely) or a quieter side-street bistro for lunch. Dinner near Micklegate / Holgate so the walk home is short.</p>
+          </details>
+          <details class="tip"><summary>If it rains</summary>
+            <p>Minster first, then covered shops on Stonegate / Coppergate. Cut the walls walk. Market stalls under cover still work for a browse.</p>
+          </details>
+        </div>
+      </div>
+
+      <div class="day-block" id="day-sat">
+        <div class="photo" style="background-image:url('media/castle-howard.jpg')" data-full="media/castle-howard.jpg" data-cap="Castle Howard"><div class="cap">House morning · coast afternoon</div></div>
+        <div class="card">
+          <h3>Saturday · Castle Howard + coast</h3>
+          <ul class="checklist" data-list="sat">
+            <li><input id="sat1" type="checkbox"><label for="sat1"><span class="time">09:00</span>Breakfast</label></li>
+            <li><input id="sat2" type="checkbox"><label for="sat2"><span class="time">09:30–10:15</span>Drive to Castle Howard</label></li>
+            <li><input id="sat3" type="checkbox"><label for="sat3"><span class="time">10:15–12:15</span>House + short garden stroll</label></li>
+            <li><input id="sat4" type="checkbox"><label for="sat4"><span class="time">12:15–13:00</span>Lunch on site</label></li>
+            <li><input id="sat5" type="checkbox"><label for="sat5"><span class="time">13:00–14:15</span>Drive to Robin Hood’s Bay</label></li>
+            <li><input id="sat6" type="checkbox"><label for="sat6"><span class="time">14:15–17:00</span>Village · views · café</label></li>
+            <li><input id="sat7" type="checkbox"><label for="sat7"><span class="time">17:00–18:30</span>Back to York · dinner 19:30</label></li>
+          </ul>
+          <div class="bar"><span data-bar="sat"></span></div>
+          <div class="btn-row">
+            <a class="btn btn-dark" href="https://www.google.com/maps/dir/York/Castle+Howard/Robin+Hood's+Bay/York" target="_blank" rel="noopener">Saturday drive</a>
+            <a class="btn btn-soft" href="https://www.castlehoward.co.uk/" target="_blank" rel="noopener">Castle Howard</a>
+            <a class="btn btn-soft" href="https://www.tide-forecast.com/locations/Whitby-England/tides/latest" target="_blank" rel="noopener">Tides (Whitby)</a>
+          </div>
+          <details class="tip" open><summary>Visitor essentials</summary>
+            <p><strong>Castle Howard:</strong> grounds often 10:00–17:00 (last entry 16:00); house often 10:00–16:00 (last entry 15:00). Buy tickets online. Free parking (except Christmas period).</p>
+            <p><strong>Robin Hood’s Bay:</strong> park at the <em>top</em> (Bank Top / Station car parks — RingGo locs 4640 / 4641). Steep walk down; shoes matter. Beach depends on tide.</p>
+            <p><strong>Driving today:</strong> ~3 hours total — keep the house visit shorter if you want more coast time.</p>
+          </details>
+        </div>
+        <div class="photo" style="background-image:url('media/robin-hoods-bay.jpg')" data-full="media/robin-hoods-bay.jpg" data-cap="Robin Hood’s Bay"><div class="cap">Robin Hood’s Bay</div></div>
+      </div>
+
+      <div class="day-block" id="day-sun">
+        <div class="card">
+          <h3>Sunday · Departure</h3>
+          <p class="muted">London return is provisional — adjust if plans change.</p>
+          <ul class="checklist" data-list="sun">
+            <li><input id="sun1" type="checkbox"><label for="sun1"><span class="time">08:30–09:30</span>Breakfast + pack</label></li>
+            <li><input id="sun2" type="checkbox"><label for="sun2"><span class="time">10:00</span>Checkout (10:00–10:30)</label></li>
+            <li><input id="sun3" type="checkbox"><label for="sun3"><span class="time">12:00–13:00</span>Lunch / comfort stop</label></li>
+            <li><input id="sun4" type="checkbox"><label for="sun4"><span class="time">15:30–16:30</span>Target London arrival</label></li>
+          </ul>
+          <div class="bar"><span data-bar="sun"></span></div>
+          <div class="btn-row">
+            <a class="btn btn-dark" href="https://www.google.com/maps/dir/Railway+House+York/London" target="_blank" rel="noopener">York → London</a>
+            <button class="btn btn-soft" type="button" data-go="pack">Packing checklist</button>
+          </div>
+          <details class="tip"><summary>Drive window</summary>
+            <p>Allow 4½–5½ hours plus breaks. London traffic can stretch the end. Return the car with enough fuel per rental terms.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- WEATHER -->
+    <section class="panel" id="panel-weather" data-panel="weather">
+      <h2>Weather</h2>
+      <p class="muted">Live Open-Meteo forecast · Europe/London · <span class="live" id="wxStatus">loading…</span></p>
+      <div class="card">
+        <h3>York (base)</h3>
+        <div class="wx-grid" id="wxYork"></div>
+      </div>
+      <div class="card">
+        <h3>Stamford (Thu stop)</h3>
+        <div class="wx-grid" id="wxStamford"></div>
+      </div>
+      <div class="card">
+        <h3>Castle Howard area</h3>
+        <div class="wx-grid" id="wxHoward"></div>
+      </div>
+      <div class="card">
+        <h3>Robin Hood’s Bay / coast</h3>
+        <div class="wx-grid" id="wxBay"></div>
+        <div class="btn-row">
+          <a class="btn btn-dark" href="https://www.tide-forecast.com/locations/Whitby-England/tides/latest" target="_blank" rel="noopener">Whitby tide times</a>
+          <button class="btn btn-soft" type="button" id="refreshWx">Refresh weather</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>What to wear</h3>
+        <p id="wearAdvice" class="muted">Based on York forecast…</p>
+        <div class="chip-row" id="wearChips"></div>
+      </div>
+    </section>
+
+    <!-- PLACES -->
+    <section class="panel" id="panel-places" data-panel="places">
+      <h2>Places</h2>
+      <p class="muted">Maps, hours and why you’re going.</p>
+
+      <div class="card">
+        <div class="place">
+          <div class="thumb" style="background-image:url('media/stamford.jpg')"></div>
+          <div>
+            <h3>Stamford</h3>
+            <p class="muted" style="margin:0">Honey-stone streets · lunch stop Thu</p>
+            <span class="pill">Drive ~2–2.5h from London</span>
+            <div class="btn-row">
+              <a class="btn btn-soft" href="https://maps.google.com/?q=Stamford+Lincolnshire" target="_blank" rel="noopener">Map</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="place">
+          <div class="thumb" style="background-image:url('media/minster.jpg')"></div>
+          <div>
+            <h3>York Minster</h3>
+            <p class="muted" style="margin:0">Gothic cathedral · Fri morning</p>
+            <span class="pill">Book tickets</span><span class="pill">~1–1.5 hrs</span>
+            <div class="btn-row">
+              <a class="btn btn-dark" href="https://yorkminster.org/visit/" target="_blank" rel="noopener">Visit info</a>
+              <a class="btn btn-soft" href="https://maps.google.com/?q=York+Minster" target="_blank" rel="noopener">Map</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="place">
+          <div class="thumb" style="background-image:url('media/shambles.jpg')"></div>
+          <div>
+            <h3>The Shambles</h3>
+            <p class="muted" style="margin:0">Medieval street · photos + shops</p>
+            <span class="pill">Busy midday</span>
+            <div class="btn-row">
+              <a class="btn btn-soft" href="https://maps.google.com/?q=The+Shambles+York" target="_blank" rel="noopener">Map</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="place">
+          <div class="thumb" style="background-image:url('media/shambles-market.jpg')"></div>
+          <div>
+            <h3>Shambles Market</h3>
+            <p class="muted" style="margin:0">Crafts · food · Fri afternoon</p>
+            <span class="pill">Often 9–5</span>
+            <div class="btn-row">
+              <a class="btn btn-soft" href="https://maps.google.com/?q=Shambles+Market+York" target="_blank" rel="noopener">Map</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="place">
+          <div class="thumb" style="background-image:url('media/castle-howard.jpg')"></div>
+          <div>
+            <h3>Castle Howard</h3>
+            <p class="muted" style="margin:0">Stately home · Sat morning</p>
+            <span class="pill">Free parking</span><span class="pill">House + gardens</span>
+            <div class="btn-row">
+              <a class="btn btn-dark" href="https://www.castlehoward.co.uk/visit/visitor-information/opening-times-and-prices" target="_blank" rel="noopener">Tickets / hours</a>
+              <a class="btn btn-soft" href="https://maps.google.com/?q=Castle+Howard" target="_blank" rel="noopener">Map</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="place">
+          <div class="thumb" style="background-image:url('media/robin-hoods-bay.jpg')"></div>
+          <div>
+            <h3>Robin Hood’s Bay</h3>
+            <p class="muted" style="margin:0">Fishing village · Sat afternoon</p>
+            <span class="pill">Park at top</span><span class="pill">Steep hill</span>
+            <div class="btn-row">
+              <a class="btn btn-soft" href="https://maps.google.com/?q=Robin+Hood's+Bay+car+park" target="_blank" rel="noopener">Parking map</a>
+              <a class="btn btn-soft" href="https://www.tide-forecast.com/locations/Whitby-England/tides/latest" target="_blank" rel="noopener">Tides</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Hotel</h3>
+        <div class="kv">
+          <b>Name</b><span>Railway House York</span>
+          <b>Address</b><span>128 Holgate Road, York YO24 4FL</span>
+          <b>Check-in</b><span>15:00–22:00</span>
+          <b>Check-out</b><span>10:00–10:30</span>
+          <b>Parking</b><span>Free private parking</span>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-dark" href="https://maps.google.com/?q=Railway+House+York+128+Holgate+Road" target="_blank" rel="noopener">Navigate</a>
+          <a class="btn btn-soft" href="https://www.google.com/maps/search/?api=1&query=restaurants+near+Holgate+Road+York" target="_blank" rel="noopener">Dinner nearby</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PACK / ESSENTIALS -->
+    <section class="panel" id="panel-pack" data-panel="pack">
+      <h2>Pack &amp; essentials</h2>
+      <p class="muted">Documents, kit, money, emergencies.</p>
+
+      <div class="card">
+        <h3>Before you leave London</h3>
+        <ul class="checklist" data-list="pre">
+          <li><input id="pre1" type="checkbox"><label for="pre1">Driving licence + rental booking / pickup PIN</label></li>
+          <li><input id="pre2" type="checkbox"><label for="pre2">Hotel confirmation (Railway House)</label></li>
+          <li><input id="pre3" type="checkbox"><label for="pre3">York Minster tickets (if booked)</label></li>
+          <li><input id="pre4" type="checkbox"><label for="pre4">Castle Howard tickets (if booked)</label></li>
+          <li><input id="pre5" type="checkbox"><label for="pre5">Phone charged + car charger</label></li>
+          <li><input id="pre6" type="checkbox"><label for="pre6">Offline maps downloaded (Google / Apple)</label></li>
         </ul>
-        <div class="progress-mini"><span data-bar="pack"></span></div>
+        <div class="bar"><span data-bar="pre"></span></div>
       </div>
-    </div>
-    <div class="card" style="align-self:start;">
-      <h3>Railway House York</h3>
-      <p>128 Holgate Road<br />York YO24 4FL</p>
-      <p><strong>Free private parking</strong><br />Check-in 3–10pm · Check-out 10–10.30am</p>
-      <div class="actions">
-        <a class="btn btn-dark" href="https://maps.google.com/?q=Railway+House+York+128+Holgate+Road" target="_blank" rel="noopener">Open in Maps</a>
-        <a class="btn btn-link" href="London_York_Itinerary.pptx" download>Download PPTX</a>
-        <button class="btn btn-link" type="button" data-goto="0">← Back to start</button>
+
+      <div class="card">
+        <h3>Bag</h3>
+        <ul class="checklist" data-list="pack">
+          <li><input id="pk1" type="checkbox"><label for="pk1">Comfortable walking shoes</label></li>
+          <li><input id="pk2" type="checkbox"><label for="pk2">Rain jacket / compact umbrella</label></li>
+          <li><input id="pk3" type="checkbox"><label for="pk3">Warm layer (autumn evenings)</label></li>
+          <li><input id="pk4" type="checkbox"><label for="pk4">Power bank</label></li>
+          <li><input id="pk5" type="checkbox"><label for="pk5">Reusable water bottle</label></li>
+          <li><input id="pk6" type="checkbox"><label for="pk6">Small day bag for Fri / Sat</label></li>
+        </ul>
+        <div class="bar"><span data-bar="pack"></span></div>
       </div>
-      <p style="margin-top:1rem;font-size:.9rem;opacity:.8;">Photos are place previews, not a weather forecast. Tick progress stays on this browser.</p>
-    </div>
-  </section>
 
+      <div class="card">
+        <h3>UK travel notes</h3>
+        <div class="kv">
+          <b>Money</b><span>Cards widely accepted; some car parks need app (RingGo)</span>
+          <b>Drive</b><span>Left side · watch city centre cameras / Clean Air Zone signs</span>
+          <b>Fuel</b><span>Petrol / diesel per rental · keep receipt if needed</span>
+          <b>Phones</b><span>Emergency <a href="tel:999">999</a> · non-urgent NHS <a href="tel:111">111</a></span>
+          <b>Timezone</b><span>Europe/London (BST until late Oct)</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Useful links</h3>
+        <div class="btn-row">
+          <a class="btn btn-dark" href="https://www.nationalrail.co.uk/" target="_blank" rel="noopener">National Rail</a>
+          <a class="btn btn-soft" href="https://www.york.gov.uk/Parking" target="_blank" rel="noopener">York parking</a>
+          <a class="btn btn-soft" href="London_York_Itinerary.pptx" download>Download PPTX</a>
+          <button class="btn btn-soft" type="button" id="resetAll">Reset all ticks</button>
+        </div>
+        <p class="muted" style="margin-top:.75rem">Tip: on iPhone Safari → Share → <strong>Add to Home Screen</strong> for an app-like icon.</p>
+      </div>
+    </section>
+  </main>
+
+  <nav class="nav" aria-label="Main">
+    <button type="button" class="active" data-go="home"><span class="ic">⌂</span>Home</button>
+    <button type="button" data-go="days"><span class="ic">▦</span>Days</button>
+    <button type="button" data-go="weather"><span class="ic">☁</span>Weather</button>
+    <button type="button" data-go="places"><span class="ic">⌖</span>Places</button>
+    <button type="button" data-go="pack"><span class="ic">☑</span>Pack</button>
+  </nav>
 </div>
 
-
-<nav class="mobile-days" id="mobileDays" aria-label="Quick day jump">
-  <button type="button" data-goto="0">Start</button>
-  <button type="button" data-goto="1">Overview</button>
-  <button type="button" data-goto="2">Thu</button>
-  <button type="button" data-goto="3">Fri</button>
-  <button type="button" data-goto="6">Sat</button>
-  <button type="button" data-goto="7">Coast</button>
-  <button type="button" data-goto="8">Sun</button>
-</nav>
-
-<div class="controls" aria-label="Controls">
-  <button type="button" id="prev" title="Previous">←</button>
-  <span class="counter" id="counter">1 / 9</span>
-  <button type="button" id="next" title="Next">→</button>
-  <button type="button" id="full" title="Fullscreen">⛶</button>
-  <a class="ctrl" href="#overview" id="homeBtn" title="Overview">⌂</a>
-  <a class="pptx" href="London_York_Itinerary.pptx" download>PPTX</a>
-</div>
-<div class="hint">← → · Space · F · Jump menu</div>
-
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo">
-  <img id="lightboxImg" alt="" />
-</div>
+<div class="lightbox" id="lightbox"><img id="lightboxImg" alt=""></div>
 
 <script>
 (() => {
-  const KEY = 'london-york-itinerary-checks-v1';
-  const slides = [...document.querySelectorAll('.slide')];
-  const counter = document.getElementById('counter');
-  const progress = document.getElementById('progress');
-  const dots = document.getElementById('dots');
-  const menuPanel = document.getElementById('menuPanel');
-  const menuBtn = document.getElementById('menuBtn');
+  const KEY = 'york-trip-companion-v2';
+  const DATES = ['2026-10-15','2026-10-16','2026-10-17','2026-10-18'];
+  const PLACES = {
+    york: { lat: 53.960, lon: -1.087, el: 'wxYork', label: 'York' },
+    stamford: { lat: 52.651, lon: -0.480, el: 'wxStamford', label: 'Stamford' },
+    howard: { lat: 54.121, lon: -0.906, el: 'wxHoward', label: 'Castle Howard' },
+    bay: { lat: 54.434, lon: -0.534, el: 'wxBay', label: 'Coast' },
+  };
+  const WMO = {
+    0:['☀️','Clear'],1:['🌤','Mainly clear'],2:['⛅','Partly cloudy'],3:['☁️','Overcast'],
+    45:['🌫','Fog'],48:['🌫','Fog'],51:['🌦','Drizzle'],53:['🌦','Drizzle'],55:['🌧','Drizzle'],
+    61:['🌦','Rain'],63:['🌧','Rain'],65:['🌧','Heavy rain'],71:['🌨','Snow'],80:['🌦','Showers'],
+    81:['🌧','Showers'],82:['🌧','Heavy showers'],95:['⛈','Thunder'],
+  };
   const toast = document.getElementById('toast');
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightboxImg');
-  let i = 0;
-  let toastTimer;
+  let toastT, focusDay = 'thu';
 
-  // Build nav
-  slides.forEach((s, idx) => {
-    const title = s.dataset.title || `Slide ${idx + 1}`;
-    const dot = document.createElement('button');
-    dot.className = 'dot';
-    dot.type = 'button';
-    dot.title = title;
-    dot.setAttribute('aria-label', title);
-    dot.addEventListener('click', () => show(idx));
-    dots.appendChild(dot);
-
-    const item = document.createElement('button');
-    item.type = 'button';
-    item.textContent = `${idx + 1}. ${title}`;
-    item.addEventListener('click', () => { show(idx); closeMenu(); });
-    menuPanel.appendChild(item);
-  });
-
-  const showToast = (msg) => {
-    toast.textContent = msg;
-    toast.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove('show'), 1600);
+  const showToast = (m) => {
+    toast.textContent = m; toast.classList.add('show');
+    clearTimeout(toastT); toastT = setTimeout(() => toast.classList.remove('show'), 1600);
   };
 
-  const show = (n) => {
-    i = Math.max(0, Math.min(slides.length - 1, n));
-    slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
-    [...dots.children].forEach((d, idx) => d.classList.toggle('active', idx === i));
-    [...menuPanel.children].forEach((d, idx) => d.classList.toggle('active', idx === i));
-    counter.textContent = `${i + 1} / ${slides.length}`;
-    progress.style.width = `${((i + 1) / slides.length) * 100}%`;
-    document.querySelectorAll('.route .stop').forEach((el) => {
-      const g = Number(el.dataset.goto);
-      el.classList.toggle('active', g === i);
-    });
-    document.querySelectorAll('#mobileDays button').forEach((el) => {
-      el.classList.toggle('active', Number(el.dataset.goto) === i);
-    });
-    // Scroll active slide back to top on change (helps iPhone)
-    slides[i].scrollTop = 0;
-    history.replaceState(null, '', `#${i}`);
-  };
-
-  const closeMenu = () => {
-    menuPanel.classList.remove('open');
-    menuBtn.setAttribute('aria-expanded', 'false');
-  };
-
-  // Checklist persistence
-  const loadChecks = () => {
-    try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch { return {}; }
-  };
-  const saveChecks = (data) => localStorage.setItem(KEY, JSON.stringify(data));
-
-  const refreshBars = () => {
-    document.querySelectorAll('.checklist').forEach((list) => {
-      const id = list.dataset.list;
-      const boxes = [...list.querySelectorAll('input[type=checkbox]')];
-      const done = boxes.filter((b) => b.checked).length;
-      const bar = document.querySelector(`[data-bar="${id}"]`);
-      if (bar) bar.style.width = boxes.length ? `${(done / boxes.length) * 100}%` : '0%';
-      boxes.forEach((b) => b.closest('li')?.classList.toggle('done', b.checked));
-    });
-  };
-
-  const applyChecks = () => {
-    const data = loadChecks();
-    document.querySelectorAll('.checklist input[type=checkbox]').forEach((box) => {
-      box.checked = !!data[box.id];
-      box.addEventListener('change', () => {
-        const next = loadChecks();
-        next[box.id] = box.checked;
-        saveChecks(next);
-        refreshBars();
-        if (box.checked) showToast('Nice — step done');
-      });
-    });
-    refreshBars();
-  };
-
-  document.getElementById('resetProgress')?.addEventListener('click', () => {
-    localStorage.removeItem(KEY);
-    document.querySelectorAll('.checklist input[type=checkbox]').forEach((b) => { b.checked = false; });
-    refreshBars();
-    showToast('Progress cleared');
-  });
-
-  // Navigation wiring
-  document.getElementById('prev').onclick = () => show(i - 1);
-  document.getElementById('next').onclick = () => show(i + 1);
-  document.getElementById('homeBtn').onclick = (e) => { e.preventDefault(); show(1); };
-  document.getElementById('full').onclick = () => {
-    if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
-    else document.exitFullscreen?.();
-  };
-  menuBtn.addEventListener('click', () => {
-    const open = menuPanel.classList.toggle('open');
-    menuBtn.setAttribute('aria-expanded', String(open));
-  });
-  document.addEventListener('click', (e) => {
-    if (!menuPanel.contains(e.target) && e.target !== menuBtn) closeMenu();
-  });
-
-  document.querySelectorAll('[data-goto]').forEach((el) => {
-    el.addEventListener('click', () => show(Number(el.dataset.goto)));
-  });
-
-  // Photo lightbox
-  const openPhoto = (el) => {
-    lightboxImg.src = el.dataset.full;
-    lightboxImg.alt = el.dataset.caption || '';
-    lightbox.classList.add('open');
-  };
-  document.querySelectorAll('.photo[data-full]').forEach((el) => {
-    el.addEventListener('click', () => openPhoto(el));
-    el.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPhoto(el); }
-    });
-  });
-  lightbox.addEventListener('click', () => lightbox.classList.remove('open'));
-
-  window.addEventListener('keydown', (e) => {
-    if (lightbox.classList.contains('open') && e.key === 'Escape') {
-      lightbox.classList.remove('open'); return;
-    }
-    if (['INPUT', 'TEXTAREA', 'SUMMARY'].includes(document.activeElement?.tagName)) return;
-    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); show(i + 1); }
-    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1); }
-    if (e.key === 'f' || e.key === 'F') document.getElementById('full').click();
-    if (e.key === 'Home') show(0);
-    if (e.key === 'End') show(slides.length - 1);
-    if (e.key === 'Escape') closeMenu();
-  });
-
-  let touchX = null, touchY = null;
-  window.addEventListener('touchstart', (e) => {
-    touchX = e.changedTouches[0].clientX;
-    touchY = e.changedTouches[0].clientY;
-  }, { passive: true });
-  window.addEventListener('touchend', (e) => {
-    if (touchX == null || lightbox.classList.contains('open')) return;
-    const dx = e.changedTouches[0].clientX - touchX;
-    const dy = e.changedTouches[0].clientY - touchY;
-    // Only change slides on mostly-horizontal swipes (don't fight vertical scroll)
-    if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.35) {
-      show(i + (dx < 0 ? 1 : -1));
-    }
-    touchX = null; touchY = null;
-  }, { passive: true });
-
-  // Keep iPhone address-bar height correct
-  const setAppH = () => {
+  // Viewport height for iPhone
+  const setH = () => {
     const h = window.visualViewport?.height || window.innerHeight;
     document.documentElement.style.setProperty('--app-h', `${h}px`);
   };
-  setAppH();
-  window.visualViewport?.addEventListener('resize', setAppH);
-  window.addEventListener('resize', setAppH);
-  window.addEventListener('orientationchange', () => setTimeout(setAppH, 120));
+  setH();
+  window.visualViewport?.addEventListener('resize', setH);
+  window.addEventListener('resize', setH);
+  window.addEventListener('orientationchange', () => setTimeout(setH, 150));
 
-  applyChecks();
-  const hash = Number((location.hash || '#0').slice(1));
-  show(Number.isFinite(hash) ? hash : 0);
+  // Panels
+  const go = (name) => {
+    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.dataset.panel === name));
+    document.querySelectorAll('.nav button').forEach(b => b.classList.toggle('active', b.dataset.go === name));
+    document.getElementById('main').scrollTop = 0;
+    history.replaceState(null, '', `#${name}`);
+    if (name === 'weather') loadWeather();
+  };
+  document.querySelectorAll('[data-go]').forEach(el => el.addEventListener('click', () => go(el.dataset.go)));
+
+  // Day tabs
+  document.querySelectorAll('#dayTabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#dayTabs button').forEach(b => b.classList.toggle('active', b === btn));
+      document.querySelectorAll('.day-block').forEach(d => d.classList.toggle('active', d.id === `day-${btn.dataset.day}`));
+      document.getElementById('main').scrollTop = 0;
+    });
+  });
+
+  const openDay = (day) => {
+    go('days');
+    const btn = document.querySelector(`#dayTabs button[data-day="${day}"]`);
+    btn?.click();
+  };
+  document.getElementById('openFocusDay').addEventListener('click', () => openDay(focusDay));
+
+  // Trip focus by calendar date
+  const today = new Date();
+  const iso = today.toLocaleDateString('en-CA', { timeZone: 'Europe/London' });
+  const map = { '2026-10-15':'thu','2026-10-16':'fri','2026-10-17':'sat','2026-10-18':'sun' };
+  const labels = {
+    thu: ['Thursday focus', 'Canary Wharf pickup → Stamford lunch → York hotel', ['Drive', 'Stamford', 'Check-in']],
+    fri: ['Friday focus', 'York on foot: Minster, Shambles, market', ['Minster tickets', 'Walking shoes', 'No car']],
+    sat: ['Saturday focus', 'Castle Howard morning · Robin Hood’s Bay afternoon', ['Tickets', 'RingGo parking', 'Check tides']],
+    sun: ['Sunday focus', 'Checkout by 10:30 · drive south if returning to London', ['Pack', 'Fuel', 'Traffic']],
+  };
+  if (iso < '2026-10-15') {
+    focusDay = 'thu';
+    document.getElementById('tripPulse').textContent = 'Trip starts Thu 15 Oct — prep car pickup, tickets and packing.';
+    document.getElementById('focusChips').innerHTML = ['Countdown','Book Minster','Pack rain layer'].map(t=>`<span class="pill">${t}</span>`).join('');
+  } else if (map[iso]) {
+    focusDay = map[iso];
+    const [title, body, chips] = labels[focusDay];
+    document.getElementById('tripPulse').innerHTML = `<strong>${title}</strong> — ${body}`;
+    document.getElementById('focusChips').innerHTML = chips.map(t=>`<span class="pill">${t}</span>`).join('');
+  } else {
+    focusDay = 'sun';
+    document.getElementById('tripPulse').textContent = 'Trip window has passed — keep this page as a souvenir checklist.';
+  }
+
+  // Checklists
+  const load = () => { try { return JSON.parse(localStorage.getItem(KEY)||'{}'); } catch { return {}; } };
+  const save = (d) => localStorage.setItem(KEY, JSON.stringify(d));
+  const refreshBars = () => {
+    document.querySelectorAll('.checklist').forEach(list => {
+      const id = list.dataset.list;
+      const boxes = [...list.querySelectorAll('input[type=checkbox]')];
+      const done = boxes.filter(b => b.checked).length;
+      const bar = document.querySelector(`[data-bar="${id}"]`);
+      if (bar) bar.style.width = boxes.length ? `${(done/boxes.length)*100}%` : '0%';
+      boxes.forEach(b => b.closest('li')?.classList.toggle('done', b.checked));
+    });
+  };
+  const data = load();
+  document.querySelectorAll('.checklist input[type=checkbox]').forEach(box => {
+    box.checked = !!data[box.id];
+    box.addEventListener('change', () => {
+      const next = load(); next[box.id] = box.checked; save(next); refreshBars();
+      if (box.checked) showToast('Nice — done');
+    });
+  });
+  refreshBars();
+  document.getElementById('resetAll').addEventListener('click', () => {
+    localStorage.removeItem(KEY);
+    document.querySelectorAll('.checklist input').forEach(b => b.checked = false);
+    refreshBars(); showToast('All ticks cleared');
+  });
+
+  // Photos
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightboxImg');
+  document.querySelectorAll('.photo[data-full]').forEach(el => {
+    el.addEventListener('click', () => { lbImg.src = el.dataset.full; lbImg.alt = el.dataset.cap||''; lb.classList.add('open'); });
+  });
+  lb.addEventListener('click', () => lb.classList.remove('open'));
+
+  // Weather
+  const codeInfo = (c) => WMO[c] || ['🌥', 'Mixed'];
+  const renderPlace = (target, daily) => {
+    const el = document.getElementById(target);
+    if (!daily?.time?.length) { el.innerHTML = '<p class="muted">No data</p>'; return; }
+    el.innerHTML = daily.time.map((d, i) => {
+      const [icon, label] = codeInfo(daily.weathercode[i]);
+      const tmax = Math.round(daily.temperature_2m_max[i]);
+      const tmin = Math.round(daily.temperature_2m_min[i]);
+      const pop = daily.precipitation_probability_max?.[i];
+      const day = new Date(d + 'T12:00:00').toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short' });
+      return `<div class="wx-day"><div class="d">${day}</div><div class="icon">${icon}</div><div class="t">${tmin}–${tmax}°</div><div class="p">${label}${pop!=null?` · ${pop}% rain`:''}</div></div>`;
+    }).join('');
+  };
+
+  const wearFromYork = (daily) => {
+    if (!daily?.temperature_2m_max) return;
+    const max = Math.max(...daily.temperature_2m_max);
+    const min = Math.min(...daily.temperature_2m_min);
+    const rain = Math.max(...(daily.precipitation_probability_max||[0]));
+    const tips = [];
+    tips.push(max <= 14 ? 'Warm jumper' : max <= 18 ? 'Light jumper' : 'T-shirt + layer');
+    tips.push(min <= 8 ? 'Proper coat for evenings' : 'Light jacket for evenings');
+    tips.push(rain >= 40 ? 'Rain jacket essential' : rain >= 20 ? 'Pack a compact umbrella' : 'Rain kit optional but smart');
+    tips.push('Comfortable shoes · Saturday hill');
+    document.getElementById('wearAdvice').textContent = `York looks about ${Math.round(min)}–${Math.round(max)}°C over the trip. Rain chance peaks around ${rain}%.`;
+    document.getElementById('wearChips').innerHTML = tips.map(t => `<span class="pill">${t}</span>`).join('');
+  };
+
+  let wxCache = null;
+  async function fetchOne(p) {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${p.lat}&longitude=${p.lon}&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum&timezone=Europe%2FLondon&start_date=${DATES[0]}&end_date=${DATES[3]}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('weather fail');
+    return res.json();
+  }
+
+  async function loadWeather(force=false) {
+    const status = document.getElementById('wxStatus');
+    const chip = document.getElementById('wxChip');
+    if (wxCache && !force) {
+      Object.values(PLACES).forEach(p => renderPlace(p.el, wxCache[p.el]?.daily));
+      return;
+    }
+    status.textContent = 'updating…'; status.className = 'live';
+    Object.values(PLACES).forEach(p => { document.getElementById(p.el).innerHTML = '<p class="muted skeleton">Fetching…</p>'; });
+    try {
+      const entries = await Promise.all(Object.values(PLACES).map(async p => [p.el, await fetchOne(p)]));
+      wxCache = Object.fromEntries(entries);
+      Object.values(PLACES).forEach(p => renderPlace(p.el, wxCache[p.el].daily));
+      const y = wxCache.wxYork.daily;
+      wearFromYork(y);
+      const todayIdx = Math.max(0, y.time.indexOf(iso));
+      const idx = todayIdx >= 0 && y.time.includes(iso) ? y.time.indexOf(iso) : 0;
+      const [icon, label] = codeInfo(y.weathercode[idx]);
+      chip.innerHTML = `<b>${icon}</b> ${Math.round(y.temperature_2m_min[idx])}–${Math.round(y.temperature_2m_max[idx])}° York`;
+      chip.title = label;
+      status.textContent = 'updated just now'; status.className = 'live ok';
+    } catch (e) {
+      status.textContent = 'offline — open Weather later'; status.className = 'live err';
+      chip.textContent = '☁ Weather offline';
+      showToast('Weather unavailable — try again on Wi‑Fi');
+    }
+  }
+
+  document.getElementById('refreshWx').addEventListener('click', () => loadWeather(true));
+
+  // Prefetch weather for chip
+  loadWeather();
+
+  // Deep link
+  const hash = (location.hash || '#home').slice(1);
+  if (['home','days','weather','places','pack'].includes(hash)) go(hash);
+
+  // Esc closes lightbox
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') lb.classList.remove('open');
+  });
 })();
 </script>
 </body>
