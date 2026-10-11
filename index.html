@@ -100,6 +100,62 @@ h3{font-family:Fraunces,Georgia,serif;font-size:1.08rem;margin:0 0 .45rem;color:
 .stat{background:var(--slate);color:var(--lime);border-radius:14px;padding:.75rem .8rem}
 .stat b{display:block;font-family:Fraunces,Georgia,serif;font-size:1.05rem}
 .stat span{font-size:.78rem;opacity:.85}
+.stay-card{
+  position:relative; overflow:hidden;
+  margin:0 0 .85rem; padding:0;
+  border-radius:20px; border:1px solid var(--line);
+  background:linear-gradient(145deg,#fffdf8 0%, #f3ebe0 55%, #e8dfd0 100%);
+  box-shadow:0 14px 36px rgba(12,18,14,.1);
+}
+.stay-card-inner{padding:.95rem 1rem 1rem; position:relative; z-index:1}
+.stay-kicker{
+  display:inline-flex; align-items:center; gap:.35rem;
+  font-size:.68rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--moss); margin:0 0 .35rem;
+}
+.stay-title{
+  margin:0 0 .15rem; font-family:Fraunces,Georgia,serif; font-size:1.25rem; color:var(--slate);
+}
+.stay-addr{margin:0 0 .75rem; font-size:.88rem; color:var(--moss)}
+.stay-chips{display:flex; flex-wrap:wrap; gap:.45rem}
+.stay-chip{
+  appearance:none; border:1px solid rgba(47,61,54,.12);
+  background:rgba(255,252,246,.9); color:var(--ink);
+  border-radius:14px; padding:.55rem .7rem; min-height:52px;
+  display:flex; flex-direction:column; justify-content:center; gap:.1rem;
+  flex:1 1 96px; text-align:left; cursor:pointer; font:inherit;
+  transition:transform .15s ease, border-color .15s ease, background .15s ease;
+}
+.stay-chip:active{transform:scale(.98)}
+.stay-chip:hover,.stay-chip:focus-visible{
+  border-color:rgba(196,120,58,.5); background:#fff; outline:none;
+}
+.stay-chip .lbl{font-size:.68rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--moss)}
+.stay-chip .val{font-family:Fraunces,Georgia,serif; font-size:.98rem; color:var(--slate); font-weight:700}
+.stay-chip.is-active{
+  background:var(--slate); color:var(--lime); border-color:transparent;
+}
+.stay-chip.is-active .lbl{color:rgba(232,226,212,.7)}
+.stay-chip.is-active .val{color:var(--lime)}
+.stay-detail{
+  display:none; margin-top:.7rem; padding:.7rem .8rem;
+  border-radius:12px; background:rgba(47,61,54,.06); font-size:.88rem; color:var(--ink);
+}
+.stay-detail.open{display:block; animation:in .2s ease}
+.stay-detail a{color:var(--moss); font-weight:700}
+.stay-card::after{
+  content:""; position:absolute; right:-20px; top:-30px; width:120px; height:120px;
+  border-radius:50%; background:rgba(196,120,58,.12); pointer-events:none;
+}
+.stay-card::before{
+  content:""; position:absolute; left:-30px; bottom:-40px; width:140px; height:140px;
+  border-radius:50%; background:rgba(63,90,73,.08); pointer-events:none;
+}
+html.night .stay-card{background:linear-gradient(145deg,#1a221e,#141c18); border-color:var(--line)}
+html.night .stay-chip{background:rgba(26,34,30,.9); color:var(--ink); border-color:var(--line)}
+html.night .stay-chip.is-active{background:#2a3830}
+html.night .stay-detail{background:rgba(232,226,212,.06)}
+
 .btn{
   appearance:none;border:0;border-radius:999px;min-height:44px;padding:.65rem 1rem;font:inherit;font-weight:700;
   display:inline-flex;align-items:center;justify-content:center;gap:.35rem;text-decoration:none;cursor:pointer;
@@ -352,10 +408,27 @@ html.night .photo .cap{color:#e8e2d4}
 
       <div class="offline-banner" id="offlineBanner"><span class="dot" aria-hidden="true"></span><span>Offline · ticks &amp; maps still work</span></div>
 
-      <div class="grid3" style="margin-bottom:.75rem">
-        <div class="stat"><b>3 nights</b><span>Railway House</span></div>
-        <div class="stat"><b>YO24 4FL</b><span>Holgate Road</span></div>
-        <div class="stat"><b>Free park</b><span>At hotel</span></div>
+      <div class="stay-card" id="stayCard">
+        <div class="stay-card-inner">
+          <div class="stay-kicker">Your base</div>
+          <h3 class="stay-title">Railway House York</h3>
+          <p class="stay-addr">128 Holgate Road · check-in 3–10pm</p>
+          <div class="stay-chips">
+            <button type="button" class="stay-chip" data-stay="nights">
+              <span class="lbl">Stay</span>
+              <span class="val">3 nights</span>
+            </button>
+            <button type="button" class="stay-chip" data-stay="postcode">
+              <span class="lbl">Postcode</span>
+              <span class="val">YO24 4FL</span>
+            </button>
+            <button type="button" class="stay-chip" data-stay="park">
+              <span class="lbl">Parking</span>
+              <span class="val">Free</span>
+            </button>
+          </div>
+          <div class="stay-detail" id="stayDetail"></div>
+        </div>
       </div>
 
       <div class="card">
@@ -884,6 +957,38 @@ html.night .photo .cap{color:#e8e2d4}
     document.getElementById('welcome')?.classList.add('open');
   });
 
+
+
+  // Stay card interactions
+  const STAY = {
+    nights: {
+      html: '<strong>15–18 Oct</strong> · three nights at Railway House. Checkout Sunday 10:00–10:30.'
+    },
+    postcode: {
+      html: 'YO24 4FL · 128 Holgate Road. <a href="https://maps.google.com/?q=Railway+House+York+128+Holgate+Road" target="_blank" rel="noopener">Open in Maps</a>',
+      copy: 'YO24 4FL'
+    },
+    park: {
+      html: 'Free private parking at the hotel. Leave the car here on Friday and walk into York.'
+    }
+  };
+  const stayDetail = document.getElementById('stayDetail');
+  document.querySelectorAll('.stay-chip').forEach(chip => {
+    chip.addEventListener('click', async () => {
+      const key = chip.dataset.stay;
+      const info = STAY[key];
+      if (!info) return;
+      document.querySelectorAll('.stay-chip').forEach(c => c.classList.toggle('is-active', c === chip));
+      stayDetail.classList.add('open');
+      stayDetail.innerHTML = info.html;
+      if (info.copy) {
+        try {
+          await navigator.clipboard.writeText(info.copy);
+          showToast('Postcode copied');
+        } catch {}
+      }
+    });
+  });
 
   // Interactive Good to know tiles
   const TIP_COPY = {
