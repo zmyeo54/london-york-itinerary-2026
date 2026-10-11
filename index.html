@@ -62,12 +62,18 @@ button,a,label,summary,input{touch-action:manipulation;-webkit-tap-highlight-col
 }
 .topbar .sub{font-size:.7rem;opacity:.75;margin-top:.1rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .wx-chip{
-  flex:0 1 auto; max-width:42%;
-  display:flex;align-items:center;gap:.35rem;background:rgba(232,226,212,.12);
-  border:1px solid rgba(232,226,212,.18);border-radius:999px;padding:.3rem .55rem;font-size:.72rem;
-  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  flex:0 0 auto;
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:linear-gradient(135deg,rgba(232,226,212,.16),rgba(232,226,212,.08));
+  border:1px solid rgba(232,226,212,.22);border-radius:999px;
+  padding:.35rem .65rem .35rem .5rem;font-size:.72rem;line-height:1.1;
+  white-space:nowrap; max-width:none;
 }
-.wx-chip b{font-size:1rem}
+.wx-chip .wx-ico{font-size:1.05rem;line-height:1}
+.wx-chip .wx-temp{font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.wx-chip .wx-place{
+  opacity:.8; font-size:.68rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+}
 .main{flex:1 1 auto;width:100%;max-width:100%;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 0 calc(var(--nav-h) + var(--safe-b) + .35rem)}
 .panel{display:none;width:100%;max-width:100%;padding:.9rem calc(.85rem + var(--safe-r)) 1.2rem calc(.85rem + var(--safe-l));animation:in .28s ease;overflow-x:hidden}
 .panel.active{display:block}
@@ -128,7 +134,7 @@ h3{font-family:Fraunces,Georgia,serif;font-size:1.08rem;margin:0 0 .45rem;color:
 .time{display:block;font-weight:700;color:var(--slate);font-size:.9rem;margin-bottom:.12rem}
 .bar{height:.42rem;background:rgba(47,61,54,.12);border-radius:999px;overflow:hidden;margin-top:.55rem}
 .bar>span{display:block;height:100%;width:0;background:var(--ok);transition:width .25s}
-.tip{background:rgba(196,120,58,.12);border-left:4px solid var(--amber);border-radius:0 12px 12px 0;padding:.7rem .85rem;margin-top:.65rem}
+.tip{background:linear-gradient(135deg,rgba(47,61,54,.04),rgba(196,120,58,.08));border:1px solid rgba(196,120,58,.2);border-radius:14px;padding:.75rem .9rem;margin-top:.65rem}
 .tip summary{font-weight:700;cursor:pointer;list-style:none}
 .tip summary::-webkit-details-marker{display:none}
 .tip summary::after{content:" ▾";color:var(--amber)}
@@ -209,10 +215,48 @@ h3{font-family:Fraunces,Georgia,serif;font-size:1.08rem;margin:0 0 .45rem;color:
   background:var(--amber);color:#1a1208;border-radius:999px;padding:.1rem .35rem;vertical-align:middle;
 }
 .offline-banner{
-  display:none;margin:0 0 .75rem;padding:.7rem .85rem;border-radius:12px;
-  background:rgba(138,59,42,.12);border:1px solid rgba(138,59,42,.25);color:var(--slate);font-size:.9rem;
+  display:none; align-items:center; gap:.55rem;
+  margin:0 0 .75rem; padding:.45rem .7rem;
+  border-radius:999px; width:fit-content; max-width:100%;
+  background:rgba(47,61,54,.92); color:var(--lime);
+  font-size:.78rem; font-weight:600;
+  box-shadow:0 8px 24px rgba(12,18,14,.18);
 }
-.offline-banner.show{display:block}
+.offline-banner.show{display:inline-flex}
+.offline-banner .dot{
+  width:.55rem; height:.55rem; border-radius:999px; background:#e08a3c;
+  box-shadow:0 0 0 3px rgba(224,138,60,.25); flex-shrink:0;
+}
+.tip-tiles{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.55rem; margin-top:.15rem}
+@media(min-width:700px){.tip-tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.tip-tile{
+  appearance:none; border:1px solid var(--line); background:rgba(255,252,246,.95);
+  border-radius:16px; padding:.75rem .8rem; text-align:left; cursor:pointer;
+  font:inherit; color:inherit; min-height:88px;
+  display:flex; flex-direction:column; gap:.3rem;
+  transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+  box-shadow:0 8px 20px rgba(12,18,14,.06);
+}
+.tip-tile:hover,.tip-tile:focus-visible{
+  transform:translateY(-2px); border-color:rgba(196,120,58,.45);
+  box-shadow:0 12px 28px rgba(12,18,14,.12); outline:none;
+}
+.tip-tile .ico{font-size:1.15rem; line-height:1}
+.tip-tile strong{font-family:Fraunces,Georgia,serif; font-size:.95rem; color:var(--slate)}
+.tip-tile span{font-size:.78rem; color:var(--moss); line-height:1.35}
+.tip-drawer{
+  display:none; margin-top:.65rem; padding:.85rem .95rem;
+  border-radius:14px;
+  background:linear-gradient(145deg, rgba(47,61,54,.06), rgba(196,120,58,.08));
+  border:1px solid rgba(196,120,58,.22);
+}
+.tip-drawer.open{display:block; animation:in .22s ease}
+.tip-drawer h4{margin:0 0 .35rem; font-family:Fraunces,Georgia,serif; font-size:1rem; color:var(--slate)}
+.tip-drawer p{margin:0; font-size:.9rem; color:var(--ink); line-height:1.45}
+html.night .tip-tile{background:rgba(26,34,30,.96); color:var(--ink)}
+html.night .tip-drawer{background:rgba(224,138,60,.1); border-color:rgba(224,138,60,.28)}
+html.night .offline-banner{background:rgba(232,226,212,.12); color:var(--lime)}
+
 .share-sheet{
   position:fixed;inset:0;z-index:95;background:rgba(8,12,10,.55);
   display:none;align-items:flex-end;justify-content:center;
@@ -288,7 +332,7 @@ html.night .photo .cap{color:#e8e2d4}
       <div class="sub">15–18 Oct 2026 · London → York</div>
     </div>
     <div class="top-actions">
-      <div class="wx-chip" id="wxChip" title="York weather">⏳ York…</div>
+      <div class="wx-chip" id="wxChip" title="York weather"><span class="wx-ico">⏳</span><span class="wx-temp">…</span><span class="wx-place">York</span></div>
       <button class="icon-btn" type="button" id="shareBtn" title="Share" aria-label="Share">⇧</button>
       <button class="icon-btn" type="button" id="nightBtn" title="Night mode" aria-label="Night mode">☾</button>
     </div>
@@ -306,7 +350,7 @@ html.night .photo .cap{color:#e8e2d4}
         </div>
       </div>
 
-      <div class="offline-banner" id="offlineBanner">You’re offline. Maps links and tick lists still work; weather needs a connection.</div>
+      <div class="offline-banner" id="offlineBanner"><span class="dot" aria-hidden="true"></span><span>Offline · ticks &amp; maps still work</span></div>
 
       <div class="grid3" style="margin-bottom:.75rem">
         <div class="stat"><b>3 nights</b><span>Railway House</span></div>
@@ -328,16 +372,18 @@ html.night .photo .cap{color:#e8e2d4}
 
       <div class="card" id="handyTipsHome">
         <h3>Good to know</h3>
-        <div class="kv">
-          <b>Money</b><span>£1 ≈ RM5.5–6 · contactless everywhere · keep a little cash for some car parks</span>
-          <b>Weather</b><span>Cooler and wetter than home — layers + rain jacket are non-negotiable</span>
-          <b>Drive</b><span>Left side · speed in <em>mph</em> · use sat-nav in York one-ways</span>
-          <b>Time</b><span>UK is about 7 hours behind Malaysia (MYT → BST)</span>
-          <b>Food</b><span>Search “halal York” or Turkish restaurants · ask if unsure</span>
-          <b>Plug</b><span>Type G — same as home · bring a power bank for walking days</span>
+        <p class="muted" style="margin-bottom:.55rem">Tap a tile for the short version.</p>
+        <div class="tip-tiles" id="tipTiles">
+          <button type="button" class="tip-tile" data-tip="money"><span class="ico">£</span><strong>Money</strong><span>£1 ≈ RM5.5–6</span></button>
+          <button type="button" class="tip-tile" data-tip="weather"><span class="ico">🌧</span><strong>Weather</strong><span>Pack a real jacket</span></button>
+          <button type="button" class="tip-tile" data-tip="drive"><span class="ico">🚗</span><strong>Driving</strong><span>Left · miles / mph</span></button>
+          <button type="button" class="tip-tile" data-tip="food"><span class="ico">🍽</span><strong>Food</strong><span>Halal-friendly picks</span></button>
+          <button type="button" class="tip-tile" data-tip="time"><span class="ico">🕒</span><strong>Time</strong><span>~7 hrs behind MY</span></button>
+          <button type="button" class="tip-tile" data-tip="plug"><span class="ico">🔌</span><strong>Plugs</strong><span>Type G · same as home</span></button>
         </div>
+        <div class="tip-drawer" id="tipDrawer" hidden></div>
         <div class="btn-row">
-          <button class="btn btn-soft" type="button" data-go="pack">Full tips in Pack</button>
+          <button class="btn btn-soft" type="button" data-go="pack">More in Pack</button>
           <a class="btn btn-dark" href="https://www.gov.uk/guidance/apply-for-an-electronic-travel-authorisation-eta" target="_blank" rel="noopener">UK ETA info</a>
         </div>
       </div>
@@ -730,7 +776,7 @@ html.night .photo .cap{color:#e8e2d4}
 <script>
 (() => {
   const KEY = 'york-trip-companion-v2';
-  const WELCOME_KEY = 'york-trip-welcome-v1';
+  const WELCOME_KEY = 'york-trip-welcome-v2';
   const DATES = ['2026-10-15','2026-10-16','2026-10-17','2026-10-18'];
   const PLACES = {
     york: { lat: 53.960, lon: -1.087, el: 'wxYork', label: 'York' },
@@ -838,6 +884,29 @@ html.night .photo .cap{color:#e8e2d4}
     document.getElementById('welcome')?.classList.add('open');
   });
 
+
+  // Interactive Good to know tiles
+  const TIP_COPY = {
+    money: ['Money', 'Roughly £1 ≈ RM5.5–6 (check your bank). Contactless is normal; keep a little cash for some car parks / RingGo.'],
+    weather: ['Weather', 'Autumn York is often ~10–16°C and damp. Pack a proper jacket and shoes with grip — especially for the coast.'],
+    drive: ['Driving', 'Left side of the road. Limits and distances are in miles / mph. Leave the car at the hotel on Friday and walk.'],
+    food: ['Food', 'York has marked-halal and Turkish options. Search “halal York” in Maps. When unsure, ask. Stamford is smaller — vegetarian is a safe backup.'],
+    time: ['Time difference', 'UK is about 7 hours behind Malaysia (MYT UTC+8 → BST UTC+1 in October).'],
+    plug: ['Plugs', 'UK Type G — same as home. Bring a power bank for long walking days.'],
+  };
+  const tipDrawer = document.getElementById('tipDrawer');
+  document.querySelectorAll('#tipTiles .tip-tile').forEach(tile => {
+    tile.addEventListener('click', () => {
+      const key = tile.dataset.tip;
+      const [title, body] = TIP_COPY[key] || ['Tip', ''];
+      tipDrawer.hidden = false;
+      tipDrawer.classList.add('open');
+      tipDrawer.innerHTML = `<h4>${title}</h4><p>${body}</p>`;
+      document.querySelectorAll('#tipTiles .tip-tile').forEach(t => t.style.borderColor = '');
+      tile.style.borderColor = 'rgba(196,120,58,.55)';
+    });
+  });
+
   // Photos
   const lb = document.getElementById('lightbox');
   const lbImg = document.getElementById('lightboxImg');
@@ -901,12 +970,14 @@ html.night .photo .cap{color:#e8e2d4}
       const todayIdx = Math.max(0, y.time.indexOf(iso));
       const idx = todayIdx >= 0 && y.time.includes(iso) ? y.time.indexOf(iso) : 0;
       const [icon, label] = codeInfo(y.weathercode[idx]);
-      chip.innerHTML = `<b>${icon}</b> ${Math.round(y.temperature_2m_min[idx])}–${Math.round(y.temperature_2m_max[idx])}° York`;
-      chip.title = label;
+      const tmin = Math.round(y.temperature_2m_min[idx]);
+      const tmax = Math.round(y.temperature_2m_max[idx]);
+      chip.innerHTML = `<span class="wx-ico">${icon}</span><span class="wx-temp">${tmin}–${tmax}°</span><span class="wx-place">York</span>`;
+      chip.title = `York · ${label}`;
       status.textContent = 'updated just now'; status.className = 'live ok';
     } catch (e) {
       status.textContent = 'offline — open Weather later'; status.className = 'live err';
-      chip.textContent = '☁ Weather offline';
+      chip.innerHTML = `<span class="wx-ico">☁</span><span class="wx-temp">—</span><span class="wx-place">York</span>`;
       showToast('Weather unavailable — try again on Wi‑Fi');
     }
   }
