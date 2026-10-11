@@ -2,7 +2,7 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="York Trip" />
@@ -19,32 +19,61 @@
   --bg:#efe8da; --card:#fffcf6; --line:rgba(47,61,54,.12);
   --safe-t:env(safe-area-inset-top,0px); --safe-r:env(safe-area-inset-right,0px);
   --safe-b:env(safe-area-inset-bottom,0px); --safe-l:env(safe-area-inset-left,0px);
-  --nav-h:4.25rem; --app-h:100dvh;
+  --nav-h:4.25rem;
 }
-@supports not (height:100dvh){:root{--app-h:100vh}}
 *{box-sizing:border-box}
-html,body{margin:0;height:var(--app-h);background:#101612;color:var(--ink);font-family:"Source Sans 3",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;-webkit-text-size-adjust:100%}
-body{overflow:hidden;overscroll-behavior:none}
+html{
+  margin:0; width:100%; height:100%;
+  font-size:16px;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+  overflow-x:hidden;
+}
+body{
+  margin:0; width:100%; max-width:100%;
+  min-height:100%;
+  height:100dvh;
+  background:#101612; color:var(--ink);
+  font-family:"Source Sans 3",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  font-size:1rem; line-height:1.4;
+  overflow-x:hidden; overflow-y:hidden;
+  overscroll-behavior:none;
+}
+@supports not (height:100dvh){ body{ height:100vh; } }
 button,a,label,summary,input{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-.app{height:var(--app-h);display:flex;flex-direction:column;background:linear-gradient(160deg,#f3eee3,#e4dccb)}
+.app{
+  width:100%; max-width:100%;
+  height:100%;
+  min-height:100dvh;
+  display:flex; flex-direction:column;
+  background:linear-gradient(160deg,#f3eee3,#e4dccb);
+  overflow:hidden;
+}
+@supports not (height:100dvh){ .app{ min-height:100vh; } }
 .topbar{
-  flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:.6rem;
-  padding:calc(.55rem + var(--safe-t)) calc(.85rem + var(--safe-r)) .45rem calc(.85rem + var(--safe-l));
+  flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:.55rem;
+  padding:calc(.55rem + var(--safe-t)) calc(.75rem + var(--safe-r)) .45rem calc(.75rem + var(--safe-l));
   background:rgba(16,22,18,.92);color:var(--lime);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
 }
-.topbar h1{margin:0;font-family:Fraunces,Georgia,serif;font-size:1.05rem;font-weight:700}
-.topbar .sub{font-size:.72rem;opacity:.75;margin-top:.1rem}
+.topbar > div:first-child{min-width:0;flex:1}
+.topbar h1{
+  margin:0;font-family:Fraunces,Georgia,serif;font-size:1rem;font-weight:700;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.topbar .sub{font-size:.7rem;opacity:.75;margin-top:.1rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .wx-chip{
-  display:flex;align-items:center;gap:.45rem;background:rgba(232,226,212,.12);
-  border:1px solid rgba(232,226,212,.18);border-radius:999px;padding:.35rem .7rem;font-size:.8rem;white-space:nowrap;
+  flex:0 1 auto; max-width:42%;
+  display:flex;align-items:center;gap:.35rem;background:rgba(232,226,212,.12);
+  border:1px solid rgba(232,226,212,.18);border-radius:999px;padding:.3rem .55rem;font-size:.72rem;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
 .wx-chip b{font-size:1rem}
-.main{flex:1 1 auto;overflow:auto;-webkit-overflow-scrolling:touch;padding:0 0 calc(var(--nav-h) + var(--safe-b) + .35rem)}
-.panel{display:none;padding:.9rem calc(.85rem + var(--safe-r)) 1.2rem calc(.85rem + var(--safe-l));animation:in .28s ease}
+.main{flex:1 1 auto;width:100%;max-width:100%;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 0 calc(var(--nav-h) + var(--safe-b) + .35rem)}
+.panel{display:none;width:100%;max-width:100%;padding:.9rem calc(.85rem + var(--safe-r)) 1.2rem calc(.85rem + var(--safe-l));animation:in .28s ease;overflow-x:hidden}
 .panel.active{display:block}
 @keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.panel.active{animation:none}}
-h2{font-family:Fraunces,Georgia,serif;font-size:clamp(1.4rem,5.5vw,1.9rem);margin:0 0 .35rem;color:var(--slate)}
+h2{font-family:Fraunces,Georgia,serif;font-size:1.35rem;margin:0 0 .35rem;color:var(--slate)}
 h3{font-family:Fraunces,Georgia,serif;font-size:1.08rem;margin:0 0 .45rem;color:var(--slate)}
 .muted{color:var(--moss);font-size:.92rem;margin:0 0 .85rem}
 .card{background:rgba(255,252,246,.92);border:1px solid var(--line);border-radius:16px;padding:.95rem 1rem;margin-bottom:.75rem;box-shadow:0 12px 30px rgba(12,18,14,.12)}
@@ -56,7 +85,12 @@ h3{font-family:Fraunces,Georgia,serif;font-size:1.08rem;margin:0 0 .45rem;color:
 .hero-card .muted{color:rgba(232,226,212,.85)}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}
 .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.55rem}
-@media(max-width:560px){.grid2,.grid3{grid-template-columns:1fr}}
+@media(max-width:560px){
+  .grid2,.grid3{grid-template-columns:1fr}
+  .hero-card h2{font-size:1.45rem}
+  .hero-card{min-height:160px}
+  .stat b{font-size:1rem}
+}
 .stat{background:var(--slate);color:var(--lime);border-radius:14px;padding:.75rem .8rem}
 .stat b{display:block;font-family:Fraunces,Georgia,serif;font-size:1.05rem}
 .stat span{font-size:.78rem;opacity:.85}
@@ -65,7 +99,8 @@ h3{font-family:Fraunces,Georgia,serif;font-size:1.08rem;margin:0 0 .45rem;color:
   display:inline-flex;align-items:center;justify-content:center;gap:.35rem;text-decoration:none;cursor:pointer;
 }
 .btn-row{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.7rem}
-.btn-row .btn{flex:1 1 auto}
+.btn-row .btn{flex:1 1 calc(50% - .3rem); min-width:0}
+@media(max-width:420px){.btn-row .btn{flex:1 1 100%}}
 .btn-amber{background:var(--amber);color:#1a1208}
 .btn-dark{background:var(--slate);color:var(--lime)}
 .btn-soft{background:rgba(47,61,54,.08);color:var(--slate);border:1px solid var(--line)}
@@ -547,15 +582,9 @@ h3{font-family:Fraunces,Georgia,serif;font-size:1.08rem;margin:0 0 .45rem;color:
     clearTimeout(toastT); toastT = setTimeout(() => toast.classList.remove('show'), 1600);
   };
 
-  // Viewport height for iPhone
-  const setH = () => {
-    const h = window.visualViewport?.height || window.innerHeight;
-    document.documentElement.style.setProperty('--app-h', `${h}px`);
-  };
-  setH();
-  window.visualViewport?.addEventListener('resize', setH);
-  window.addEventListener('resize', setH);
-  window.addEventListener('orientationchange', () => setTimeout(setH, 150));
+  // Do NOT bind layout height to visualViewport — when DevTools/page zoom
+  // scale !== 1 it shrinks the visual viewport and crops the UI mid-word.
+  // CSS 100dvh / 100% handles iPhone safely.
 
   // Panels
   const go = (name) => {
