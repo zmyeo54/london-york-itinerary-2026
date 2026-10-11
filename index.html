@@ -472,12 +472,12 @@ html.night .photo .cap{color:#e8e2d4}
 
 <div class="toast" id="toast" role="status"></div>
 
-<div class="share-sheet" id="shareSheet" role="dialog" aria-modal="true" aria-label="Share trip">
+<div class="share-sheet" id="shareSheet" role="dialog" aria-modal="true" aria-label="Share">
   <div class="share-card">
-    <h3>Share this trip</h3>
-    <p class="muted">Send the companion link to your travel group.</p>
+    <h3 id="shareTitle">Share this trip</h3>
+    <p class="muted" id="shareBlurb">Send the companion link to your travel group.</p>
     <div class="btn-row">
-      <button class="btn btn-amber" type="button" id="shareCopy">Copy link</button>
+      <button class="btn btn-amber" type="button" id="shareCopy">Copy</button>
       <a class="btn btn-dark" id="shareWa" href="#" target="_blank" rel="noopener">WhatsApp</a>
       <button class="btn btn-soft" type="button" id="shareNative">Share…</button>
       <button class="btn btn-soft" type="button" id="shareClose">Close</button>
@@ -632,6 +632,7 @@ html.night .photo .cap{color:#e8e2d4}
           <div class="btn-row">
             <a class="btn btn-dark" href="https://www.google.com/maps/dir/Canary+Wharf,London/Stamford,Lincolnshire/Railway+House+York" target="_blank" rel="noopener">Open drive</a>
             <a class="btn btn-soft" href="https://maps.google.com/?q=Stamford+Lincolnshire" target="_blank" rel="noopener">Stamford map</a>
+            <button class="btn btn-soft" type="button" data-share-day="thu">Share day</button>
           </div>
           <details class="tip"><summary>Food &amp; tips</summary>
             <p><strong>Eat:</strong> High Street / St Mary’s Street cafés; try a pub lunch near the Meadows.</p>
@@ -660,6 +661,7 @@ html.night .photo .cap{color:#e8e2d4}
             <a class="btn btn-dark" href="https://yorkminster.org/visit/" target="_blank" rel="noopener">Book Minster</a>
             <a class="btn btn-soft" href="https://maps.google.com/?q=York+Minster" target="_blank" rel="noopener">Minster map</a>
             <a class="btn btn-soft" href="https://maps.google.com/?q=Shambles+Market+York" target="_blank" rel="noopener">Market map</a>
+            <button class="btn btn-soft" type="button" data-share-day="fri">Share day</button>
           </div>
           <details class="tip" open><summary>Tickets &amp; hours</summary>
             <p><strong>Minster sightseeing:</strong> Mon–Sat roughly 9:30–16:00 (confirm on the day). Book ahead for faster entry; tickets valid 12 months.</p>
@@ -694,6 +696,7 @@ html.night .photo .cap{color:#e8e2d4}
             <a class="btn btn-dark" href="https://www.google.com/maps/dir/York/Castle+Howard/Robin+Hood's+Bay/York" target="_blank" rel="noopener">Saturday drive</a>
             <a class="btn btn-soft" href="https://www.castlehoward.co.uk/" target="_blank" rel="noopener">Castle Howard</a>
             <a class="btn btn-soft" href="https://www.tide-forecast.com/locations/Whitby-England/tides/latest" target="_blank" rel="noopener">Tides (Whitby)</a>
+            <button class="btn btn-soft" type="button" data-share-day="sat">Share day</button>
           </div>
           <details class="tip" open><summary>Visitor essentials</summary>
             <p><strong>Castle Howard:</strong> grounds often 10:00–17:00 (last entry 16:00); house often 10:00–16:00 (last entry 15:00). Buy tickets online. Free parking (except Christmas period).</p>
@@ -718,6 +721,7 @@ html.night .photo .cap{color:#e8e2d4}
           <div class="btn-row">
             <a class="btn btn-dark" href="https://www.google.com/maps/dir/Railway+House+York/London" target="_blank" rel="noopener">York → London</a>
             <button class="btn btn-soft" type="button" data-go="pack">Packing checklist</button>
+            <button class="btn btn-soft" type="button" data-share-day="sun">Share day</button>
           </div>
           <details class="tip"><summary>Drive window</summary>
             <p>Allow 4½–5½ hours plus breaks. London traffic can stretch the end. Return the car with enough fuel per rental terms.</p>
@@ -1490,33 +1494,63 @@ html.night .photo .cap{color:#e8e2d4}
   const tripUrl = location.origin + location.pathname;
   const shareText = 'London → York trip companion (15–18 Oct 2026)\n' + tripUrl;
   const shareSheet = document.getElementById('shareSheet');
-  const openShare = () => {
+  let pendingSharePayload = shareText;
+  const DAY_SHARE_TITLE = {
+    thu: 'Thursday 15 Oct · Stamford then York',
+    fri: 'Friday 16 Oct · York on foot',
+    sat: 'Saturday 17 Oct · Castle Howard + coast',
+    sun: 'Sunday 18 Oct · Departure',
+  };
+  const buildDayShareText = (day) => {
+    const title = DAY_SHARE_TITLE[day] || 'Day plan';
+    const list = document.querySelector(`.checklist[data-list="${day}"]`);
+    const lines = [...(list?.querySelectorAll('label') || [])].map(label => {
+      const time = label.querySelector('.time')?.textContent?.trim() || '';
+      const clone = label.cloneNode(true);
+      clone.querySelector('.time')?.remove();
+      const rest = clone.textContent.replace(/\s+/g, ' ').trim();
+      return time ? `• ${time}  ${rest}` : `• ${rest}`;
+    });
+    return `${title}\n\n${lines.join('\n')}\n\nFull companion:\n${tripUrl}`;
+  };
+  const openShare = (payload = shareText, opts = {}) => {
+    pendingSharePayload = payload;
+    const isDay = !!opts.day;
+    const titleEl = document.getElementById('shareTitle');
+    const blurbEl = document.getElementById('shareBlurb');
+    if (titleEl) titleEl.textContent = isDay ? 'Share this day' : 'Share this trip';
+    if (blurbEl) blurbEl.textContent = isDay
+      ? 'WhatsApp the timed plan to your travel group.'
+      : 'Send the companion link to your travel group.';
     const wa = document.getElementById('shareWa');
-    if (wa) wa.href = 'https://wa.me/?text=' + encodeURIComponent(shareText);
+    if (wa) wa.href = 'https://wa.me/?text=' + encodeURIComponent(payload);
     shareSheet?.classList.add('open');
   };
   const closeShare = () => shareSheet?.classList.remove('open');
-  document.getElementById('shareBtn')?.addEventListener('click', openShare);
-  document.getElementById('shareBtnHome')?.addEventListener('click', openShare);
+  document.getElementById('shareBtn')?.addEventListener('click', () => openShare(shareText));
+  document.getElementById('shareBtnHome')?.addEventListener('click', () => openShare(shareText));
+  document.querySelectorAll('[data-share-day]').forEach(btn => {
+    btn.addEventListener('click', () => openShare(buildDayShareText(btn.dataset.shareDay), { day: true }));
+  });
   document.getElementById('shareClose')?.addEventListener('click', closeShare);
   shareSheet?.addEventListener('click', (e) => { if (e.target === shareSheet) closeShare(); });
   document.getElementById('shareCopy')?.addEventListener('click', async () => {
     try {
-      await navigator.clipboard.writeText(tripUrl);
-      showToast('Link copied');
+      await navigator.clipboard.writeText(pendingSharePayload);
+      showToast('Copied to clipboard');
       closeShare();
     } catch {
-      prompt('Copy this link:', tripUrl);
+      prompt('Copy this:', pendingSharePayload);
     }
   });
   document.getElementById('shareNative')?.addEventListener('click', async () => {
     if (navigator.share) {
       try {
-        await navigator.share({ title: 'York Trip Companion', text: 'London → York · 15–18 Oct 2026', url: tripUrl });
+        await navigator.share({ title: 'York Trip Companion', text: pendingSharePayload });
         closeShare();
       } catch {}
     } else {
-      showToast('Use Copy link or WhatsApp');
+      showToast('Use Copy or WhatsApp');
     }
   });
 
