@@ -252,6 +252,15 @@ html.night .hotel-chevron{background:rgba(232,226,212,.08); color:var(--lime)}
 .place{display:grid;grid-template-columns:88px 1fr;gap:.7rem;align-items:center}
 .place .thumb{width:88px;height:72px;border-radius:12px;background-size:cover;background-position:center}
 .pill{display:inline-flex;align-items:center;gap:.3rem;background:rgba(47,61,54,.08);border-radius:999px;padding:.28rem .6rem;font-size:.75rem;margin:.15rem .2rem .15rem 0}
+.food-list{display:flex;flex-direction:column;gap:.65rem;margin:.55rem 0 0}
+.food-item{
+  border:1px solid var(--line); border-radius:14px; padding:.7rem .8rem;
+  background:rgba(47,61,54,.04);
+}
+.food-item h4{margin:0 0 .2rem; font-size:.95rem; font-family:Fraunces,Georgia,serif}
+.food-item .meta{font-size:.78rem; color:var(--moss); margin:0 0 .35rem; line-height:1.35}
+.food-item .note{font-size:.74rem; color:var(--moss); margin:.35rem 0 0; line-height:1.35; opacity:.95}
+html.night .food-item{background:rgba(232,226,212,.05)}
 .nav{
   position:fixed;left:0;right:0;bottom:0;z-index:40;
   display:grid;grid-template-columns:repeat(5,1fr);
@@ -400,7 +409,7 @@ html.night .photo .cap{color:#e8e2d4}
     <ul class="welcome-points">
       <li><span class="ic">£</span><span><strong>Money:</strong> roughly <strong>£1 ≈ RM5.5–6</strong> (check your bank). A £15 lunch ≈ RM85–90. Cards &amp; contactless are everywhere.</span></li>
       <li><span class="ic">🌧</span><span><strong>Weather:</strong> autumn York is often ~10–16°C and damp. Pack a real jacket — it will feel cold compared with home.</span></li>
-      <li><span class="ic">🍽</span><span><strong>Food:</strong> York has plenty of marked-halal and Turkish options. When unsure, just ask. Stamford is smaller — vegetarian is a safe backup.</span></li>
+      <li><span class="ic">🍽</span><span><strong>Food:</strong> York Halal list is under Places (Three Chef’s, Middle Feast, Kapadokya…). Always ask at the counter. Stamford lunch → veggie/fish is safer.</span></li>
       <li><span class="ic">🔌</span><span><strong>Plugs &amp; driving:</strong> UK Type G (same as home). Left-side driving. Road signs use <em>miles / mph</em>.</span></li>
       <li><span class="ic">🛂</span><span><strong>Entry:</strong> most visitors need a UK ETA approved before flying — screenshot the confirmation.</span></li>
     </ul>
@@ -610,7 +619,7 @@ html.night .photo .cap{color:#e8e2d4}
             <p><strong>Market:</strong> often ~9:00–17:00; traders vary by day.</p>
           </details>
           <details class="tip"><summary>Food ideas</summary>
-            <p>Stonegate / Swinegate cafés for coffee. Shambles Market for street food. Bettys (queue likely) or a quieter side-street bistro for lunch. Dinner near Micklegate / Holgate so the walk home is short.</p>
+            <p>Stonegate / Swinegate cafés for coffee. Shambles Market for street food. For Halal dinner see <strong>Places → Halal food</strong> (Three Chef’s on Gillygate, Marrakesh near the river, Kapadokya near the station). Holgate walk home is ~15–20 min from centre.</p>
           </details>
           <details class="tip"><summary>If it rains</summary>
             <p>Minster first, then covered shops on Stonegate / Coppergate. Cut the walls walk. Market stalls under cover still work for a browse.</p>
@@ -791,6 +800,94 @@ html.night .photo .cap{color:#e8e2d4}
         </div>
       </div>
 
+      <div class="card" id="halalFood">
+        <h3>Halal food (York)</h3>
+        <p class="muted" style="margin:0 0 .35rem">Walkable city-centre picks for Fri / Sat dinner. Always ask “is the meat halal?” when you order — status can change.</p>
+        <span class="pill">City centre</span><span class="pill">Confirm at counter</span>
+        <div class="food-list">
+          <div class="food-item">
+            <h4>Three Chef’s Halal</h4>
+            <p class="meta">Lebanese · shawarma · 13 Gillygate, YO31 7EA</p>
+            <span class="pill">Named halal</span><span class="pill">~12–15 min walk from centre</span>
+            <p class="note">Popular for chicken shawarma and generous portions. Good Fri/Sat dinner pick.</p>
+            <div class="btn-row">
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Three+Chef's+Halal+13+Gillygate+York" target="_blank" rel="noopener">Map</a>
+              <a class="btn btn-soft" href="tel:+441904946006">Call</a>
+            </div>
+          </div>
+          <div class="food-item">
+            <h4>Middle Feast</h4>
+            <p class="meta">Middle Eastern · shawarma · 13 Lendal, YO1 8AA</p>
+            <span class="pill">Certified / signed halal</span><span class="pill">Near Minster</span>
+            <p class="note">Small, fast shawarma spot — cosy seating. Ideal for a quick lunch after the Minster.</p>
+            <div class="btn-row">
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Middle+Feast+13+Lendal+York" target="_blank" rel="noopener">Map</a>
+            </div>
+          </div>
+          <div class="food-item">
+            <h4>Kapadokya 50</h4>
+            <p class="meta">Turkish BBQ · 24 George Hudson Street, YO1 6LP</p>
+            <span class="pill">Halal meat (ask)</span><span class="pill">Near station</span>
+            <p class="note">Family Turkish grill — mix grill / shish favourites. Alcohol is served; some dishes may use wine — ask before ordering.</p>
+            <div class="btn-row">
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Kapadokya+50+George+Hudson+Street+York" target="_blank" rel="noopener">Map</a>
+              <a class="btn btn-soft" href="tel:+441904622500">Call</a>
+            </div>
+          </div>
+          <div class="food-item">
+            <h4>The Marrakesh</h4>
+            <p class="meta">Moroccan · tagines · 8 Low Ousegate, YO1 9QX</p>
+            <span class="pill">Halal grilled meat</span><span class="pill">~5 min from Shambles</span>
+            <p class="note">Tagines, couscous, riverside location. Nice sit-down dinner after Friday’s walk.</p>
+            <div class="btn-row">
+              <a class="btn btn-dark" href="https://maps.google.com/?q=The+Marrakesh+Low+Ousegate+York" target="_blank" rel="noopener">Map</a>
+              <a class="btn btn-soft" href="tel:+441904463318">Call</a>
+              <a class="btn btn-soft" href="https://www.themarrakeshyork.co.uk/" target="_blank" rel="noopener">Website</a>
+            </div>
+          </div>
+          <div class="food-item">
+            <h4>Rosa’s Thai York</h4>
+            <p class="meta">Thai · 1–3 Coney Street, YO1 9QL</p>
+            <span class="pill">Halal chicken</span><span class="pill">Near Shambles</span>
+            <p class="note">Chicken dishes use a halal supplier — confirm other proteins when you order. Easy centre location.</p>
+            <div class="btn-row">
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Rosa's+Thai+Coney+Street+York" target="_blank" rel="noopener">Map</a>
+              <a class="btn btn-soft" href="tel:+441904590046">Call</a>
+              <a class="btn btn-soft" href="https://rosasthai.com/locations/york-restaurant" target="_blank" rel="noopener">Menu</a>
+            </div>
+          </div>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-soft" href="https://www.google.com/maps/search/?api=1&amp;query=halal+restaurant+York" target="_blank" rel="noopener">More on Maps</a>
+          <a class="btn btn-soft" href="https://www.google.com/maps/search/?api=1&amp;query=restaurants+near+Holgate+Road+York" target="_blank" rel="noopener">Near hotel</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Stamford lunch (Thu)</h3>
+        <p class="muted" style="margin:0 0 .45rem">Confirmed midday Halal options are thin in the stone centre. Safe plan:</p>
+        <div class="food-list">
+          <div class="food-item">
+            <h4>Vegetarian / fish first</h4>
+            <p class="meta">High Street · St Mary’s · riverside cafés</p>
+            <p class="note">Pick a veggie jacket potato, salad, or fish — then save the big Halal dinner for York.</p>
+            <div class="btn-row">
+              <a class="btn btn-dark" href="https://www.google.com/maps/search/?api=1&amp;query=vegetarian+cafe+Stamford+Lincolnshire" target="_blank" rel="noopener">Veggie cafés</a>
+              <a class="btn btn-soft" href="https://www.google.com/maps/search/?api=1&amp;query=halal+Stamford+Lincolnshire" target="_blank" rel="noopener">Halal search</a>
+            </div>
+          </div>
+          <div class="food-item">
+            <h4>Saffron Lounge (evening only)</h4>
+            <p class="meta">Halal Bengali/Indian · 47 Main Road (outside centre)</p>
+            <span class="pill">Opens ~17:00</span><span class="pill">Not for Thu lunch</span>
+            <p class="note">Useful if you ever stay late near Stamford — not open for a midday stop.</p>
+            <div class="btn-row">
+              <a class="btn btn-soft" href="https://maps.google.com/?q=Saffron+Lounge+47+Main+Road+Stamford" target="_blank" rel="noopener">Map</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="card">
         <h3>Hotel</h3>
         <div class="kv">
@@ -849,7 +946,10 @@ html.night .photo .cap{color:#e8e2d4}
         </details>
         <details class="tip">
           <summary>Food</summary>
-          <p>York has Turkish, Middle Eastern, and marked-halal restaurants; some fish &amp; chips shops can fry separately if you ask. Useful Maps searches: <em>halal York</em>, <em>Turkish restaurant York</em>. Stamford is smaller — vegetarian can be a safe backup.</p>
+          <p>York picks are listed under <strong>Places → Halal food</strong> (Three Chef’s, Middle Feast, Kapadokya, Marrakesh, Rosa’s Thai). Always confirm at the counter. Stamford midday: veggie or fish is safer — big Halal dinner waits for York.</p>
+          <div class="btn-row">
+            <button class="btn btn-soft" type="button" id="openHalalPlaces">Open Halal list</button>
+          </div>
           <p>Hotel breakfast is often eggs/toast/coffee — ask if sausages or bacon are pork. Many cafés do porridge, avocado toast, or eggs without pork.</p>
         </details>
         <details class="tip">
@@ -951,6 +1051,10 @@ html.night .photo .cap{color:#e8e2d4}
     if (name === 'weather') loadWeather();
   };
   document.querySelectorAll('[data-go]').forEach(el => el.addEventListener('click', () => go(el.dataset.go)));
+  document.getElementById('openHalalPlaces')?.addEventListener('click', () => {
+    go('places');
+    setTimeout(() => document.getElementById('halalFood')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+  });
 
   // Day tabs
   document.querySelectorAll('#dayTabs button').forEach(btn => {
@@ -1069,7 +1173,7 @@ html.night .photo .cap{color:#e8e2d4}
     money: ['Money', 'Roughly £1 ≈ RM5.5–6 (check your bank). Contactless is normal; keep a little cash for some car parks / RingGo.'],
     weather: ['Weather', 'Autumn York is often ~10–16°C and damp. Pack a proper jacket and shoes with grip — especially for the coast.'],
     drive: ['Driving', 'Left side of the road. Limits and distances are in miles / mph. Leave the car at the hotel on Friday and walk.'],
-    food: ['Food', 'York has marked-halal and Turkish options. Search “halal York” in Maps. When unsure, ask. Stamford is smaller — vegetarian is a safe backup.'],
+    food: ['Food', 'York: Three Chef’s (Gillygate), Middle Feast (Lendal), Kapadokya, Marrakesh, Rosa’s Thai (halal chicken). Always ask at the counter. Stamford lunch: veggie/fish is the safer midday bet — see Places → Halal food.'],
     time: ['Time difference', 'UK is about 7 hours behind Malaysia (MYT UTC+8 → BST UTC+1 in October).'],
     plug: ['Plugs', 'UK Type G — same as home. Bring a power bank for long walking days.'],
   };
