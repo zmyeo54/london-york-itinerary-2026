@@ -292,26 +292,19 @@ html.night .place-seg{background:rgba(232,226,212,.08)}
 html.night .place-seg button{color:var(--lime)}
 html.night .place-seg button.active{background:var(--amber); color:#1a1208}
 .filter-row{
-  display:flex; gap:.4rem; overflow-x:auto; padding:.15rem 0 .45rem; margin:0 0 .75rem;
+  display:flex; gap:.4rem; overflow-x:auto; padding-bottom:.35rem; margin:0 0 .75rem;
   -webkit-overflow-scrolling:touch; scrollbar-width:none;
 }
 .filter-row::-webkit-scrollbar{display:none}
 .filter-row button{
   flex:0 0 auto; appearance:none; border:1px solid var(--line);
-  background:rgba(255,252,246,.98); color:var(--slate);
-  border-radius:999px; min-height:40px; padding:.4rem .85rem;
-  font:inherit; font-weight:700; font-size:.8rem; cursor:pointer;
-  box-shadow:0 4px 12px rgba(12,18,14,.06);
+  background:rgba(255,252,246,.96); color:var(--slate);
+  border-radius:999px; min-height:36px; padding:.35rem .75rem;
+  font:inherit; font-weight:700; font-size:.78rem; cursor:pointer;
 }
 .filter-row button.active{background:var(--amber); color:#1a1208; border-color:transparent}
-.place-shortcuts{
-  position:sticky; top:0; z-index:5;
-  background:linear-gradient(180deg, var(--bg) 70%, transparent);
-  padding-top:.15rem; margin-top:-.15rem;
-}
-html.night .filter-row button{background:rgba(26,34,30,.95); color:var(--lime)}
+html.night .filter-row button{background:rgba(26,34,30,.9); color:var(--lime)}
 html.night .filter-row button.active{background:var(--amber); color:#1a1208}
-html.night .place-shortcuts{background:linear-gradient(180deg, #1a221e 70%, transparent)}
 .places-pane{display:none}
 .places-pane.active{display:block}
 .food-item[hidden]{display:none !important}
@@ -767,21 +760,11 @@ html.night .photo .cap{color:#e8e2d4}
     <!-- PLACES -->
     <section class="panel" id="panel-places" data-panel="places">
       <h2>Places</h2>
-      <p class="muted">Tap a shortcut — or switch Attractions / Food.</p>
+      <p class="muted">Attractions to visit · food to eat.</p>
 
       <div class="place-seg" id="placeSeg" role="tablist" aria-label="Places sections">
         <button type="button" class="active" data-places="attractions" role="tab" aria-selected="true">Attractions</button>
         <button type="button" data-places="food" role="tab" aria-selected="false">Food</button>
-      </div>
-
-      <div class="filter-row place-shortcuts" id="foodFilters" role="toolbar" aria-label="Places shortcuts">
-        <button type="button" data-places-jump="attractions">🏛 Sights</button>
-        <button type="button" class="active" data-food-filter="all">🍽 All food</button>
-        <button type="button" data-food-filter="halal">✓ Halal</button>
-        <button type="button" data-food-filter="must-try">★ Must-try</button>
-        <button type="button" data-food-filter="cafe">☕ Café</button>
-        <button type="button" data-food-filter="stamford">Stamford</button>
-        <button type="button" data-food-filter="near-hotel">Near hotel</button>
       </div>
 
       <div class="places-pane active" id="places-attractions" data-places-pane="attractions">
@@ -892,8 +875,16 @@ html.night .photo .cap{color:#e8e2d4}
       </div>
 
       <div class="places-pane" id="places-food" data-places-pane="food">
-        <p class="muted" style="margin:0 0 .55rem">Filtered list below. For Halal meat always ask at the counter — status can change.</p>
-        <p class="food-empty" id="foodEmpty">Nothing in this filter — try All food.</p>
+        <p class="muted" style="margin:0 0 .55rem">Filter by tag. For Halal meat always ask at the counter — status can change.</p>
+        <div class="filter-row" id="foodFilters" role="toolbar" aria-label="Food filters">
+          <button type="button" class="active" data-food-filter="all">All</button>
+          <button type="button" data-food-filter="halal">Halal</button>
+          <button type="button" data-food-filter="must-try">Must-try</button>
+          <button type="button" data-food-filter="cafe">Café · tea</button>
+          <button type="button" data-food-filter="stamford">Stamford</button>
+          <button type="button" data-food-filter="near-hotel">Near hotel</button>
+        </div>
+        <p class="food-empty" id="foodEmpty">Nothing in this filter — try All.</p>
 
         <div class="food-list" id="foodList">
           <div class="food-item" data-tags="halal near-hotel">
@@ -1179,7 +1170,7 @@ html.night .photo .cap{color:#e8e2d4}
     if (name === 'weather') loadWeather();
   };
   document.querySelectorAll('[data-go]').forEach(el => el.addEventListener('click', () => go(el.dataset.go)));
-  // Places: Attractions / Food + always-visible shortcut filters
+  // Places: Attractions / Food + food tag filters
   const setPlacesPane = (name) => {
     document.querySelectorAll('#placeSeg button').forEach(b => {
       const on = b.dataset.places === name;
@@ -1189,19 +1180,11 @@ html.night .photo .cap{color:#e8e2d4}
     document.querySelectorAll('.places-pane').forEach(p => {
       p.classList.toggle('active', p.dataset.placesPane === name);
     });
-    // Highlight Sights vs food filter chips
-    document.querySelectorAll('#foodFilters [data-places-jump]').forEach(b => {
-      b.classList.toggle('active', name === 'attractions');
-    });
-    if (name === 'attractions') {
-      document.querySelectorAll('#foodFilters [data-food-filter]').forEach(b => b.classList.remove('active'));
-    }
   };
   const setFoodFilter = (tag) => {
-    document.querySelectorAll('#foodFilters [data-food-filter]').forEach(b => {
+    document.querySelectorAll('#foodFilters button').forEach(b => {
       b.classList.toggle('active', b.dataset.foodFilter === tag);
     });
-    document.querySelectorAll('#foodFilters [data-places-jump]').forEach(b => b.classList.remove('active'));
     let shown = 0;
     document.querySelectorAll('#foodList .food-item').forEach(item => {
       const tags = (item.dataset.tags || '').split(/\s+/);
@@ -1215,35 +1198,18 @@ html.night .photo .cap{color:#e8e2d4}
     go('places');
     setPlacesPane('food');
     setFoodFilter(filter);
-    document.getElementById('main').scrollTop = 0;
+    setTimeout(() => document.getElementById('places-food')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
   };
   document.querySelectorAll('#placeSeg button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      setPlacesPane(btn.dataset.places);
-      if (btn.dataset.places === 'food') setFoodFilter('all');
-      document.getElementById('main').scrollTop = 0;
-    });
+    btn.addEventListener('click', () => setPlacesPane(btn.dataset.places));
   });
-  document.querySelectorAll('#foodFilters [data-food-filter]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      setPlacesPane('food');
-      setFoodFilter(btn.dataset.foodFilter);
-      document.getElementById('main').scrollTop = 0;
-    });
-  });
-  document.querySelectorAll('#foodFilters [data-places-jump]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      setPlacesPane(btn.dataset.placesJump);
-      document.getElementById('main').scrollTop = 0;
-    });
+  document.querySelectorAll('#foodFilters button').forEach(btn => {
+    btn.addEventListener('click', () => setFoodFilter(btn.dataset.foodFilter));
   });
   document.querySelectorAll('[data-open-food]').forEach(btn => {
     btn.addEventListener('click', () => openFood(btn.dataset.openFood || 'all'));
   });
   document.getElementById('openHalalPlaces')?.addEventListener('click', () => openFood('halal'));
-  // Default: Attractions selected → highlight Sights chip
-  document.querySelector('#foodFilters [data-places-jump="attractions"]')?.classList.add('active');
-  document.querySelector('#foodFilters [data-food-filter="all"]')?.classList.remove('active');
 
   // Day tabs
   document.querySelectorAll('#dayTabs button').forEach(btn => {
