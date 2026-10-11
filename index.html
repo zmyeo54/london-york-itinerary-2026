@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#101612" />
 <meta name="format-detection" content="telephone=no" />
 <title>London → York Trip Companion · 15–18 Oct 2026</title>
-<meta name="description" content="One-stop London to York road-trip guide: weather, day plans, maps, food, packing and essentials." />
+<meta name="description" content="London to York trip companion for Malaysian travellers: weather, day plans, halal tips, RM guide, packing and maps." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -170,9 +170,63 @@ h3{font-family:Fraunces,Georgia,serif;font-size:1.08rem;margin:0 0 .45rem;color:
 .kv b{color:var(--slate)}
 .hr{height:1px;background:var(--line);margin:.85rem 0;border:0}
 .chip-row{display:flex;flex-wrap:wrap;gap:.35rem;margin:.4rem 0 .2rem}
+
+.welcome-backdrop{
+  position:fixed; inset:0; z-index:100;
+  background:rgba(8,12,10,.72);
+  display:none; align-items:flex-end; justify-content:center;
+  padding:calc(.75rem + var(--safe-t)) calc(.75rem + var(--safe-r)) calc(.75rem + var(--safe-b)) calc(.75rem + var(--safe-l));
+  backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+}
+.welcome-backdrop.open{display:flex; animation:in .25s ease}
+.welcome-sheet{
+  width:min(440px,100%); max-height:min(88dvh,720px); overflow:auto;
+  -webkit-overflow-scrolling:touch;
+  background:var(--card); color:var(--ink); border-radius:22px;
+  box-shadow:0 30px 80px rgba(0,0,0,.35); padding:1.15rem 1.15rem 1.25rem;
+}
+.welcome-sheet .flag{font-size:1.5rem; margin-bottom:.25rem}
+.welcome-sheet h2{font-size:1.45rem; margin-bottom:.35rem}
+.welcome-sheet .lead{font-size:.98rem; color:var(--moss); margin:0 0 .9rem; line-height:1.45}
+.welcome-points{list-style:none; margin:0 0 1rem; padding:0}
+.welcome-points li{
+  display:grid; grid-template-columns:1.6rem 1fr; gap:.55rem; align-items:start;
+  padding:.55rem 0; border-bottom:1px solid var(--line); font-size:.92rem;
+}
+.welcome-points li:last-child{border-bottom:0}
+.welcome-points .ic{font-size:1.05rem; line-height:1.3}
+.my-badge{
+  display:inline-flex; align-items:center; gap:.35rem;
+  background:rgba(196,120,58,.14); color:var(--slate);
+  border-radius:999px; padding:.28rem .65rem; font-size:.75rem; font-weight:700;
+  margin-bottom:.55rem;
+}
+
 </style>
 </head>
 <body>
+
+<div class="welcome-backdrop" id="welcome" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+  <div class="welcome-sheet">
+    <div class="flag" aria-hidden="true">🇲🇾 → 🇬🇧</div>
+    <div class="my-badge">For Malaysian travellers</div>
+    <h2 id="welcomeTitle">Selamat datang!</h2>
+    <p class="lead">Your London → York companion for 15–18 Oct. Weather, day plans, maps, packing — and tips that matter when you’re flying in from Malaysia.</p>
+    <ul class="welcome-points">
+      <li><span class="ic">£</span><span><strong>Budget in RM:</strong> roughly <strong>£1 ≈ RM5.5–6</strong> (check your bank rate). A £15 lunch ≈ RM85–90.</span></li>
+      <li><span class="ic">🌧</span><span><strong>It will feel cold:</strong> autumn York is often ~10–16°C. Pack a proper jacket — not just “AC cold”.</span></li>
+      <li><span class="ic">🕌</span><span><strong>Halal &amp; food:</strong> York has halal options; use the Malaysia tips card + Maps. When unsure, ask “Is this halal?”</span></li>
+      <li><span class="ic">🔌</span><span><strong>Same plug as MY:</strong> UK Type G. Left-side driving — same as Malaysia. Road signs use <em>miles</em>.</span></li>
+      <li><span class="ic">🛂</span><span><strong>UK ETA:</strong> Malaysian passports usually need an Electronic Travel Authorisation before flying — confirm yours is approved.</span></li>
+    </ul>
+    <div class="btn-row">
+      <button class="btn btn-amber" type="button" id="welcomeStart">Let’s go</button>
+      <button class="btn btn-soft" type="button" id="welcomeTips">Malaysia tips</button>
+    </div>
+    <p class="muted" style="margin:.85rem 0 0;font-size:.8rem">Shown once on this phone. You can reopen tips anytime under Pack.</p>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status"></div>
 <div class="app">
   <header class="topbar">
@@ -188,7 +242,7 @@ h3{font-family:Fraunces,Georgia,serif;font-size:1.08rem;margin:0 0 .45rem;color:
     <section class="panel active" id="panel-home" data-panel="home">
       <div class="card hero-card">
         <h2>Your autumn road trip</h2>
-        <p class="muted">Weather, maps, tickets, food and packing — everything in one place.</p>
+        <p class="muted">Built for Malaysian travellers — weather, maps, halal tips, RM sense-check, packing for UK cold.</p>
         <div class="btn-row">
           <button class="btn btn-amber" type="button" data-go="days">Today’s plan</button>
           <button class="btn btn-soft" type="button" data-go="weather" style="background:rgba(232,226,212,.18);color:var(--lime);border-color:rgba(232,226,212,.25)">Weather</button>
@@ -208,6 +262,24 @@ h3{font-family:Fraunces,Georgia,serif;font-size:1.08rem;margin:0 0 .45rem;color:
           <a class="btn btn-soft" href="tel:999">UK emergency 999</a>
           <a class="btn btn-soft" href="https://www.google.com/maps/dir/Canary+Wharf,London/Stamford,Lincolnshire/Railway+House+York" target="_blank" rel="noopener">Thu drive</a>
           <a class="btn btn-soft" href="https://yorkminster.org/visit/" target="_blank" rel="noopener">Book Minster</a>
+        </div>
+      </div>
+
+
+      <div class="card" id="myTipsHome">
+        <div class="my-badge">🇲🇾 Malaysian context</div>
+        <h3>Quick MY → UK tips</h3>
+        <div class="kv">
+          <b>Money</b><span>£1 ≈ RM5.5–6 · cards &amp; contactless everywhere · keep a little cash for car parks</span>
+          <b>Weather</b><span>Much colder/wetter than MY — layers + rain jacket are non-negotiable</span>
+          <b>Drive</b><span>Left side (like MY) · speed in <em>mph</em> · sat-nav is your friend in York one-ways</span>
+          <b>Time</b><span>UK is ~7 hours behind Malaysia (MYT UTC+8 → BST UTC+1)</span>
+          <b>Food</b><span>Halal-friendly spots exist in York; search “halal York” or see Pack → Malaysia tips</span>
+          <b>Plug</b><span>Type G — same as Malaysia. Bring a power bank for long walking days</span>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-soft" type="button" data-go="pack">Full Malaysia tips</button>
+          <a class="btn btn-dark" href="https://www.gov.uk/guidance/apply-for-an-electronic-travel-authorisation-eta" target="_blank" rel="noopener">UK ETA info</a>
         </div>
       </div>
 
@@ -523,6 +595,44 @@ h3{font-family:Fraunces,Georgia,serif;font-size:1.08rem;margin:0 0 .45rem;color:
         <div class="bar"><span data-bar="pack"></span></div>
       </div>
 
+
+      <div class="card" id="myTipsPack">
+        <div class="my-badge">🇲🇾 For Malaysians</div>
+        <h3>Malaysia traveller notes</h3>
+        <details class="tip" open>
+          <summary>Money &amp; payments</summary>
+          <p>Think in RM: <strong>£10 ≈ RM55–60</strong>, <strong>£50 ≈ RM275–300</strong>. Contactless is normal. Some car parks need RingGo app — set it up on Wi‑Fi before Saturday coast day.</p>
+        </details>
+        <details class="tip">
+          <summary>Halal / food</summary>
+          <p>York has Turkish, Middle Eastern, and marked-halal restaurants; also fish &amp; chips shops that can fry separately if you ask. Useful Maps searches: <em>halal York</em>, <em>Turkish restaurant York</em>. Stamford is smaller — lunch options are more limited; vegetarian can be a safe backup.</p>
+          <p>Breakfast at hotels is often eggs/toast/coffee — ask if sausages/bacon are pork. Many cafés do porridge, avocado toast, or eggs without pork.</p>
+        </details>
+        <details class="tip">
+          <summary>Cold-weather packing (from the tropics)</summary>
+          <p>UK autumn is not KL “raining but 30°C”. Expect wind on the coast at Robin Hood’s Bay. Bring: windproof/rain jacket, warm jumper, closed walking shoes with grip, and socks you’ll actually want to wear.</p>
+        </details>
+        <details class="tip">
+          <summary>Driving &amp; signs</summary>
+          <p>Left-side driving is familiar. Distances and speed limits are in <strong>miles / mph</strong> (not km). York city centre has narrow streets and cameras — park at Railway House and walk on Friday.</p>
+        </details>
+        <details class="tip">
+          <summary>Documents before you fly</summary>
+          <p>Malaysian passport holders typically need a UK <strong>ETA</strong> (Electronic Travel Authorisation) in addition to a valid passport. Apply early and screenshot the approval. Keep hotel + car booking PDFs offline.</p>
+          <div class="btn-row">
+            <a class="btn btn-dark" href="https://www.gov.uk/guidance/apply-for-an-electronic-travel-authorisation-eta" target="_blank" rel="noopener">gov.uk ETA</a>
+          </div>
+        </details>
+        <details class="tip">
+          <summary>Connectivity</summary>
+          <p>Airport eSIM / UK tourist SIM is easiest. Download offline Google Maps for York + the Saturday drive. WhatsApp works as usual on Wi‑Fi.</p>
+        </details>
+        <details class="tip">
+          <summary>Culture micro-tips</summary>
+          <p>Queues are serious. Pub tipping is modest (or round up). Tap water is safe. “Tea” can mean a hot drink <em>or</em> an evening meal in the North — context will tell you.</p>
+        </details>
+      </div>
+
       <div class="card">
         <h3>UK travel notes</h3>
         <div class="kv">
@@ -541,6 +651,7 @@ h3{font-family:Fraunces,Georgia,serif;font-size:1.08rem;margin:0 0 .45rem;color:
           <a class="btn btn-soft" href="https://www.york.gov.uk/Parking" target="_blank" rel="noopener">York parking</a>
           <a class="btn btn-soft" href="London_York_Itinerary.pptx" download>Download PPTX</a>
           <button class="btn btn-soft" type="button" id="resetAll">Reset all ticks</button>
+          <button class="btn btn-soft" type="button" id="showWelcome">Show welcome again</button>
         </div>
         <p class="muted" style="margin-top:.75rem">Tip: on iPhone Safari → Share → <strong>Add to Home Screen</strong> for an app-like icon.</p>
       </div>
@@ -561,6 +672,7 @@ h3{font-family:Fraunces,Georgia,serif;font-size:1.08rem;margin:0 0 .45rem;color:
 <script>
 (() => {
   const KEY = 'york-trip-companion-v2';
+  const WELCOME_KEY = 'york-trip-welcome-v1';
   const DATES = ['2026-10-15','2026-10-16','2026-10-17','2026-10-18'];
   const PLACES = {
     york: { lat: 53.960, lon: -1.087, el: 'wxYork', label: 'York' },
@@ -663,6 +775,10 @@ h3{font-family:Fraunces,Georgia,serif;font-size:1.08rem;margin:0 0 .45rem;color:
     document.querySelectorAll('.checklist input').forEach(b => b.checked = false);
     refreshBars(); showToast('All ticks cleared');
   });
+  document.getElementById('showWelcome')?.addEventListener('click', () => {
+    localStorage.removeItem(WELCOME_KEY);
+    document.getElementById('welcome')?.classList.add('open');
+  });
 
   // Photos
   const lb = document.getElementById('lightbox');
@@ -741,6 +857,32 @@ h3{font-family:Fraunces,Georgia,serif;font-size:1.08rem;margin:0 0 .45rem;color:
 
   // Prefetch weather for chip
   loadWeather();
+
+
+  // First-open welcome (Malaysian travellers)
+  const welcome = document.getElementById('welcome');
+  const closeWelcome = () => {
+    welcome?.classList.remove('open');
+    localStorage.setItem(WELCOME_KEY, '1');
+  };
+  document.getElementById('welcomeStart')?.addEventListener('click', () => {
+    closeWelcome();
+    showToast('Selamat jalan — enjoy York');
+  });
+  document.getElementById('welcomeTips')?.addEventListener('click', () => {
+    closeWelcome();
+    go('pack');
+    setTimeout(() => document.getElementById('myTipsPack')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+  });
+  if (welcome && !localStorage.getItem(WELCOME_KEY)) {
+    // slight delay so first paint isn't blocked
+    setTimeout(() => welcome.classList.add('open'), 350);
+  }
+  // Dev helper: ?welcome=1 forces the popup again
+  if (new URLSearchParams(location.search).get('welcome') === '1') {
+    localStorage.removeItem(WELCOME_KEY);
+    welcome?.classList.add('open');
+  }
 
   // Deep link
   const hash = (location.hash || '#home').slice(1);
