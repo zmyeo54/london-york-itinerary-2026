@@ -246,20 +246,21 @@ html.night .photo .cap{color:#e8e2d4}
 <body>
 
 
+
 <div class="welcome-backdrop" id="welcome" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
   <div class="welcome-sheet">
-    <h2 id="welcomeTitle">Welcome</h2>
-    <p class="lead">Your London → York companion for 15–18 October. Plans, weather, maps and packing — all in one place.</p>
+    <h2 id="welcomeTitle">Selamat datang</h2>
+    <p class="lead">Your London → York companion for 15–18 October. Plans, weather, maps, packing — plus a few practical notes before you go.</p>
     <ul class="welcome-points">
-      <li><span class="ic">▦</span><span><strong>Days</strong> — tick the plan as you go (saved on this phone).</span></li>
-      <li><span class="ic">☁</span><span><strong>Weather</strong> — live forecast for York and the stops.</span></li>
-      <li><span class="ic">⌖</span><span><strong>Places</strong> — maps, hours and parking tips.</span></li>
-      <li><span class="ic">☑</span><span><strong>Pack</strong> — documents and kit checklist.</span></li>
-      <li><span class="ic">☾</span><span><strong>Night mode</strong> — easier to read after dark (top-right).</span></li>
+      <li><span class="ic">£</span><span><strong>Money:</strong> roughly <strong>£1 ≈ RM5.5–6</strong> (check your bank). A £15 lunch ≈ RM85–90. Cards &amp; contactless are everywhere.</span></li>
+      <li><span class="ic">🌧</span><span><strong>Weather:</strong> autumn York is often ~10–16°C and damp. Pack a real jacket — it will feel cold compared with home.</span></li>
+      <li><span class="ic">🍽</span><span><strong>Food:</strong> York has plenty of marked-halal and Turkish options. When unsure, just ask. Stamford is smaller — vegetarian is a safe backup.</span></li>
+      <li><span class="ic">🔌</span><span><strong>Plugs &amp; driving:</strong> UK Type G (same as home). Left-side driving. Road signs use <em>miles / mph</em>.</span></li>
+      <li><span class="ic">🛂</span><span><strong>Entry:</strong> most visitors need a UK ETA approved before flying — screenshot the confirmation.</span></li>
     </ul>
     <div class="btn-row">
       <button class="btn btn-amber" type="button" id="welcomeStart">Let’s go</button>
-      <button class="btn btn-soft" type="button" id="welcomeDays">Open day plans</button>
+      <button class="btn btn-soft" type="button" id="welcomeTips">More tips</button>
     </div>
     <p class="muted" style="margin:.85rem 0 0;font-size:.8rem">Shown once on this phone. Maps &amp; ticks work offline; weather needs a connection.</p>
   </div>
@@ -321,6 +322,23 @@ html.night .photo .cap{color:#e8e2d4}
           <a class="btn btn-soft" href="https://www.google.com/maps/dir/Canary+Wharf,London/Stamford,Lincolnshire/Railway+House+York" target="_blank" rel="noopener">Thu drive</a>
           <a class="btn btn-soft" href="https://yorkminster.org/visit/" target="_blank" rel="noopener">Book Minster</a>
           <button class="btn btn-soft" type="button" id="shareBtnHome">Share trip</button>
+        </div>
+      </div>
+
+
+      <div class="card" id="handyTipsHome">
+        <h3>Good to know</h3>
+        <div class="kv">
+          <b>Money</b><span>£1 ≈ RM5.5–6 · contactless everywhere · keep a little cash for some car parks</span>
+          <b>Weather</b><span>Cooler and wetter than home — layers + rain jacket are non-negotiable</span>
+          <b>Drive</b><span>Left side · speed in <em>mph</em> · use sat-nav in York one-ways</span>
+          <b>Time</b><span>UK is about 7 hours behind Malaysia (MYT → BST)</span>
+          <b>Food</b><span>Search “halal York” or Turkish restaurants · ask if unsure</span>
+          <b>Plug</b><span>Type G — same as home · bring a power bank for walking days</span>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-soft" type="button" data-go="pack">Full tips in Pack</button>
+          <a class="btn btn-dark" href="https://www.gov.uk/guidance/apply-for-an-electronic-travel-authorisation-eta" target="_blank" rel="noopener">UK ETA info</a>
         </div>
       </div>
 
@@ -636,6 +654,43 @@ html.night .photo .cap{color:#e8e2d4}
         <div class="bar"><span data-bar="pack"></span></div>
       </div>
 
+
+      <div class="card" id="handyTipsPack">
+        <h3>Good to know</h3>
+        <details class="tip" open>
+          <summary>Money &amp; payments</summary>
+          <p>Think in RM: <strong>£10 ≈ RM55–60</strong>, <strong>£50 ≈ RM275–300</strong>. Contactless is normal. Some car parks need the RingGo app — set it up on Wi‑Fi before Saturday’s coast day.</p>
+        </details>
+        <details class="tip">
+          <summary>Food</summary>
+          <p>York has Turkish, Middle Eastern, and marked-halal restaurants; some fish &amp; chips shops can fry separately if you ask. Useful Maps searches: <em>halal York</em>, <em>Turkish restaurant York</em>. Stamford is smaller — vegetarian can be a safe backup.</p>
+          <p>Hotel breakfast is often eggs/toast/coffee — ask if sausages or bacon are pork. Many cafés do porridge, avocado toast, or eggs without pork.</p>
+        </details>
+        <details class="tip">
+          <summary>Packing for cooler weather</summary>
+          <p>UK autumn is not tropical rain at 30°C. Expect wind on the coast at Robin Hood’s Bay. Bring a windproof/rain jacket, warm jumper, closed walking shoes with grip, and proper socks.</p>
+        </details>
+        <details class="tip">
+          <summary>Driving &amp; signs</summary>
+          <p>Left-side driving. Distances and limits are in <strong>miles / mph</strong>. York centre has narrow streets and cameras — leave the car at Railway House and walk on Friday.</p>
+        </details>
+        <details class="tip">
+          <summary>Documents before you fly</summary>
+          <p>Most visitors need a UK <strong>ETA</strong> (Electronic Travel Authorisation) plus a valid passport. Apply early and screenshot the approval. Keep hotel + car booking PDFs offline.</p>
+          <div class="btn-row">
+            <a class="btn btn-dark" href="https://www.gov.uk/guidance/apply-for-an-electronic-travel-authorisation-eta" target="_blank" rel="noopener">gov.uk ETA</a>
+          </div>
+        </details>
+        <details class="tip">
+          <summary>Connectivity</summary>
+          <p>Airport eSIM / UK tourist SIM is easiest. Download offline maps for York and the Saturday drive. WhatsApp works as usual on Wi‑Fi.</p>
+        </details>
+        <details class="tip">
+          <summary>Local habits</summary>
+          <p>Queues are serious. Pub tipping is modest (or round up). Tap water is safe. In the North, “tea” can mean a hot drink <em>or</em> an evening meal — context will tell you.</p>
+        </details>
+      </div>
+
       <div class="card">
         <h3>UK travel notes</h3>
         <div class="kv">
@@ -871,6 +926,11 @@ html.night .photo .cap{color:#e8e2d4}
   document.getElementById('welcomeStart')?.addEventListener('click', () => {
     closeWelcome();
     showToast('Have a great trip');
+  });
+  document.getElementById('welcomeTips')?.addEventListener('click', () => {
+    closeWelcome();
+    go('pack');
+    setTimeout(() => document.getElementById('handyTipsPack')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
   });
   document.getElementById('welcomeDays')?.addEventListener('click', () => {
     closeWelcome();
