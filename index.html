@@ -63,11 +63,11 @@ button,a,label,summary,input{touch-action:manipulation;-webkit-tap-highlight-col
 .topbar .sub{font-size:.7rem;opacity:.75;margin-top:.1rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .wx-chip{
   flex:0 0 auto;
-  display:inline-flex;align-items:center;gap:.4rem;
+  display:inline-flex;align-items:center;gap:.35rem;
   background:linear-gradient(135deg,rgba(232,226,212,.16),rgba(232,226,212,.08));
   border:1px solid rgba(232,226,212,.22);border-radius:999px;
-  padding:.35rem .65rem .35rem .5rem;font-size:.72rem;line-height:1.1;
-  white-space:nowrap; max-width:none;
+  padding:.32rem .6rem .32rem .45rem;font-size:.7rem;line-height:1.1;
+  white-space:nowrap; max-width:none; overflow:visible;
 }
 .wx-chip .wx-ico{font-size:1.05rem;line-height:1}
 .wx-chip .wx-temp{font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
@@ -109,29 +109,33 @@ h3{font-family:Fraunces,Georgia,serif;font-size:1.08rem;margin:0 0 .45rem;color:
   box-shadow:0 14px 36px rgba(12,18,14,.1);
 }
 .hotel-media{
-  position:relative; display:block; height:150px;
-  background:#2f3d36; text-decoration:none; color:var(--lime);
+  position:relative; display:block; height:168px;
+  background:#2f3d36 center/cover no-repeat;
+  text-decoration:none; color:var(--lime);
   overflow:hidden;
-}
-.hotel-media iframe{
-  position:absolute; inset:-10% -10% -10% -10%; width:120%; height:120%;
-  border:0; pointer-events:none; filter:saturate(.9) contrast(1.05);
 }
 .hotel-media-shade{
   position:absolute; inset:0;
-  background:linear-gradient(180deg, rgba(16,22,18,.15) 0%, rgba(16,22,18,.55) 100%);
+  background:linear-gradient(180deg, rgba(16,22,18,.12) 0%, rgba(16,22,18,.62) 100%);
 }
 .hotel-logo{
   position:absolute; left:.85rem; bottom:.85rem; z-index:2;
   display:flex; align-items:center; gap:.65rem;
 }
 .hotel-mark{
-  width:48px; height:48px; border-radius:14px;
-  background:linear-gradient(145deg,#c4783a,#a35f2c);
-  color:#fffdf8; font-family:Fraunces,Georgia,serif; font-weight:700;
-  font-size:1.05rem; display:flex; align-items:center; justify-content:center;
-  box-shadow:0 8px 20px rgba(0,0,0,.25);
+  width:52px; height:52px; border-radius:14px; overflow:hidden;
+  background:#fffdf8; box-shadow:0 8px 20px rgba(0,0,0,.28);
+  flex-shrink:0;
 }
+.hotel-mark img{width:100%; height:100%; object-fit:cover; display:block}
+.countdown-pill{
+  display:inline-flex; align-items:center; gap:.4rem;
+  background:rgba(196,120,58,.14); color:var(--slate);
+  border:1px solid rgba(196,120,58,.28); border-radius:999px;
+  padding:.35rem .75rem; font-size:.82rem; font-weight:700; margin:0 0 .65rem;
+}
+html.night .countdown-pill{background:rgba(224,138,60,.14); color:var(--lime); border-color:rgba(224,138,60,.3)}
+
 .hotel-logo-text{display:flex; flex-direction:column; gap:.1rem}
 .hotel-logo-text strong{font-family:Fraunces,Georgia,serif; font-size:1.05rem; color:#fff}
 .hotel-logo-text span{font-size:.72rem; opacity:.85}
@@ -410,14 +414,13 @@ html.night .photo .cap{color:#e8e2d4}
       <div class="offline-banner" id="offlineBanner"><span class="dot" aria-hidden="true"></span><span>Offline · ticks &amp; maps still work</span></div>
 
       <article class="hotel-card" id="hotelCard">
-        <a class="hotel-media" href="https://maps.google.com/?q=Railway+House+York+128+Holgate+Road+YO24+4FL" target="_blank" rel="noopener" aria-label="Open Railway House in Maps">
-          <iframe title="Hotel map" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=-1.1125%2C53.9515%2C-1.0985%2C53.9582&amp;layer=mapnik&amp;marker=53.95487%2C-1.10549" tabindex="-1"></iframe>
+        <a class="hotel-media" href="https://maps.google.com/?q=Railway+House+York+128+Holgate+Road+YO24+4FL" target="_blank" rel="noopener" aria-label="Open Railway House in Maps" style="background-image:url('media/hotel-exterior.jpg')">
           <div class="hotel-media-shade"></div>
           <div class="hotel-logo">
-            <div class="hotel-mark" aria-hidden="true">RH</div>
+            <div class="hotel-mark"><img src="media/hotel-logo.jpg" width="128" height="128" alt="Railway House logo"></div>
             <div class="hotel-logo-text">
               <strong>Railway House</strong>
-              <span>Tap map / logo for directions</span>
+              <span>Tap photo for directions</span>
             </div>
           </div>
           <span class="hotel-tap">Open map →</span>
@@ -437,7 +440,10 @@ html.night .photo .cap{color:#e8e2d4}
             <div><span class="lbl">Check-out</span><span class="val">10:00–10:30</span></div>
           </div>
           <div class="btn-row">
-            <a class="btn btn-dark" href="https://maps.google.com/?q=Railway+House+York+128+Holgate+Road+YO24+4FL" target="_blank" rel="noopener">Navigate to hotel</a>
+            <a class="btn btn-dark" href="https://maps.google.com/?q=Railway+House+York+128+Holgate+Road+YO24+4FL" target="_blank" rel="noopener">Navigate</a>
+            <a class="btn btn-soft" href="tel:+443300580165">Call hotel</a>
+            <a class="btn btn-soft" href="https://wa.me/443300580165" target="_blank" rel="noopener">WhatsApp</a>
+            <a class="btn btn-soft" href="mailto:info@railwayhouseyork.co.uk">Email</a>
             <button class="btn btn-soft" type="button" id="copyPostcode">Copy postcode</button>
           </div>
         </div>
@@ -447,6 +453,7 @@ html.night .photo .cap{color:#e8e2d4}
         <h3>Quick actions</h3>
         <div class="btn-row">
           <a class="btn btn-dark" href="https://maps.google.com/?q=Railway+House+York+128+Holgate+Road" target="_blank" rel="noopener">Hotel map</a>
+          <a class="btn btn-soft" href="tel:+443300580165">Call hotel</a>
           <a class="btn btn-soft" href="tel:999">UK emergency 999</a>
           <a class="btn btn-soft" href="https://www.google.com/maps/dir/Canary+Wharf,London/Stamford,Lincolnshire/Railway+House+York" target="_blank" rel="noopener">Thu drive</a>
           <a class="btn btn-soft" href="https://yorkminster.org/visit/" target="_blank" rel="noopener">Book Minster</a>
@@ -475,6 +482,7 @@ html.night .photo .cap{color:#e8e2d4}
 
       <div class="card">
         <h3>Trip pulse</h3>
+        <div class="countdown-pill" id="countdownPill">⏳ …</div>
         <p class="muted" id="tripPulse">Loading today’s focus…</p>
         <div class="chip-row" id="focusChips"></div>
         <div class="btn-row">
@@ -923,18 +931,33 @@ html.night .photo .cap{color:#e8e2d4}
     sat: ['Saturday focus', 'Castle Howard morning · Robin Hood’s Bay afternoon', ['Tickets', 'RingGo parking', 'Check tides']],
     sun: ['Sunday focus', 'Checkout by 10:30 · drive south if returning to London', ['Pack', 'Fuel', 'Traffic']],
   };
+  const tripStart = new Date('2026-10-15T00:00:00');
+  const londonNow = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/London' }));
+  const msDay = 24 * 60 * 60 * 1000;
+  const daysToStart = Math.ceil((tripStart - new Date(iso + 'T00:00:00')) / msDay);
+  const pulseEl = document.getElementById('tripPulse');
+  const chipsEl = document.getElementById('focusChips');
+  const countEl = document.getElementById('countdownPill');
+
   if (iso < '2026-10-15') {
     focusDay = 'thu';
-    document.getElementById('tripPulse').textContent = 'Trip starts Thu 15 Oct — prep car pickup, tickets and packing.';
-    document.getElementById('focusChips').innerHTML = ['Countdown','Book Minster','Pack rain layer'].map(t=>`<span class="pill">${t}</span>`).join('');
+    const n = Math.max(0, daysToStart);
+    const leaveTxt = n === 0 ? 'Trip starts today' : n === 1 ? 'Leaves tomorrow' : `Leaves in ${n} days`;
+    if (countEl) countEl.textContent = `⏳ ${leaveTxt} · Thu 15 Oct`;
+    pulseEl.textContent = 'Prep car pickup, tickets and packing before Thursday.';
+    chipsEl.innerHTML = [leaveTxt, 'Book Minster', 'Pack rain layer'].map(t=>`<span class="pill">${t}</span>`).join('');
   } else if (map[iso]) {
     focusDay = map[iso];
+    const dayName = {thu:'Thursday',fri:'Friday',sat:'Saturday',sun:'Sunday'}[focusDay];
     const [title, body, chips] = labels[focusDay];
-    document.getElementById('tripPulse').innerHTML = `<strong>${title}</strong> — ${body}`;
-    document.getElementById('focusChips').innerHTML = chips.map(t=>`<span class="pill">${t}</span>`).join('');
+    if (countEl) countEl.textContent = `📍 Today is ${dayName}`;
+    pulseEl.innerHTML = `<strong>${title}</strong> — ${body}`;
+    chipsEl.innerHTML = ['Today', ...chips].map(t=>`<span class="pill">${t}</span>`).join('');
   } else {
     focusDay = 'sun';
-    document.getElementById('tripPulse').textContent = 'Trip window has passed — keep this page as a souvenir checklist.';
+    if (countEl) countEl.textContent = '✓ Trip complete';
+    pulseEl.textContent = 'Trip window has passed — keep this page as a souvenir checklist.';
+    chipsEl.innerHTML = '';
   }
 
   // Checklists
