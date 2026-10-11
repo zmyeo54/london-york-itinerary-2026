@@ -213,8 +213,15 @@ html.night .hero-card .countdown-pill{
 .hotel-go .ico{
   width:28px; height:28px; border-radius:999px;
   display:grid; place-items:center;
-  background:rgba(232,226,212,.16); font-size:.95rem;
+  background:rgba(232,226,212,.16);
 }
+.hotel-go .ico svg, .hotel-act .ico svg{
+  width:18px; height:18px; display:block;
+  stroke:currentColor; fill:none; stroke-width:1.8;
+  stroke-linecap:round; stroke-linejoin:round;
+}
+.hotel-go .ico{color:var(--lime)}
+.hotel-act.wa .ico svg{fill:currentColor; stroke:none}
 .hotel-act-grid{
   display:grid; grid-template-columns:1fr 1fr; gap:.5rem;
 }
@@ -231,16 +238,20 @@ html.night .hero-card .countdown-pill{
 .hotel-act:active{transform:scale(.97)}
 .hotel-act .ico{
   width:36px; height:36px; border-radius:12px;
-  display:grid; place-items:center; font-size:1.05rem;
-  background:rgba(47,61,54,.08);
+  display:grid; place-items:center;
+  background:rgba(47,61,54,.08); color:var(--slate);
 }
-.hotel-act.call .ico{background:rgba(46,125,90,.14)}
-.hotel-act.wa .ico{background:rgba(37,211,102,.16)}
-.hotel-act.mail .ico{background:rgba(196,120,58,.16)}
-.hotel-act.copy .ico{background:rgba(47,61,54,.1)}
+.hotel-act.call .ico{background:rgba(46,125,90,.14); color:#2e7d5a}
+.hotel-act.wa .ico{background:rgba(37,211,102,.16); color:#128c7e}
+.hotel-act.mail .ico{background:rgba(196,120,58,.16); color:#a8652a}
+.hotel-act.copy .ico{background:rgba(47,61,54,.1); color:var(--slate)}
 html.night .hotel-act{background:rgba(26,34,30,.96); color:var(--lime)}
-html.night .hotel-act .ico{background:rgba(232,226,212,.08)}
+html.night .hotel-act .ico{background:rgba(232,226,212,.08); color:var(--lime)}
+html.night .hotel-act.call .ico{color:#7dcea0}
+html.night .hotel-act.wa .ico{color:#5eead4}
+html.night .hotel-act.mail .ico{color:#e0a06a}
 html.night .hotel-go{box-shadow:0 10px 24px rgba(0,0,0,.35)}
+html.night .hotel-go .ico{color:var(--lime)}
 .dash-grid{
   display:grid; grid-template-columns:1fr 1fr; gap:.55rem; margin:0 0 .85rem;
 }
@@ -598,24 +609,24 @@ html.night .photo .cap{color:#e8e2d4}
             </div>
             <div class="hotel-actions">
               <a class="hotel-go" href="https://maps.google.com/?q=Railway+House+York+128+Holgate+Road+YO24+4FL" target="_blank" rel="noopener">
-                <span class="ico" aria-hidden="true">➤</span>
+                <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg></span>
                 <span>Navigate to hotel</span>
               </a>
               <div class="hotel-act-grid">
                 <a class="hotel-act call" href="tel:+443300580165">
-                  <span class="ico" aria-hidden="true">📞</span>
+                  <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 4.5h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A15.5 15.5 0 0 1 4.5 6.7a2 2 0 0 1 2-2.2z"/></svg></span>
                   <span>Call</span>
                 </a>
                 <a class="hotel-act wa" href="https://wa.me/443300580165" target="_blank" rel="noopener">
-                  <span class="ico" aria-hidden="true">💬</span>
+                  <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12.04 3.5A8.45 8.45 0 0 0 3.6 11.9a8.4 8.4 0 0 0 1.25 4.4L3.5 20.5l4.35-1.3a8.5 8.5 0 0 0 4.19 1.1h.01A8.45 8.45 0 1 0 12.04 3.5zm4.9 11.95c-.2.57-1.18 1.05-1.63 1.12-.42.06-.95.09-1.53-.1a14.2 14.2 0 0 1-2.45-1.08 9.8 9.8 0 0 1-3.4-3.3c-.46-.66-.95-1.5-.93-2.24.02-.7.4-1.3.8-1.6.28-.21.63-.3.95-.3h.7c.22 0 .52-.08.8.62.3.74.99 2.55 1.08 2.73.1.19.15.4.03.64-.12.24-.18.39-.36.6-.18.21-.38.47-.54.63-.18.18-.36.37-.15.7.2.33.9 1.48 1.93 2.4 1.33 1.17 2.4 1.54 2.77 1.71.37.17.58.14.8-.08.22-.22.9-1.03 1.14-1.39.24-.36.48-.3.8-.18.33.12 2.08.98 2.43 1.16.36.18.6.27.69.42.08.15.08.86-.12 1.43z"/></svg></span>
                   <span>WhatsApp</span>
                 </a>
                 <a class="hotel-act mail" href="mailto:info@railwayhouseyork.co.uk">
-                  <span class="ico" aria-hidden="true">✉️</span>
+                  <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4.5 7.5 7.5 6 7.5-6"/></svg></span>
                   <span>Email</span>
                 </a>
                 <button class="hotel-act copy" type="button" id="copyPostcode">
-                  <span class="ico" aria-hidden="true">📋</span>
+                  <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M6.5 15.5H5.8A2.3 2.3 0 0 1 3.5 13.2V5.8A2.3 2.3 0 0 1 5.8 3.5h7.4A2.3 2.3 0 0 1 15.5 5.8v.7"/></svg></span>
                   <span>Postcode</span>
                 </button>
               </div>
@@ -940,6 +951,7 @@ html.night .photo .cap{color:#e8e2d4}
         <div class="filter-row" id="foodFilters" role="toolbar" aria-label="Food filters">
           <button type="button" class="active" data-food-filter="all">All</button>
           <button type="button" data-food-filter="halal">Halal</button>
+          <button type="button" data-food-filter="asian">Asian</button>
           <button type="button" data-food-filter="must-try">Must-try</button>
           <button type="button" data-food-filter="cafe">Café · tea</button>
           <button type="button" data-food-filter="stamford">Stamford</button>
@@ -992,15 +1004,60 @@ html.night .photo .cap{color:#e8e2d4}
             </div>
           </div>
 
-          <div class="food-item" data-tags="halal">
+          <div class="food-item" data-tags="halal asian">
             <h4>Rosa’s Thai York</h4>
             <p class="meta">Thai · 1–3 Coney Street</p>
-            <span class="pill">Halal chicken</span><span class="pill">Centre</span>
+            <span class="pill">Asian</span><span class="pill">Halal chicken</span>
             <p class="note">Chicken from a Halal supplier — confirm other proteins when you order.</p>
             <div class="btn-row">
               <a class="btn btn-dark" href="https://maps.google.com/?q=Rosa's+Thai+Coney+Street+York" target="_blank" rel="noopener">Map</a>
               <a class="btn btn-soft" href="tel:+441904590046">Call</a>
               <a class="btn btn-soft" href="https://rosasthai.com/locations/york-restaurant" target="_blank" rel="noopener">Menu</a>
+            </div>
+          </div>
+
+          <div class="food-item" data-tags="asian">
+            <h4>Red Chilli</h4>
+            <p class="meta">Sichuan / Beijing Chinese · 21 George Hudson Street</p>
+            <span class="pill">Asian</span><span class="pill">Chinese</span>
+            <p class="note">Well-known centre Chinese — spicy Sichuan and classic Beijing dishes. Near the station; ask about Halal if needed.</p>
+            <div class="btn-row">
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Red+Chilli+21+George+Hudson+Street+York" target="_blank" rel="noopener">Map</a>
+              <a class="btn btn-soft" href="tel:+441904733668">Call</a>
+              <a class="btn btn-soft" href="https://www.redchilliyork.com/george-hudson-street" target="_blank" rel="noopener">Book / hours</a>
+            </div>
+          </div>
+
+          <div class="food-item" data-tags="asian">
+            <h4>Little Asia</h4>
+            <p class="meta">Korean · 37 Walmgate</p>
+            <span class="pill">Asian</span><span class="pill">Korean</span>
+            <p class="note">Bibimbap, dumplings, and Korean classics in the city centre. Compact and popular — go early or book if you can.</p>
+            <div class="btn-row">
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Little+Asia+37+Walmgate+York" target="_blank" rel="noopener">Map</a>
+              <a class="btn btn-soft" href="tel:+441904640222">Call</a>
+              <a class="btn btn-soft" href="https://www.littleasia.uk/" target="_blank" rel="noopener">Website</a>
+            </div>
+          </div>
+
+          <div class="food-item" data-tags="asian">
+            <h4>Bulgogi Korean &amp; BBQ</h4>
+            <p class="meta">Korean BBQ · 33a Swinegate (upstairs)</p>
+            <span class="pill">Asian</span><span class="pill">Korean BBQ</span>
+            <p class="note">Table grill, bibimbap, dumplings — fun for a group. Easy miss: look for the door, restaurant is upstairs.</p>
+            <div class="btn-row">
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Bulgogi+Korean+BBQ+33a+Swinegate+York" target="_blank" rel="noopener">Map</a>
+            </div>
+          </div>
+
+          <div class="food-item" data-tags="asian">
+            <h4>Oshibi Korean Bistro &amp; BBQ</h4>
+            <p class="meta">Korean BBQ · Franklin’s Yard, off Fossgate</p>
+            <span class="pill">Asian</span><span class="pill">All-you-can-eat BBQ</span>
+            <p class="note">Courtyard hideaway with table-top grills. Good if you want a longer sit-down Korean dinner.</p>
+            <div class="btn-row">
+              <a class="btn btn-dark" href="https://maps.google.com/?q=Oshibi+Korean+Franklin's+Yard+York" target="_blank" rel="noopener">Map</a>
+              <a class="btn btn-soft" href="https://www.oshibi.biz/" target="_blank" rel="noopener">Website</a>
             </div>
           </div>
 
@@ -1081,6 +1138,7 @@ html.night .photo .cap{color:#e8e2d4}
 
         <div class="btn-row">
           <a class="btn btn-soft" href="https://www.google.com/maps/search/?api=1&amp;query=halal+restaurant+York" target="_blank" rel="noopener">More Halal on Maps</a>
+          <a class="btn btn-soft" href="https://www.google.com/maps/search/?api=1&amp;query=Chinese+Korean+Asian+restaurant+York" target="_blank" rel="noopener">More Asian on Maps</a>
           <a class="btn btn-soft" href="https://www.google.com/maps/search/?api=1&amp;query=best+restaurants+York" target="_blank" rel="noopener">More restaurants</a>
         </div>
       </div>
@@ -1389,7 +1447,7 @@ html.night .photo .cap{color:#e8e2d4}
     money: ['Money', 'Roughly £1 ≈ RM5.5–6 (check your bank). Contactless is normal; keep a little cash for some car parks / RingGo.'],
     weather: ['Weather', 'Autumn York is often ~10–16°C and damp. Pack a proper jacket and shoes with grip — especially for the coast.'],
     drive: ['Driving', 'Left side of the road. Limits and distances are in miles / mph. Leave the car at the hotel on Friday and walk.'],
-    food: ['Food', 'Open Places → Food and filter Halal / Must-try / Café. York Halal: Three Chef’s, Middle Feast, Kapadokya, Marrakesh, Rosa’s Thai. Must-try classics: Bettys, Miller’s chips, Shambles Market. Always ask at the counter.'],
+    food: ['Food', 'Open Places → Food and filter Halal / Asian / Must-try. Asian: Red Chilli (Chinese), Little Asia & Bulgogi (Korean), Rosa’s Thai. Halal list is separate — always ask at the counter.'],
     time: ['Time difference', 'UK is about 7 hours behind Malaysia (MYT UTC+8 → BST UTC+1 in October).'],
     plug: ['Plugs', 'UK Type G — same as home. Bring a power bank for long walking days.'],
   };
