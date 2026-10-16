@@ -317,8 +317,16 @@ html.night .hotel-chevron{background:rgba(232,226,212,.08); color:var(--lime)}
 .wx-day .icon{font-size:1.7rem;margin:.25rem 0}
 .wx-day .t{font-family:Fraunces,Georgia,serif;font-size:1.15rem}
 .wx-day .p{font-size:.8rem;color:var(--moss);margin-top:.25rem}
-.place{display:grid;grid-template-columns:88px 1fr;gap:.7rem;align-items:center}
+.place{display:grid;grid-template-columns:88px 1fr;gap:.7rem;align-items:start}
 .place .thumb{width:88px;height:72px;border-radius:12px;background-size:cover;background-position:center}
+.place-guide{margin-top:.55rem}
+.place-guide ul{margin:.45rem 0 0;padding-left:1.1rem}
+.place-guide li{margin:.28rem 0;font-size:.9rem;line-height:1.4}
+.place-guide li strong{color:var(--slate)}
+.guide-facts{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin:.55rem 0 .15rem}
+.guide-facts span{background:rgba(47,61,54,.06);border-radius:10px;padding:.4rem .55rem;font-size:.78rem;line-height:1.3}
+.guide-facts b{display:block;font-size:.68rem;letter-spacing:.04em;text-transform:uppercase;color:var(--moss);margin-bottom:.1rem}
+html.night .guide-facts span{background:rgba(232,226,212,.06)}
 .pill{display:inline-flex;align-items:center;gap:.3rem;background:rgba(47,61,54,.08);border-radius:999px;padding:.28rem .6rem;font-size:.75rem;margin:.15rem .2rem .15rem 0}
 .food-list{display:flex;flex-direction:column;gap:.65rem;margin:.55rem 0 0}
 .food-trust{
@@ -874,6 +882,8 @@ html.night .photo .cap{color:#e8e2d4}
       </div>
 
       <div class="places-pane active" id="places-attractions" data-places-pane="attractions">
+        <p class="muted" style="margin:0 0 .75rem;font-size:.9rem">Tap <strong>Little guide</strong> on each place for what to see, timing, and useful tips.</p>
+
         <div class="card">
           <div class="place">
             <div class="thumb" style="background-image:url('media/stamford.jpg')"></div>
@@ -886,6 +896,21 @@ html.night .photo .cap{color:#e8e2d4}
               </div>
             </div>
           </div>
+          <details class="tip place-guide">
+            <summary>Little guide</summary>
+            <div class="guide-facts">
+              <span><b>Best for</b>~2–3 hrs · lunch + stroll</span>
+              <span><b>Vibe</b>Georgian honey stone · calm</span>
+              <span><b>Market day</b>Usually Fri — Thu is quieter</span>
+              <span><b>Walk</b>High St → St Mary’s → Meadows</span>
+            </div>
+            <ul>
+              <li><strong>Why stop:</strong> One of England’s prettiest stone towns — a natural break on the A1 between London and York.</li>
+              <li><strong>Don’t miss:</strong> St Mary’s Street / Church Street for photos; the Meadows riverside path if the weather is kind.</li>
+              <li><strong>Eat:</strong> Cafés and pubs around High Street and St Mary’s Hill. Turkish options (Mad Turk, Zada) if you want grilled meat — confirm Halal at the counter. Veggie / fish is the safest midday bet.</li>
+              <li><strong>Tip:</strong> Thursday is not Stamford’s main market day — still lovely for streets and coffee. Fill fuel before leaving London or check prices near Stamford.</li>
+            </ul>
+          </details>
         </div>
 
         <div class="card">
@@ -901,6 +926,22 @@ html.night .photo .cap{color:#e8e2d4}
               </div>
             </div>
           </div>
+          <details class="tip place-guide" open>
+            <summary>Little guide</summary>
+            <div class="guide-facts">
+              <span><b>Time</b>1–1.5 hrs sightseeing</span>
+              <span><b>Hours</b>Mon–Sat ~9:30–16:00</span>
+              <span><b>Tickets</b>Book online · valid 12 months</span>
+              <span><b>Parking</b>None — walk / taxi</span>
+            </div>
+            <ul>
+              <li><strong>What it is:</strong> Northern Europe’s great Gothic cathedral — the skyline landmark of York. Allow time for the nave, choir, and stained glass.</li>
+              <li><strong>Don’t miss:</strong> The Great East Window (one of the world’s largest medieval glass windows) and the Chapter House. Tower climb is optional (many steps; check if open that day).</li>
+              <li><strong>Tickets:</strong> Sightseeing entry is paid; booking ahead skips queues. Tickets usually stay valid for 12 months if plans slip.</li>
+              <li><strong>Tip:</strong> Arrive near opening for quieter photos. Services can limit tourist access — check the day’s schedule. No Minster car park; walk ~30–40 min from Railway House or take a short taxi.</li>
+              <li><strong>After:</strong> Stonegate (shops + coffee) leads you toward the Shambles — natural Friday loop.</li>
+            </ul>
+          </details>
         </div>
 
         <div class="card">
@@ -915,6 +956,21 @@ html.night .photo .cap{color:#e8e2d4}
               </div>
             </div>
           </div>
+          <details class="tip place-guide">
+            <summary>Little guide</summary>
+            <div class="guide-facts">
+              <span><b>Time</b>20–40 min stroll</span>
+              <span><b>Best light</b>Morning or late afternoon</span>
+              <span><b>Crowds</b>Peak midday / weekends</span>
+              <span><b>Nearby</b>Market · snickelways</span>
+            </div>
+            <ul>
+              <li><strong>What it is:</strong> York’s famous overhanging medieval street — once the butchers’ lane (“shambles”). The timber fronts almost touch above your head.</li>
+              <li><strong>Don’t miss:</strong> Looking up at the jettied floors; duck into side alleys (“snickelways”) for quieter photos and local shops.</li>
+              <li><strong>Harry Potter note:</strong> People compare it to Diagon Alley — fun, but it’s a real medieval street, not a theme park. Keep expectations (and elbows) realistic at peak hours.</li>
+              <li><strong>Tip:</strong> Short street — you don’t need long. Go earlier or later for better photos; combine with Shambles Market for food right after.</li>
+            </ul>
+          </details>
         </div>
 
         <div class="card">
@@ -930,6 +986,48 @@ html.night .photo .cap{color:#e8e2d4}
               </div>
             </div>
           </div>
+          <details class="tip place-guide">
+            <summary>Little guide</summary>
+            <div class="guide-facts">
+              <span><b>Hours</b>Often ~9:00–17:00</span>
+              <span><b>Best for</b>Street food + crafts</span>
+              <span><b>Rain plan</b>Covered stalls still work</span>
+              <span><b>Must-try</b>NaNa · Miller’s</span>
+            </div>
+            <ul>
+              <li><strong>What it is:</strong> Open-air market beside the Shambles — crafts, gifts, and a proper street-food court. Perfect Friday lunch stop after the medieval street.</li>
+              <li><strong>Don’t miss:</strong> Food court picks — NaNa Noodle Bar (4.8★), Miller’s fish &amp; chips, plus Halal / veggie stalls. Traders change by day.</li>
+              <li><strong>Tip:</strong> Cash is handy for some stalls, but cards are common. If it rains, covered stalls still make a good browse. See Places → Food for rated stalls.</li>
+            </ul>
+          </details>
+        </div>
+
+        <div class="card">
+          <div class="place">
+            <div class="thumb" style="background-image:url('media/minster.jpg');background-position:30% 70%"></div>
+            <div>
+              <h3>York City Walls</h3>
+              <p class="muted" style="margin:0">Medieval ramparts · optional Fri stretch</p>
+              <span class="pill">Free</span><span class="pill">Closes at dusk</span>
+              <div class="btn-row">
+                <a class="btn btn-soft" href="https://maps.google.com/?q=York+City+Walls+Monk+Bar" target="_blank" rel="noopener">Monk Bar map</a>
+              </div>
+            </div>
+          </div>
+          <details class="tip place-guide">
+            <summary>Little guide</summary>
+            <div class="guide-facts">
+              <span><b>Full loop</b>~3.4 km · 1.5–2 hrs</span>
+              <span><b>Your plan</b>Short stretch only</span>
+              <span><b>Cost</b>Free · open daylight</span>
+              <span><b>Access</b>Closes dusk / bad weather</span>
+            </div>
+            <ul>
+              <li><strong>What it is:</strong> One of the best-preserved medieval city walls in England — walk the ramparts for rooftop and Minster views.</li>
+              <li><strong>Don’t miss:</strong> A short stretch near the Minster / Monk Bar is enough for photos. Full circuit is long and uneven — skip it if legs are tired.</li>
+              <li><strong>Tip:</strong> Surfaces can be slippery when wet. Walls close at dusk or in bad weather — don’t plan this as a late evening activity.</li>
+            </ul>
+          </details>
         </div>
 
         <div class="card">
@@ -945,6 +1043,21 @@ html.night .photo .cap{color:#e8e2d4}
               </div>
             </div>
           </div>
+          <details class="tip place-guide" open>
+            <summary>Little guide</summary>
+            <div class="guide-facts">
+              <span><b>Drive</b>~40–45 min from York</span>
+              <span><b>House</b>Often 10:00–16:00</span>
+              <span><b>Grounds</b>Often to 17:00</span>
+              <span><b>Parking</b>Free (usual days)</span>
+            </div>
+            <ul>
+              <li><strong>What it is:</strong> A spectacular Baroque country house set in parkland — interiors, dome, and grand gardens. Famously linked to <em>Brideshead Revisited</em> and later screen dramas.</li>
+              <li><strong>Don’t miss:</strong> The Great Hall / dome; a short garden stroll to the Atlas Fountain. Skip a full garden marathon if you want more time at the coast.</li>
+              <li><strong>Tickets:</strong> Buy online; last entry is earlier than closing. House and grounds can have different last-entry times — check the day’s board.</li>
+              <li><strong>Tip:</strong> Lunch on site keeps Saturday simple. Free parking most of the year (Christmas period can differ). Keep the house visit to ~2 hrs so Robin Hood’s Bay isn’t rushed.</li>
+            </ul>
+          </details>
         </div>
 
         <div class="card">
@@ -960,10 +1073,25 @@ html.night .photo .cap{color:#e8e2d4}
               </div>
             </div>
           </div>
+          <details class="tip place-guide" open>
+            <summary>Little guide</summary>
+            <div class="guide-facts">
+              <span><b>Drive</b>~1 hr from Castle Howard</span>
+              <span><b>Park</b>Bank Top / Station</span>
+              <span><b>Walk</b>Steep cobbles down &amp; up</span>
+              <span><b>Beach</b>Depends on tide</span>
+            </div>
+            <ul>
+              <li><strong>What it is:</strong> A classic North Yorkshire fishing village tumbling down to the North Sea — narrow lanes, red roofs, and dramatic bay views.</li>
+              <li><strong>Don’t miss:</strong> The walk down through the old streets to the slipway / beach (if tide allows), then a café stop before the climb back up.</li>
+              <li><strong>Parking:</strong> Park at the top (Bank Top or Station car parks — RingGo often used; set the app up on Wi‑Fi first). Do not try to drive into the lower village.</li>
+              <li><strong>Tip:</strong> Shoes with grip matter — cobbles are steep and can be wet. Autumn wind is real; bring a jacket. Check the tide if you want beach time. Save energy for the walk back uphill.</li>
+            </ul>
+          </details>
         </div>
 
         <div class="card">
-          <h3>Hotel</h3>
+          <h3>Hotel · Railway House York</h3>
           <div class="kv">
             <b>Name</b><span>Railway House York</span>
             <b>Address</b><span>128 Holgate Road, York YO24 4FL</span>
@@ -977,6 +1105,20 @@ html.night .photo .cap{color:#e8e2d4}
             <a class="btn btn-soft" href="https://wa.me/443300580165" target="_blank" rel="noopener">WhatsApp</a>
             <button class="btn btn-soft" type="button" data-open-food="near-hotel">Dinner nearby</button>
           </div>
+          <details class="tip place-guide">
+            <summary>Little guide</summary>
+            <div class="guide-facts">
+              <span><b>To centre</b>~15–20 min walk</span>
+              <span><b>Car Fri</b>Leave it parked</span>
+              <span><b>Postcode</b>YO24 4FL</span>
+              <span><b>Nights</b>Thu–Sun · 3 nights</span>
+            </div>
+            <ul>
+              <li><strong>Base camp:</strong> Quiet Holgate Road base with free private parking — ideal so you don’t drive into York’s narrow centre on Friday.</li>
+              <li><strong>Getting around:</strong> Walk into town (~15–20 min) or short taxi to the Minster. Micklegate / Blossom Street restaurants are on the way home.</li>
+              <li><strong>Tip:</strong> Save the postcode <strong>YO24 4FL</strong> for Maps / taxi. Check-in from 15:00; checkout window is tight on Sunday (10:00–10:30) — pack before breakfast if you can.</li>
+            </ul>
+          </details>
         </div>
       </div>
 
