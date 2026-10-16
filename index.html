@@ -327,6 +327,13 @@ html.night .hotel-chevron{background:rgba(232,226,212,.08); color:var(--lime)}
 .guide-facts span{background:rgba(47,61,54,.06);border-radius:10px;padding:.4rem .55rem;font-size:.78rem;line-height:1.3}
 .guide-facts b{display:block;font-size:.68rem;letter-spacing:.04em;text-transform:uppercase;color:var(--moss);margin-bottom:.1rem}
 html.night .guide-facts span{background:rgba(232,226,212,.06)}
+.guide-know{
+  margin:.55rem 0 0; padding:.65rem .75rem; border-radius:12px;
+  background:rgba(47,61,54,.05); border-left:3px solid var(--amber);
+  font-size:.86rem; line-height:1.4; color:var(--ink);
+}
+.guide-know strong{color:var(--slate)}
+html.night .guide-know{background:rgba(232,226,212,.06)}
 .pill{display:inline-flex;align-items:center;gap:.3rem;background:rgba(47,61,54,.08);border-radius:999px;padding:.28rem .6rem;font-size:.75rem;margin:.15rem .2rem .15rem 0}
 .food-list{display:flex;flex-direction:column;gap:.65rem;margin:.55rem 0 0}
 .food-trust{
@@ -433,16 +440,21 @@ html.night .filter-row button.active{background:var(--amber); color:#1a1208}
 .welcome-backdrop{
   position:fixed; inset:0; z-index:100;
   background:rgba(8,12,10,.72);
-  display:none; align-items:flex-end; justify-content:center;
-  padding:calc(.75rem + var(--safe-t)) calc(.75rem + var(--safe-r)) calc(.75rem + var(--safe-b)) calc(.75rem + var(--safe-l));
+  display:none; align-items:center; justify-content:center;
+  padding:calc(.85rem + var(--safe-t)) calc(.85rem + var(--safe-r)) calc(.85rem + var(--safe-b)) calc(.85rem + var(--safe-l));
   backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
 }
 .welcome-backdrop.open{display:flex; animation:in .25s ease}
 .welcome-sheet{
-  width:min(440px,100%); max-height:min(88dvh,720px); overflow:auto;
+  width:min(440px,100%); max-height:min(82dvh,720px); overflow:auto;
   -webkit-overflow-scrolling:touch;
+  margin:auto;
   background:var(--card); color:var(--ink); border-radius:22px;
   box-shadow:0 30px 80px rgba(0,0,0,.35); padding:1.15rem 1.15rem 1.25rem;
+}
+#dayHello.welcome-backdrop,
+#welcome.welcome-backdrop{
+  align-items:center; justify-content:center;
 }
 .welcome-sheet .flag{font-size:1.5rem; margin-bottom:.25rem}
 .welcome-sheet h2{font-size:1.45rem; margin-bottom:.35rem}
@@ -923,7 +935,7 @@ html.night .day-hello-expect{background:rgba(224,138,60,.12)}
       </div>
 
       <div class="places-pane active" id="places-attractions" data-places-pane="attractions">
-        <p class="muted" style="margin:0 0 .75rem;font-size:.9rem">Tap <strong>Little guide</strong> on each place for what to see, timing, and useful tips.</p>
+        <p class="muted" style="margin:0 0 .75rem;font-size:.9rem">Tap <strong>Little guide</strong> for history, fun facts, and practical tips.</p>
 
         <div class="card">
           <div class="place">
@@ -946,11 +958,13 @@ html.night .day-hello-expect{background:rgba(224,138,60,.12)}
               <span><b>Walk</b>High St → St Mary’s → Meadows</span>
             </div>
             <ul>
-              <li><strong>Why stop:</strong> One of England’s prettiest stone towns — a natural break on the A1 between London and York.</li>
-              <li><strong>Don’t miss:</strong> St Mary’s Street / Church Street for photos; the Meadows riverside path if the weather is kind.</li>
+              <li><strong>Why stop:</strong> One of England’s prettiest limestone towns — a natural break on the A1 between London and York. The honey-coloured stone comes from local quarries and glows in autumn light.</li>
+              <li><strong>Don’t miss:</strong> St Mary’s Street / Church Street for photos; the Meadows riverside path if the weather is kind; peek at Stamford’s Georgian façades around Broad Street.</li>
               <li><strong>Eat:</strong> Cafés and pubs around High Street and St Mary’s Hill. Turkish options (Mad Turk, Zada) if you want grilled meat — confirm Halal at the counter. Veggie / fish is the safest midday bet.</li>
               <li><strong>Tip:</strong> Thursday is not Stamford’s main market day — still lovely for streets and coffee. Fill fuel before leaving London or check prices near Stamford.</li>
             </ul>
+            <div class="guide-know"><strong>Did you know?</strong> Stamford stood in for “Meryton” in the 2005 <em>Pride &amp; Prejudice</em> film — those stone streets are cinema-famous. It was also England’s first Conservation Area town (1967), which is why so little has been spoiled.</div>
+            <div class="guide-know"><strong>Good to know:</strong> Burghley House (grand Elizabethan seat of the Cecil family) sits just outside town — skip it on Thursday unless you have hours to spare; your Stamford stop is for lunch and a walk, not another full house tour.</div>
           </details>
         </div>
 
@@ -976,12 +990,14 @@ html.night .day-hello-expect{background:rgba(224,138,60,.12)}
               <span><b>Parking</b>None — walk / taxi</span>
             </div>
             <ul>
-              <li><strong>What it is:</strong> Northern Europe’s great Gothic cathedral — the skyline landmark of York. Allow time for the nave, choir, and stained glass.</li>
-              <li><strong>Don’t miss:</strong> The Great East Window (one of the world’s largest medieval glass windows) and the Chapter House. Tower climb is optional (many steps; check if open that day).</li>
+              <li><strong>What it is:</strong> The cathedral of York — one of the largest Gothic churches in northern Europe and the city’s skyline landmark. “Minster” historically meant a church of special importance (from Latin <em>monasterium</em>), not a lower rank than “cathedral”.</li>
+              <li><strong>Don’t miss:</strong> The Great East Window (among the largest expanses of medieval stained glass in the world); the Chapter House; look up at the vaulted nave. Tower climb is optional (~275 steps; check if open that day).</li>
               <li><strong>Tickets:</strong> Sightseeing entry is paid; booking ahead skips queues. Tickets usually stay valid for 12 months if plans slip.</li>
               <li><strong>Tip:</strong> Arrive near opening for quieter photos. Services can limit tourist access — check the day’s schedule. No Minster car park; walk ~30–40 min from Railway House or take a short taxi.</li>
               <li><strong>After:</strong> Stonegate (shops + coffee) leads you toward the Shambles — natural Friday loop.</li>
             </ul>
+            <div class="guide-know"><strong>Did you know?</strong> A Roman fortress once stood here; later an Anglo-Saxon church, then Norman, then the Gothic masterpiece you see. Look for the carved “York angels” and the heart-shaped stone sometimes pointed out near the choir — locals love the lore.</div>
+            <div class="guide-know"><strong>Good to know:</strong> Quiet voice and no flash photography keep the space respectful. Dress is casual but cover-up is polite for worship areas. Free entry to services if you simply wish to sit and listen — sightseeing hours are separate.</div>
           </details>
         </div>
 
@@ -1006,11 +1022,13 @@ html.night .day-hello-expect{background:rgba(224,138,60,.12)}
               <span><b>Nearby</b>Market · snickelways</span>
             </div>
             <ul>
-              <li><strong>What it is:</strong> York’s famous overhanging medieval street — once the butchers’ lane (“shambles”). The timber fronts almost touch above your head.</li>
-              <li><strong>Don’t miss:</strong> Looking up at the jettied floors; duck into side alleys (“snickelways”) for quieter photos and local shops.</li>
+              <li><strong>What it is:</strong> York’s famous overhanging medieval street — once the butchers’ lane. The word “shambles” comes from old English for butcher’s stalls / meat benches. The timber fronts almost touch above your head.</li>
+              <li><strong>Don’t miss:</strong> Looking up at the jettied floors; duck into side alleys (“snickelways” — York’s word for tiny passages) for quieter photos and local shops.</li>
               <li><strong>Harry Potter note:</strong> People compare it to Diagon Alley — fun, but it’s a real medieval street, not a theme park. Keep expectations (and elbows) realistic at peak hours.</li>
               <li><strong>Tip:</strong> Short street — you don’t need long. Go earlier or later for better photos; combine with Shambles Market for food right after.</li>
             </ul>
+            <div class="guide-know"><strong>Did you know?</strong> Medieval butchers hung meat on hooks outside; the overhanging upper floors were designed so blood and waste could drip into the open channel below without hitting passers-by (charming, right?). Some façades still show the old meat-hook ironwork.</div>
+            <div class="guide-know"><strong>Good to know:</strong> York’s snickelways are half the fun — Whip-Ma-Whop-Ma-Gate nearby has one of England’s quirkiest street names. The Shambles is free to walk; shops are touristy but the timber architecture is the real treasure.</div>
           </details>
         </div>
 
@@ -1036,10 +1054,12 @@ html.night .day-hello-expect{background:rgba(224,138,60,.12)}
               <span><b>Must-try</b>NaNa · Miller’s</span>
             </div>
             <ul>
-              <li><strong>What it is:</strong> Open-air market beside the Shambles — crafts, gifts, and a proper street-food court. Perfect Friday lunch stop after the medieval street.</li>
+              <li><strong>What it is:</strong> Open-air market beside the Shambles — crafts, gifts, and a proper street-food court. Perfect Friday lunch stop after the medieval street. Markets have traded in York for centuries; this is the modern version of that habit.</li>
               <li><strong>Don’t miss:</strong> Food court picks — NaNa Noodle Bar (4.8★), Miller’s fish &amp; chips, plus Halal / veggie stalls. Traders change by day.</li>
               <li><strong>Tip:</strong> Cash is handy for some stalls, but cards are common. If it rains, covered stalls still make a good browse. See Places → Food for rated stalls.</li>
             </ul>
+            <div class="guide-know"><strong>Did you know?</strong> Yorkshire fish &amp; chips culture is serious — curry sauce on chips is a local move. Miller’s in the food court is a crowd favourite; ask what’s freshly fried.</div>
+            <div class="guide-know"><strong>Good to know:</strong> Stalls rotate, so treat names as a guide not a guarantee. Midday Friday is lively; if the queue for one stall is long, the next one often has equal treasure.</div>
           </details>
         </div>
 
@@ -1064,10 +1084,12 @@ html.night .day-hello-expect{background:rgba(224,138,60,.12)}
               <span><b>Access</b>Closes dusk / bad weather</span>
             </div>
             <ul>
-              <li><strong>What it is:</strong> One of the best-preserved medieval city walls in England — walk the ramparts for rooftop and Minster views.</li>
-              <li><strong>Don’t miss:</strong> A short stretch near the Minster / Monk Bar is enough for photos. Full circuit is long and uneven — skip it if legs are tired.</li>
+              <li><strong>What it is:</strong> One of the best-preserved medieval defensive walls in England — walk the ramparts for rooftop and Minster views. Parts sit on earlier Roman foundations; York was <em>Eboracum</em> to the Romans.</li>
+              <li><strong>Don’t miss:</strong> A short stretch near the Minster / Monk Bar is enough for photos. Monk Bar is the most elaborate of the gatehouses. Full circuit is long and uneven — skip it if legs are tired.</li>
               <li><strong>Tip:</strong> Surfaces can be slippery when wet. Walls close at dusk or in bad weather — don’t plan this as a late evening activity.</li>
             </ul>
+            <div class="guide-know"><strong>Did you know?</strong> The four main bars (gates) — Bootham, Monk, Walmgate, Micklegate — controlled who entered the city. “Bar” in York means gate, not a pub. Micklegate Bar is where medieval heads of traitors were once displayed (grim Yorkshire history).</div>
+            <div class="guide-know"><strong>Good to know:</strong> Free, no ticket. Handrails help on steps. Pushchairs and wheelchairs can’t access most wall-walk sections — street-level views near the bars still work.</div>
           </details>
         </div>
 
@@ -1093,11 +1115,13 @@ html.night .day-hello-expect{background:rgba(224,138,60,.12)}
               <span><b>Parking</b>Free (usual days)</span>
             </div>
             <ul>
-              <li><strong>What it is:</strong> A spectacular Baroque country house set in parkland — interiors, dome, and grand gardens. Famously linked to <em>Brideshead Revisited</em> and later screen dramas.</li>
-              <li><strong>Don’t miss:</strong> The Great Hall / dome; a short garden stroll to the Atlas Fountain. Skip a full garden marathon if you want more time at the coast.</li>
+              <li><strong>What it is:</strong> A spectacular English Baroque country house in parkland — dome, grand interiors, and formal gardens. Built from 1699 for the Howard family (Earls of Carlisle). Despite the name, it is a palace-like house, not a medieval castle.</li>
+              <li><strong>Don’t miss:</strong> The Great Hall under the dome; a short garden stroll to the Atlas Fountain. Skip a full garden marathon if you want more time at the coast.</li>
               <li><strong>Tickets:</strong> Buy online; last entry is earlier than closing. House and grounds can have different last-entry times — check the day’s board.</li>
               <li><strong>Tip:</strong> Lunch on site keeps Saturday simple. Free parking most of the year (Christmas period can differ). Keep the house visit to ~2 hrs so Robin Hood’s Bay isn’t rushed.</li>
             </ul>
+            <div class="guide-know"><strong>Did you know?</strong> Castle Howard starred as Brideshead in both TV and film versions of <em>Brideshead Revisited</em>, and has appeared in later dramas (including Bridgerton-era shoots). The dome you see is one of the great silhouettes of English country houses.</div>
+            <div class="guide-know"><strong>Good to know:</strong> Designed with Vanbrugh &amp; Hawksmoor (same architectural circle as Blenheim). The estate is still linked to the Howard family. Rayban/umbrella weather — Yorkshire gardens can be breezy even when the house is warm.</div>
           </details>
         </div>
 
@@ -1123,11 +1147,13 @@ html.night .day-hello-expect{background:rgba(224,138,60,.12)}
               <span><b>Beach</b>Depends on tide</span>
             </div>
             <ul>
-              <li><strong>What it is:</strong> A classic North Yorkshire fishing village tumbling down to the North Sea — narrow lanes, red roofs, and dramatic bay views.</li>
+              <li><strong>What it is:</strong> A classic North Yorkshire fishing village tumbling to the North Sea — narrow lanes, red roofs, smugglers’ lore, and dramatic bay views. Inside the North York Moors National Park coast.</li>
               <li><strong>Don’t miss:</strong> The walk down through the old streets to the slipway / beach (if tide allows), then a café stop before the climb back up.</li>
               <li><strong>Parking:</strong> Park at the top (Bank Top or Station car parks — RingGo often used; set the app up on Wi‑Fi first). Do not try to drive into the lower village.</li>
               <li><strong>Tip:</strong> Shoes with grip matter — cobbles are steep and can be wet. Autumn wind is real; bring a jacket. Check the tide if you want beach time. Save energy for the walk back uphill.</li>
             </ul>
+            <div class="guide-know"><strong>Did you know?</strong> Despite the name, there’s no solid link to the legendary Robin Hood — the origin is debated. In the 18th century the bay was notorious for smuggling; tunnels and hideaways feed the stories. Fossils on the foreshore attract collectors (look, don’t pocket protected finds).</div>
+            <div class="guide-know"><strong>Good to know:</strong> Low tide opens more beach and rock pools; high tide can cut off the foreshore. Whitby is the nearest bigger town if you ever extend the coast day. The Cleveland Way path runs through here — hikers love this stretch.</div>
           </details>
         </div>
 
@@ -1159,6 +1185,9 @@ html.night .day-hello-expect{background:rgba(224,138,60,.12)}
               <li><strong>Getting around:</strong> Walk into town (~15–20 min) or short taxi to the Minster. Micklegate / Blossom Street restaurants are on the way home.</li>
               <li><strong>Tip:</strong> Save the postcode <strong>YO24 4FL</strong> for Maps / taxi. Check-in from 15:00; checkout window is tight on Sunday (10:00–10:30) — pack before breakfast if you can.</li>
             </ul>
+            <div class="guide-know"><strong>Did you know?</strong> York’s railway heritage is huge — the National Railway Museum is one of the world’s great train museums (optional rainy-day swap). Holgate sits on the western approach into the city, so you’re close without the old-town parking headache.</div>
+            <div class="guide-know"><strong>Good to know:</strong> York centre has cameras and tight streets — leave the car Friday. Evening walk home along Micklegate often feels safer and more interesting than a long taxi queue after dinner.</div>
+          </details>
           </details>
         </div>
       </div>
