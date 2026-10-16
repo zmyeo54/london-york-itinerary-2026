@@ -538,6 +538,26 @@ html.night .wx-day{background:#1a221e;border-color:var(--line)}
 html.night .checklist li{border-color:var(--line)}
 html.night .photo .cap{color:#e8e2d4}
 
+.day-hello-sheet .eyebrow{
+  display:inline-flex;align-items:center;gap:.35rem;
+  font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--amber);margin:0 0 .35rem;
+}
+.day-hello-sheet .hello-emoji{font-size:2rem;line-height:1;margin:0 0 .35rem}
+.day-hello-sheet .day-timeline{list-style:none;margin:.2rem 0 .85rem;padding:0}
+.day-hello-sheet .day-timeline li{
+  display:grid;grid-template-columns:4.6rem 1fr;gap:.45rem;
+  padding:.4rem 0;border-bottom:1px solid var(--line);font-size:.9rem;line-height:1.35;
+}
+.day-hello-sheet .day-timeline li:last-child{border-bottom:0}
+.day-hello-sheet .day-timeline .t{font-weight:800;color:var(--slate);font-variant-numeric:tabular-nums}
+.day-hello-expect{
+  background:linear-gradient(135deg,rgba(47,61,54,.05),rgba(196,120,58,.1));
+  border:1px solid rgba(196,120,58,.22);border-radius:14px;
+  padding:.7rem .85rem;margin:0 0 .85rem;font-size:.9rem;line-height:1.4;
+}
+html.night .day-hello-expect{background:rgba(224,138,60,.12)}
+
 </style>
 </head>
 <body>
@@ -560,6 +580,24 @@ html.night .photo .cap{color:#e8e2d4}
       <button class="btn btn-soft" type="button" id="welcomeTips">More tips</button>
     </div>
     <p class="muted" style="margin:.85rem 0 0;font-size:.8rem">Shown once on this phone. Maps &amp; ticks work offline; weather needs a connection.</p>
+  </div>
+</div>
+
+
+<div class="welcome-backdrop" id="dayHello" role="dialog" aria-modal="true" aria-labelledby="dayHelloTitle">
+  <div class="welcome-sheet day-hello-sheet">
+    <div class="eyebrow" id="dayHelloEyebrow">Today</div>
+    <div class="hello-emoji" id="dayHelloEmoji" aria-hidden="true">☀️</div>
+    <h2 id="dayHelloTitle">Good morning</h2>
+    <p class="lead" id="dayHelloLead">Here’s the plan for today.</p>
+    <div class="day-hello-expect" id="dayHelloExpect"></div>
+    <ul class="day-timeline" id="dayHelloTimeline"></ul>
+    <div class="chip-row" id="dayHelloChips"></div>
+    <div class="btn-row" style="margin-top:.85rem">
+      <button class="btn btn-amber" type="button" id="dayHelloGo">See full day plan</button>
+      <button class="btn btn-soft" type="button" id="dayHelloDismiss">Got it</button>
+    </div>
+    <p class="muted" style="margin:.75rem 0 0;font-size:.78rem">One morning hello per day on this phone — tap <strong>Replay morning hello</strong> anytime.</p>
   </div>
 </div>
 
@@ -719,6 +757,9 @@ html.night .photo .cap{color:#e8e2d4}
     <section class="panel" id="panel-days" data-panel="days">
       <h2>Day plans</h2>
       <p class="muted">Tick steps as you go — saved on this phone.</p>
+      <div class="btn-row" style="margin:0 0 .55rem">
+        <button class="btn btn-amber" type="button" id="replayDayHello">☀️ Replay morning hello</button>
+      </div>
       <div class="day-tabs" id="dayTabs">
         <button type="button" class="active" data-day="thu">Thu 15</button>
         <button type="button" data-day="fri">Fri 16</button>
@@ -1546,6 +1587,7 @@ html.night .photo .cap{color:#e8e2d4}
           <a class="btn btn-soft" href="https://www.york.gov.uk/Parking" target="_blank" rel="noopener">York parking</a>
           <button class="btn btn-soft" type="button" id="resetAll">Reset all ticks</button>
           <button class="btn btn-soft" type="button" id="showWelcome">Show welcome again</button>
+          <button class="btn btn-soft" type="button" id="showDayHello">Replay morning hello</button>
         </div>
         <p class="muted" style="margin-top:.75rem"><strong>Offline:</strong> day plans, ticks and saved progress work without signal. Weather and map apps need data.</p>
         <p class="muted" style="margin-top:.45rem">Tip: on iPhone Safari → Share → <strong>Add to Home Screen</strong> for an app-like icon.</p>
@@ -1643,21 +1685,6 @@ html.night .photo .cap{color:#e8e2d4}
   });
   document.getElementById('openHalalPlaces')?.addEventListener('click', () => openFood('halal'));
 
-  // Day tabs
-  document.querySelectorAll('#dayTabs button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('#dayTabs button').forEach(b => b.classList.toggle('active', b === btn));
-      document.querySelectorAll('.day-block').forEach(d => d.classList.toggle('active', d.id === `day-${btn.dataset.day}`));
-      document.getElementById('main').scrollTop = 0;
-    });
-  });
-
-  const openDay = (day) => {
-    go('days');
-    const btn = document.querySelector(`#dayTabs button[data-day="${day}"]`);
-    btn?.click();
-  };
-  document.getElementById('openFocusDay').addEventListener('click', () => openDay(focusDay));
 
   // Trip focus by calendar date
   const today = new Date();
@@ -1858,6 +1885,170 @@ html.night .photo .cap{color:#e8e2d4}
   loadWeather();
 
 
+
+  // Morning hello popup (once per calendar day + once per day-tab preview)
+  const DAY_HELLO_DATE_KEY = 'york-day-hello-date-v1';
+  const DAY_HELLO_TAB_KEY = 'york-day-hello-tabs-v1';
+  const DAY_HELLO = {
+    thu: {
+      emoji: '🚗',
+      title: 'Good morning — drive day!',
+      lead: 'Thursday 15 Oct · London → Stamford → York',
+      expect: '<strong>What’s to expect:</strong> A long but easy road day with a pretty lunch stop. Left-side driving, miles/mph signs, and a relaxed evening check-in.',
+      timeline: [
+        ['9:00', 'Pick up car · Canary Wharf'],
+        ['~12:00', 'Lunch + stroll in Stamford'],
+        ['15:30+', 'Drive on to York'],
+        ['18:00', 'Railway House check-in · dinner'],
+      ],
+      chips: ['Fuel up', 'Stamford lunch', 'Check-in 15:00+'],
+    },
+    fri: {
+      emoji: '🏰',
+      title: 'Selamat pagi — York on foot!',
+      lead: 'Friday 16 Oct · Minster · Shambles · market',
+      expect: '<strong>What’s to expect:</strong> A walking city day. Leave the car at the hotel. Big Gothic cathedral in the morning, medieval streets and street food after lunch.',
+      timeline: [
+        ['09:15', 'Walk / taxi to York Minster'],
+        ['10:00', 'Minster sightseeing (~1–1.5 hrs)'],
+        ['12:30', 'Lunch · then Shambles + market'],
+        ['14:30+', 'Optional short walls · dinner later'],
+      ],
+      chips: ['Minster tickets', 'Walking shoes', 'No car today'],
+    },
+    sat: {
+      emoji: '🌊',
+      title: 'Rise and shine — house + coast!',
+      lead: 'Saturday 17 Oct · Castle Howard → Robin Hood’s Bay',
+      expect: '<strong>What’s to expect:</strong> Your biggest outing day — grand country house in the morning, steep fishing village by the sea in the afternoon. ~3 hrs driving total.',
+      timeline: [
+        ['09:30', 'Drive to Castle Howard'],
+        ['10:15', 'House + short garden stroll · lunch on site'],
+        ['13:00', 'Drive to Robin Hood’s Bay'],
+        ['14:15', 'Village · views · café · back for dinner'],
+      ],
+      chips: ['Book tickets', 'RingGo parking', 'Grip shoes · tides'],
+    },
+    sun: {
+      emoji: '🧳',
+      title: 'Almost home — departure day',
+      lead: 'Sunday 18 Oct · Checkout · return south',
+      expect: '<strong>What’s to expect:</strong> Pack early, checkout by 10:30, then a long drive back toward London. Build in traffic time at the end.',
+      timeline: [
+        ['08:30', 'Breakfast + pack'],
+        ['10:00', 'Checkout (window to 10:30)'],
+        ['Midday', 'Lunch / comfort stop'],
+        ['~16:00', 'Target London arrival (provisional)'],
+      ],
+      chips: ['Pack first', 'Fuel for return', 'Traffic buffer'],
+    },
+  };
+  const dayHelloEl = document.getElementById('dayHello');
+  let dayHelloPending = null;
+  const loadJson = (k) => { try { return JSON.parse(localStorage.getItem(k) || '{}'); } catch { return {}; } };
+  const saveJson = (k, v) => localStorage.setItem(k, JSON.stringify(v));
+
+  const fillDayHello = (day) => {
+    const d = DAY_HELLO[day];
+    if (!d || !dayHelloEl) return false;
+    dayHelloPending = day;
+    const isToday = map[iso] === day;
+    document.getElementById('dayHelloEyebrow').textContent = isToday ? 'Today’s morning hello' : 'Day preview';
+    document.getElementById('dayHelloEmoji').textContent = d.emoji;
+    document.getElementById('dayHelloTitle').textContent = d.title;
+    document.getElementById('dayHelloLead').textContent = d.lead;
+    document.getElementById('dayHelloExpect').innerHTML = d.expect;
+    document.getElementById('dayHelloTimeline').innerHTML = d.timeline
+      .map(([t, txt]) => `<li><span class="t">${t}</span><span>${txt}</span></li>`).join('');
+    document.getElementById('dayHelloChips').innerHTML = d.chips
+      .map((c) => `<span class="pill">${c}</span>`).join('');
+    return true;
+  };
+
+  const markDayHelloSeen = (day, { calendar = false, tab = false } = {}) => {
+    if (calendar && map[iso] === day) {
+      const seen = loadJson(DAY_HELLO_DATE_KEY);
+      seen[iso] = true;
+      saveJson(DAY_HELLO_DATE_KEY, seen);
+    }
+    if (tab || calendar) {
+      const tabs = loadJson(DAY_HELLO_TAB_KEY);
+      tabs[day] = true;
+      saveJson(DAY_HELLO_TAB_KEY, tabs);
+    }
+  };
+
+  const closeDayHello = (mark = true) => {
+    dayHelloEl?.classList.remove('open');
+    if (mark && dayHelloPending) markDayHelloSeen(dayHelloPending, { calendar: true, tab: true });
+  };
+
+  const openDayHello = (day, { force = false, markOnClose = true } = {}) => {
+    if (!fillDayHello(day)) return;
+    dayHelloEl.dataset.markOnClose = markOnClose ? '1' : '0';
+    // Don’t stack under general welcome
+    document.getElementById('welcome')?.classList.remove('open');
+    dayHelloEl.classList.add('open');
+    if (force) {
+      // force still marks on dismiss so replay works; no-op here
+    }
+  };
+
+  const maybeAutoDayHello = () => {
+    if (!map[iso]) return false;
+    const seen = loadJson(DAY_HELLO_DATE_KEY);
+    if (seen[iso]) return false;
+    openDayHello(map[iso]);
+    return true;
+  };
+
+  const selectDay = (day, { hello = false } = {}) => {
+    document.querySelectorAll('#dayTabs button').forEach((b) => b.classList.toggle('active', b.dataset.day === day));
+    document.querySelectorAll('.day-block').forEach((d) => d.classList.toggle('active', d.id === `day-${day}`));
+    document.getElementById('main').scrollTop = 0;
+    if (hello) {
+      const tabs = loadJson(DAY_HELLO_TAB_KEY);
+      if (!tabs[day]) openDayHello(day);
+    }
+  };
+
+  document.querySelectorAll('#dayTabs button').forEach((btn) => {
+    btn.addEventListener('click', () => selectDay(btn.dataset.day, { hello: true }));
+  });
+
+  const openDay = (day, { hello = false } = {}) => {
+    go('days');
+    selectDay(day, { hello });
+  };
+  document.getElementById('openFocusDay')?.addEventListener('click', () => openDay(focusDay, { hello: true }));
+
+  document.getElementById('dayHelloGo')?.addEventListener('click', () => {
+    const day = dayHelloPending || focusDay;
+    closeDayHello(true);
+    openDay(day, { hello: false });
+    showToast('Have a lovely day');
+  });
+  document.getElementById('dayHelloDismiss')?.addEventListener('click', () => {
+    closeDayHello(true);
+    showToast('Have a lovely day');
+  });
+  dayHelloEl?.addEventListener('click', (e) => {
+    if (e.target === dayHelloEl) closeDayHello(true);
+  });
+  const replayHello = () => {
+    const active = document.querySelector('#dayTabs button.active')?.dataset.day || focusDay;
+    openDayHello(active, { force: true });
+  };
+  document.getElementById('replayDayHello')?.addEventListener('click', replayHello);
+  document.getElementById('showDayHello')?.addEventListener('click', replayHello);
+
+
+
+  // If user opens Days tab on a trip morning they haven't greeted yet
+  document.querySelector('.nav button[data-go="days"]')?.addEventListener('click', () => {
+    setTimeout(() => { if (map[iso]) maybeAutoDayHello(); }, 50);
+  });
+
   // First-open welcome
   const welcome = document.getElementById('welcome');
   const closeWelcome = () => {
@@ -1866,7 +2057,8 @@ html.night .photo .cap{color:#e8e2d4}
   };
   document.getElementById('welcomeStart')?.addEventListener('click', () => {
     closeWelcome();
-    showToast('Have a great trip');
+    // On a trip day, continue into that morning’s hello
+    if (!maybeAutoDayHello()) showToast('Have a great trip');
   });
   document.getElementById('welcomeTips')?.addEventListener('click', () => {
     closeWelcome();
@@ -1875,14 +2067,21 @@ html.night .photo .cap{color:#e8e2d4}
   });
   document.getElementById('welcomeDays')?.addEventListener('click', () => {
     closeWelcome();
-    openDay(focusDay);
+    openDay(focusDay, { hello: true });
   });
-  if (welcome && !localStorage.getItem(WELCOME_KEY)) {
-    setTimeout(() => welcome.classList.add('open'), 350);
-  }
-  if (new URLSearchParams(location.search).get('welcome') === '1') {
+  const params = new URLSearchParams(location.search);
+  if (params.get('welcome') === '1') {
     localStorage.removeItem(WELCOME_KEY);
     welcome?.classList.add('open');
+  } else if (params.get('dayhello') === '1') {
+    const d = params.get('day') || focusDay;
+    setTimeout(() => openDayHello(d, { force: true }), 350);
+  } else if (welcome && !localStorage.getItem(WELCOME_KEY) && !map[iso]) {
+    // Before the trip: show general welcome once
+    setTimeout(() => welcome.classList.add('open'), 350);
+  } else if (map[iso]) {
+    // During the trip: morning hello once per calendar day
+    setTimeout(() => maybeAutoDayHello(), 400);
   }
 
   // Today badge + auto-select day tab
@@ -2028,6 +2227,7 @@ html.night .photo .cap{color:#e8e2d4}
       lb.classList.remove('open');
       closeShare();
       closeWelcome();
+      closeDayHello(true);
     }
   });
 })();
