@@ -570,6 +570,34 @@ html.night .photo .cap{color:#e8e2d4}
 }
 html.night .day-hello-expect{background:rgba(224,138,60,.12)}
 
+.food-ideas{margin-top:.55rem; display:flex; flex-direction:column; gap:.55rem}
+.food-idea{
+  background:rgba(255,252,246,.7); border:1px solid var(--line);
+  border-radius:12px; padding:.65rem .75rem;
+}
+.food-idea h4{
+  margin:0 0 .4rem; font-size:.82rem; font-weight:800;
+  letter-spacing:.04em; text-transform:uppercase; color:var(--moss);
+  font-family:"Source Sans 3",system-ui,sans-serif;
+}
+.food-idea ul{margin:0; padding:0; list-style:none}
+.food-idea li{
+  display:grid; grid-template-columns:1fr auto; gap:.35rem .55rem;
+  align-items:start; padding:.38rem 0; border-bottom:1px solid var(--line);
+  font-size:.9rem; line-height:1.35;
+}
+.food-idea li:last-child{border-bottom:0; padding-bottom:0}
+.food-idea .where{display:block; font-size:.78rem; color:var(--moss); margin-top:.12rem}
+.food-idea .rate{
+  flex:0 0 auto; font-size:.72rem; font-weight:800;
+  background:rgba(196,120,58,.16); color:#7a4314;
+  border-radius:999px; padding:.18rem .45rem; white-space:nowrap;
+}
+.food-idea .note{margin:.45rem 0 0; font-size:.82rem; color:var(--moss); line-height:1.35}
+html.night .food-idea{background:rgba(232,226,212,.05)}
+html.night .food-idea .rate{background:rgba(224,138,60,.22); color:#f3c68f}
+
+
 </style>
 </head>
 <body>
@@ -832,8 +860,71 @@ html.night .day-hello-expect{background:rgba(224,138,60,.12)}
             <p><strong>Walls:</strong> close at dusk / bad weather. Do a short stretch near the Minster, not the full 3.4 km.</p>
             <p><strong>Market:</strong> often ~9:00–17:00; traders vary by day.</p>
           </details>
-          <details class="tip"><summary>Food ideas</summary>
-            <p>Brew &amp; Brownie (4.7★) or Ippuku Tea House (4.7★) near the Minster for coffee/lunch; Shambles Market (NaNa Noodle Bar 4.8★, Miller’s 4.7★) for street food. For 4.7★+ Halal dinner see <strong>Places → Food</strong> (Original Shawarma on Gillygate, Damastique or Yakamoz on Goodramgate, Kabul &amp; Istanbul by Ouse Bridge, Rosa’s Thai 4.8★). Holgate walk home is ~15–20 min from centre.</p>
+          <details class="tip" open><summary>Food ideas</summary>
+            <div class="food-ideas">
+              <div class="food-idea">
+                <h4>☕ Coffee / lunch · near Minster</h4>
+                <ul>
+                  <li>
+                    <span>Brew &amp; Brownie<span class="where">5 Museum Street · brunch &amp; coffee</span></span>
+                    <span class="rate">4.7★</span>
+                  </li>
+                  <li>
+                    <span>Ippuku Tea House<span class="where">Japanese tea · onigiri / udon</span></span>
+                    <span class="rate">4.7★</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="food-idea">
+                <h4>🍜 Street food · Shambles Market</h4>
+                <ul>
+                  <li>
+                    <span>NaNa Noodle Bar<span class="where">Handmade noodles &amp; dumplings</span></span>
+                    <span class="rate">4.8★</span>
+                  </li>
+                  <li>
+                    <span>Miller’s Fish &amp; Chips<span class="where">Local favourite · confirm fryer</span></span>
+                    <span class="rate">4.7★</span>
+                  </li>
+                </ul>
+                <p class="note">Best midday stop after Shambles — many stalls under cover if it rains.</p>
+              </div>
+              <div class="food-idea">
+                <h4>🌙 Halal dinner · 4.7★+</h4>
+                <ul>
+                  <li>
+                    <span>Rosa’s Thai<span class="where">Coney Street · Halal chicken</span></span>
+                    <span class="rate">4.8★</span>
+                  </li>
+                  <li>
+                    <span>Original Shawarma<span class="where">Gillygate · near walls</span></span>
+                    <span class="rate">4.7★</span>
+                  </li>
+                  <li>
+                    <span>Damastique<span class="where">Goodramgate · Syrian grill</span></span>
+                    <span class="rate">4.7★</span>
+                  </li>
+                  <li>
+                    <span>Yakamoz<span class="where">Goodramgate · confirm Halal meat</span></span>
+                    <span class="rate">4.7★</span>
+                  </li>
+                  <li>
+                    <span>Kabul &amp; Istanbul<span class="where">Low Ousegate · by Ouse Bridge</span></span>
+                    <span class="rate">4.7★</span>
+                  </li>
+                </ul>
+                <p class="note">Always confirm Halal at the counter. Full list + maps: <strong>Places → Food</strong>.</p>
+              </div>
+              <div class="food-idea">
+                <h4>🚶 Back to hotel</h4>
+                <p class="note" style="margin:0">Holgate walk home is ~15–20 min from the centre. Micklegate / Blossom Street also have dinner near the hotel.</p>
+              </div>
+            </div>
+            <div class="btn-row" style="margin-top:.65rem">
+              <button class="btn btn-dark" type="button" data-open-food="halal">Open Halal list</button>
+              <button class="btn btn-soft" type="button" data-open-food="must-try">Must-try food</button>
+              <button class="btn btn-soft" type="button" data-open-food="near-hotel">Near hotel</button>
+            </div>
           </details>
           <details class="tip"><summary>If it rains</summary>
             <p>Minster first, then covered shops on Stonegate / Coppergate. Cut the walls walk. Market stalls under cover still work for a browse.</p>
